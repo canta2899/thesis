@@ -9,6 +9,7 @@
 *.blg
 *.bbl
 *.xmpi
+thesis.pdf
 .DS_Store
 _minted_thesis
 README
