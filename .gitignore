@@ -6,6 +6,9 @@
 *.synctex.gz
 *.log
 *.fls
+*.blg
+*.bbl
+*.xmpi
 .DS_Store
 _minted_thesis
 README
