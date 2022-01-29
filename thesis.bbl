@@ -5,10 +5,4 @@ Donald~E. Knuth.
 \newblock {\em The TeXbook}.
 \newblock Addison-Wesley, 1986.
 
-\bibitem{Lam94}
-Leslie Lamport.
-\newblock {\em LaTeX - A Document Preparation System: User's Guide and
-  Reference Manual, Second Edition}.
-\newblock Pearson / Prentice Hall, 1994.
-
 \end{thebibliography}
