@@ -1,0 +1,81 @@
+%% Le lingue utilizzate, che verranno passate come opzioni al pacchetto babel. Come sempre, l'ultima indicata sarà quella primaria.
+\def\thudbabelopt{italian, english}
+\documentclass[target=bach, hidelinks]{thud}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\course{Internet of Things, Big Data e Web}
+\title{Feasibility of Electrodermal Activity Data Acquisition for Fall Detection Systems using Wearable Devices}
+\author{Andrea Cantarutti}
+\supervisor{Prof.\ Vincenzo Della Mea}
+% \cosupervisor{Arch.\ Rambaldo Melandri \and Dott.\ Giorgio Perozzi}
+%% Altri campi disponibili: \reviewer, \tutor, \chair, \date (anno accademico, calcolato in automatico), \rights (\and per nomi separati)
+
+%% --- Pacchetti consigliati ---
+%% pdfx: per generare il PDF/A per l'archiviazione. Necessario solo per la versione finale
+\usepackage[a-1b]{pdfx}
+\usepackage[pdfa]{hyperref}
+
+\usepackage{minted}
+\usepackage{amsmath}
+\usemintedstyle{colorful}
+\usepackage{eurosym}
+%% tocbibind: Inserisce nell'indice anche la lista delle figure, la bibliografia, ecc.
+
+%% --- Stili di pagina disponibili (comando \pagestyle) ---
+%% sfbig (predefinito): Apertura delle parti e dei capitoli col numero grande; titoli delle parti e dei capitoli e intestazioni di pagina in sans serif.
+%% big: Come "sfbig", solo serif.
+%% plain: Apertura delle parti e dei capitoli tradizionali di LaTeX; intestazioni di pagina come "big".
+
+\begin{document}
+\maketitle
+
+\pagestyle{big}
+
+%% Dedica (opzionale)
+\begin{dedication}
+	Al mio cane,\par per avermi ascoltato mentre ripassavo le lezioni.
+\end{dedication}
+
+\acknowledgements
+Sed vel lorem a arcu faucibus aliquet eu semper tortor. Aliquam dolor lacus, semper vitae ligula sed, blandit iaculis leo. Nam pharetra lobortis leo nec auctor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce ac risus pulvinar, congue eros non, interdum metus. Mauris tincidunt neque et aliquam imperdiet. Aenean ac tellus id nibh pellentesque pulvinar ut eu lacus. Proin tempor facilisis tortor, et hendrerit purus commodo laoreet. Quisque sed augue id ligula consectetur adipiscing. Vestibulum libero metus, lacinia ac vestibulum eu, varius non arcu. Nam et gravida velit.
+
+%% Sommario (opzionale)
+% \abstract
+
+%% Indice
+\tableofcontents
+
+%% Lista delle tabelle (se presenti)
+%\listoftables
+
+%% Lista delle figure (se presenti)
+\listoffigures
+
+%% Corpo principale del documento
+\mainmatter
+
+%% Parte
+%% La suddivisione in parti è opzionale; solitamente sono sufficienti i capitoli.
+%\part{Parte}
+
+\chapter{Introduction}
+
+% Contains \section and \subsection elements
+In hac habitasse platea dictumst. Vestibulum consectetur dictum pellentesque. Suspendisse nunc neque, commodo ac imperdiet nec, sollicitudin vitae libero. Donec bibendum vel nunc vitae pharetra. In vel volutpat odio, et interdum dui. Duis mauris ligula, congue eget molestie at, tincidunt nec diam. Nam vitae eros nec arcu suscipit vehicula. Aliquam consectetur imperdiet elit, eget pretium arcu fringilla at. Maecenas \cite{Knu86} sed libero pulvinar, mattis tortor vel, fermentum enim. Let's cite also \cite{Lam94}
+
+% all the other chapters here
+
+\chapter{Conclusions}
+
+In hac habitasse platea dictumst. Vestibulum consectetur dictum pellentesque. Suspendisse nunc neque, commodo ac imperdiet nec, sollicitudin vitae libero. Donec bibendum vel nunc vitae pharetra. In vel volutpat odio, et interdum dui. Duis mauris ligula, congue eget molestie at, tincidunt nec diam. Nam vitae eros nec arcu suscipit vehicula. Aliquam consectetur imperdiet elit, eget pretium arcu fringilla at. Maecenas \cite{Knu86} sed libero pulvinar, mattis tortor vel, fermentum enim.
+
+\backmatter % conclusive part
+
+% A summary can be added with \summary
+
+\bibliography{thud}
+\bibliographystyle{plain_\languagename} %% Carica l'omonimo file .bst, dove \languagename è la lingua attiva.
+
+\end{document}
+
