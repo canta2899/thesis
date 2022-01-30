@@ -8,6 +8,8 @@
 *.fls
 *.blg
 *.bbl
+*.lof
+*.toc
 *.xmpi
 thesis.pdf
 .DS_Store
