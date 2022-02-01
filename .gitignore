@@ -10,6 +10,7 @@
 *.bbl
 *.lof
 *.toc
+*.lot
 *.xmpi
 thesis.pdf
 .DS_Store

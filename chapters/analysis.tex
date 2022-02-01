@@ -8,5 +8,82 @@ Despite the fact that a wide range of falls datasets have been made available th
 
 \subsection{UMAFall - A Multisensor Dataset for the Research on Automatic Fall Detection}\label{subsec:umafall}
 
-The \textbf{UMAFall} dataset gained considerable interest since its publication (happened in 2017). The primary difference from other datasets was, in fact, related to the way Casilari \textit{et al., 2018}~\cite{umafall} approached the data collection stage, which involved the usage of multiple units of the same sensor.
+The \textbf{UMAFall} dataset gained considerable interest since its publication (happened in 2017). The primary difference from other datasets was, in fact, related to the way Casilari \textit{et al., 2018}~\cite{umafall} approached the data collection stage, which involved the usage of multiple units of the same sensor. 
 
+Basing on the conclusions drawn by previous publications, UMAFall was designed in order to provide a public dataset to study the importance of sensor units' placement for the effectiveness of fall detection algorithms \cite{umafall}. The traces collected provide measurements of the mobility during daily life activities and falls, obtained by \textbf{five sensing nodes} places on different positions of the individual's body.
+
+\subsubsection{Technologies Involved}\label{subsubsec:umafall-technologies}
+
+The data gathering architecture was implemented as a \textbf{Bluetooth Low Energy} (BLE) piconet composed of:
+
+\begin{itemize}
+    \item Four wearable sensors located in four different positions of the body, acting as \textbf{slave nodes}
+    \item An Android smartphone, acting as the \textbf{master node}
+\end{itemize}
+
+The nodes were implemented through multiple \textbf{SimpleLink SensorTag} units. These consist of IoT devices powered by a CC2650 ARM microcontroller that integrates: 
+
+\begin{itemize}
+    \item a 2.4 GHz transceiver
+    \item 10 embedded sensors, including an MPU-9250 multichip module
+\end{itemize}
+
+The latter made possible the retrieval of motion related data, combining the values registered by a 3-axis gyroscope, a 3-axis accelerometer and a 3-axis magnetometer, which were regularly sent to the master unit and later saved in a CSV file. However, the usage of Bluetooth communications has demanded low resolutions in order to avoid the saturation of the communication channel. Therefore, the \textbf{sample rate} was set to 20 Hz for each sensor unit.
+
+\subsubsection{Activities Performed}\label{subsubsec:umafall-activities}
+
+The four sensors were placed on locations typically reported in literature, such as the ankle, waist, chest and right wrist. Furthermore, the participants consisted of seventeen users divided in ten males and seven females aged between 18 and 55 years old.
+
+Because of the practical sensor architecture based on wearable devices, data could be retrieved in a domestic environment and included the activities reported in Table \ref{toc:umafall}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+    \hline
+    Activity                & Category \\
+    \hline
+    Body bending            & Daily Activities \\
+    Climbing stairs down    & Daily Activities \\
+    Hopping                 & Daily Activities \\
+    Light jogging           & Daily Activities \\
+    Lying down              & Daily Activities \\
+    Sitting down            & Daily Activities \\
+    Walking                 & Daily Activities \\
+    Forward fall            & Fall \\
+    Later fall              & Fall \\
+    Backwards fall          & Fall \\
+    \hline
+\end{tabular}
+\caption{Activities evaluated in UMAFall}
+\label{toc:umafall}
+\end{table}
+
+\subsubsection{Results Obtained}\label{subsubsec:umafall-results}
+
+Casilari \textit{et al., 2018}~\cite{umafall} provided a dataset including 531 CSV files of which 322 were reporting daily activities data and 209 were reporting falls related data, each one of a 15-seconds duration. An initial analysis was performed in order to describe the variation of the \textbf{Signal Magnitude Vector} for each dataset.
+
+Lastly, the results obtained determine substantial difficulties in distinguishing falls from moderate activities using threshold based techniques and propose an approach based on multiple sensors fusion and Machine Learning advances in order to reduce the number of \textbf{false positives} obtained. 
+
+\subsection{UP-Fall Detection Dataset: A Multimodal Approach}\label{sec:upfall}
+
+The \textbf{UP-Fall} dataset was presented in 2019 in order to collect fall-related information according to three major modalities:
+
+\begin{itemize}
+    \item \textbf{Wearable sensors}
+    \item \textbf{Ambient sensors}
+    \item \textbf{Vision devices}
+\end{itemize}
+
+The aim of the study was providing a considerable amount of data collected from heterogeneous sources in order to address the lack of publicly available measurements for the evaluation of fall detection systems \cite{upfall}.
+
+\subsubsection{Technologies Involved}\label{subsubsec:upfall-technologies}
+
+To be written
+
+\subsubsection{Activities Performed}\label{subsubsec:upfall-activities}
+
+To be written
+
+\subsubsection{Results Obtained}\label{subsubsec:upfall-results}
+
+To be written
