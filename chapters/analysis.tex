@@ -2,9 +2,13 @@
 
 With the purpose of providing a deeper understanding of how some of the most relevant datasets regarding fall detection were collected, an analysis was performed in order to identify common \textbf{patterns}, the \textbf{technologies} employed and the \textbf{results obtained}. Afterwards, the previously mentioned \textbf{Electrodermal Activity} and its potential implications in the context of fall detection was investigated.
 
+\section{Typical biometric data employed in fall detection}\label{sec:hardware}
+
+To be written
+
 \section{Multimodal datasets for fall detection systems}\label{sec:datasets}
 
-Despite the fact that a wide range of falls datasets have been made available throughout the years, four or them were selected for the purpose of this analysis as a consequence of their relevance in the research environment.
+Despite the fact that various falls datasets have been made available throughout the years, two of them were selected for the purpose of this analysis as a consequence of their relevance in the research environment.
 
 \subsection{UMAFall - A Multisensor Dataset for the Research on Automatic Fall Detection}\label{subsec:umafall}
 
@@ -78,12 +82,69 @@ The aim of the study was providing a considerable amount of data collected from 
 
 \subsubsection{Technologies Involved}\label{subsubsec:upfall-technologies}
 
-To be written
+The hardware involved consisted of: 
+
+\begin{itemize}
+\item Five \textbf{Mbientlab MetaSensor} wearables located in different points of the body and collecting data from: 
+    \begin{itemize}
+        \item A 3-axis accelerometer
+        \item A 3-axis gyroscope
+        \item An ambient light sensor
+    \end{itemize}
+\item A \textbf{NeuroSky MindWave} electroencephalograph headset measuring the breainwave signal
+\item Six \textbf{infrared sensor} forming a grid above the floor of the room
+\item Two \textbf{Microsoft LifeCam Cinema} cameras providing a frontal and a lateral view of the user
+\end{itemize}
+
+The data gathering architecture was implemented through the usage of two computers and three Raspberry Pi V3 in order to collect the information from all the sensors and later save it in the form of multiple CSV files.
+
+In this case a sample rate of \~ 18.4 Hz was configured in order to accommodate the requirements of all the units involved.
 
 \subsubsection{Activities Performed}\label{subsubsec:upfall-activities}
 
-To be written
+The UP-Fall dataset was collected in a \textbf{controlled environment} where 17 young and healthy subjects were required to perform 11 different activities with three attempts each \cite{upfall}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+    \hline
+    Activity                          &   Category           \\
+    \hline
+    Walking                           &   Daily Activities   \\
+    Standing                          &   Daily Activities   \\
+    Sitting                           &   Daily Activities   \\
+    Picking up an Object              &   Daily Activities   \\
+    Laying                            &   Daily Activities   \\
+    Jumping                           &   Daily Activities   \\
+    Falling sitting in empty chair    &   Fall               \\
+    Falling sideward                  &   Fall               \\
+    Falling backwards                 &   Fall               \\
+    Falling forwards using knees      &   Fall               \\
+    Falling forwards using hands      &   Fall               \\
+    \hline
+\end{tabular}
+\caption{Activities evaluated in UP-Fall}
+\label{toc:umafall}
+\end{table}
+
+The raw gathered data was later divided in different time windows and, for each one of them, a \textbf{feature extraction and selection} process was performed. The processed information was, then, used to evaluate the performance of four classification models: 
+
+\begin{itemize}
+    \item Random Forest
+    \item Support Vector Machines
+    \item Multi-Layer Perceptron
+    \item \textit{k}-Nearest Neighbors
+\end{itemize}
+
+The performances of the classification models were evaluated through the metrics of \textit{accuracy}, \textit{precision}, \textit{sensitivity}, \textit{specificity} and $F_1$ - \textit{score}.
+
+A limitation pointed about by the authors \cite{umafall} involves the context of the experimentation: in fact, all the falls performed were self-initiated and different from real-life falls. These kind of aspects constitute a primary concern for researchers because of the difficulties in addressing them and the inaccuracy they might lead to, as stated in  \ref{sec:fallintro}.
 
 \subsubsection{Results Obtained}\label{subsubsec:upfall-results}
 
-To be written
+The dataset obtained and the following activities (processing and analysis) performed led to observe that the data retrieved from the inertial measurement units of the wearables played a major role in the increase of accuracy. In fact, the accuracy (depicted by the $F_1$-score) of the IMUs-only based classification reached a value of 70.31\% while classifiers trained with combination of infrared and camera data demonstrated a considerably lower performance (between 15\% and 33\%). Lastly, the combination of data collected by the wearables, cameras and the EEG sensor obtained the highest $F_1$-score accuracy measure, which was equal to 70.44\%. 
+
+Additionally, a Convolutional Neural Network was trained in order to improve the classification performance based on video recordings data. This reached an $F_1$-\textit{score} of 71.2\%.
+
+In conclusion, in the context of fall detection systems, the analysis performed on the UP-Fall dataset demonstrated that a certain degree of accuracy may be reached by processing data from sources of different nature, even though classifications can be improved by approaching the subject in a multimodal and heterogeneous manner.
+
