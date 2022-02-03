@@ -4,7 +4,64 @@ With the purpose of providing a deeper understanding of how some of the most rel
 
 \section{Typical biometric data employed in fall detection}\label{sec:hardware}
 
-To be written
+The consequences of falling may be observed through a series of data that addresses aspects related to physical, physiological and environmental variables. Some of the repercussions that a hard fall may cause are:
+
+\begin{itemize}
+    \item A fast shift of the gravitational acceleration values
+    \item A change of the altitude above ground level
+    \item Feelings of fear and obfuscation (especially for elderly people in severe cases)
+    \item A decrease of the body temperature (in cases in which the individual remains prone on the ground for extended time intervals)
+\end{itemize}
+
+The following section introduces some of the most commonly used instruments to retrieve data that can be functional to fall detection systems.
+
+\subsection{Accelerometer}\label{subsec:accelerometer}
+
+The accelerometer is an instrument that provides a measure for the \textbf{acceleration} of an entity in its coordinate system. Once calibrated, the obtained value measures 9.81 $m/s^2$ at rest (which corresponds to the gravity acceleration) and drops at 0 $m/s^2$ during a \textbf{free fall}.
+
+Furthermore, modern accelerometer are commonly implemented as \emph{micro-electro-mechanical-systems} and their dimensions have packaged sizes of only 2 x 2 x 1 \textit{mm}. This makes them particularly suitable for \textbf{wearable devices} and \textbf{embedded systems}.
+
+Since a 3-axis accelerometer provides a separate trace for the $x$, $y$ and $z$ axis, a \textbf{magnitude vector} can be computed in order to represent the measurement as a scalar value. The formula involves the calculation of the norm of the coordinate vector and is generally computed in real-time on embedded systems in order to provide a value for classification purposes.
+
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+
+\begin{figure}[h]
+    \begin{equation}
+    \norm{a}_2 = \sqrt{a_{x}^2 + a_{y}^2 + a_{z}^2}
+    \end{equation}
+    \caption{Magnitude vector formula}
+    \label{fig:magnitude}
+\end{figure}
+
+\subsection{9-Axis IMUs}\label{subsec:imus}
+
+The \textbf{inertial motion sensor} units (commonly referred as IMUs) provide a combination of three sensors:
+
+\begin{itemize}
+    \item A 3-axis accelerometer
+    \item A 3-axis gyroscope 
+    \item A 3-axis magnetometer 
+\end{itemize}
+
+While the accelerometer and gyroscope signals provide measures to describe the \emph{rotation} and the \emph{acceleration} around each axis, a magnetometer is employed in order to sense the surrounding \emph{magnetic field} and correct small drifts over long lasting data collection sessions.
+
+The combination of the latter sources provides a criteria to compute the \textbf{complete orientation in space} and offers remarkable advantages in order to improve accuracy in motion tracking and fall detection systems.
+
+\subsection{Barometric Altimeter}\label{subsec:altimeter}
+
+The barometric altimeter determined changes in elevation by employing a pressure sensor. As compared to the changes of the atmospheric pressure, in fact, the variations in altitude collected by the altimeter result inversely proportional \cite{mems-altimeter}.
+
+Although barometric altimeters are involved in a multitude of usage, the data collected may provide useful information in the context of fall detection systems. The altitude level, when combined with the data retrieved from a 9-Axis IMU or an accelerometer, may confirm that a fall event just happened with a higher level of accuracy.
+
+Several instruments for motion tracking include both a 9-Axis inertial measurement unit and a barometric altimeter. For that, they are commonly referred as \textbf{10-Axis IMUs}.
+
+\subsection{Biometric Sensors}\label{subsec:biometric-sensors}
+
+Another branch of information which has been widely regarded lately is related to biometric sensors. These include a variety of instruments to collect biometric signals by using appropriate hardware such as \textbf{electrodes}, \textbf{skin contact technologies} and others.
+
+Besides some units require the usage of specific hardware, other sensors (such as the ECG, EEG, Temperature, EDA and others) have already been implemented in several commercial wearable devices and provide accurate data that can later be involved in the computation of several biometric descriptors. 
+
+In the context of fall detection systems, a synchronized retrieval of both biometric and motion related data may significantly improve the accuracy of classification models.
 
 \section{Multimodal datasets for fall detection systems}\label{sec:datasets}
 
@@ -66,7 +123,7 @@ Because of the practical sensor architecture based on wearable devices, data cou
 
 Casilari \textit{et al., 2018}~\cite{umafall} provided a dataset including 531 CSV files of which 322 were reporting daily activities data and 209 were reporting falls related data, each one of a 15-seconds duration. An initial analysis was performed in order to describe the variation of the \textbf{Signal Magnitude Vector} for each dataset.
 
-Lastly, the results obtained determine substantial difficulties in distinguishing falls from moderate activities using threshold based techniques and propose an approach based on multiple sensors fusion and Machine Learning advances in order to reduce the number of \textbf{false positives} obtained. 
+Lastly, the results obtained determined substantial difficulties in distinguishing falls from moderate activities using threshold based techniques and propose an approach based on multiple sensors fusion and Machine Learning advances in order to reduce the number of \textbf{false positives} obtained. 
 
 \subsection{UP-Fall Detection Dataset: A Multimodal Approach}\label{sec:upfall}
 
@@ -92,7 +149,7 @@ The hardware involved consisted of:
         \item An ambient light sensor
     \end{itemize}
 \item A \textbf{NeuroSky MindWave} electroencephalograph headset measuring the breainwave signal
-\item Six \textbf{infrared sensor} forming a grid above the floor of the room
+\item Six \textbf{infrared sensors} forming a grid above the floor of the room
 \item Two \textbf{Microsoft LifeCam Cinema} cameras providing a frontal and a lateral view of the user
 \end{itemize}
 
@@ -124,7 +181,7 @@ The UP-Fall dataset was collected in a \textbf{controlled environment} where 17 
     \hline
 \end{tabular}
 \caption{Activities evaluated in UP-Fall}
-\label{toc:umafall}
+\label{toc:umafall2}
 \end{table}
 
 The raw gathered data was later divided in different time windows and, for each one of them, a \textbf{feature extraction and selection} process was performed. The processed information was, then, used to evaluate the performance of four classification models: 
@@ -136,9 +193,9 @@ The raw gathered data was later divided in different time windows and, for each 
     \item \textit{k}-Nearest Neighbors
 \end{itemize}
 
-The performances of the classification models were evaluated through the metrics of \textit{accuracy}, \textit{precision}, \textit{sensitivity}, \textit{specificity} and $F_1$ - \textit{score}.
+The performances of the latter were evaluated through the metrics of \textit{accuracy}, \textit{precision}, \textit{sensitivity}, \textit{specificity} and $F_1$ - \textit{score}.
 
-A limitation pointed about by the authors \cite{umafall} involves the context of the experimentation: in fact, all the falls performed were self-initiated and different from real-life falls. These kind of aspects constitute a primary concern for researchers because of the difficulties in addressing them and the inaccuracy they might lead to, as stated in  \ref{sec:fallintro}.
+A limitation pointed out by the authors \cite{umafall} involves the context of the experimentation: in fact, all the falls performed were self-initiated and different from real-life falls. These kind of aspects constitute a primary concern for researchers because of the difficulties in addressing them and the inaccuracy they might lead to, as stated in  \ref{sec:fallintro}.
 
 \subsubsection{Results Obtained}\label{subsubsec:upfall-results}
 

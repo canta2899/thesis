@@ -1,4 +1,4 @@
-.PHONY : all
+.PHONY : all view
 
 all: 
 	@echo "First compilation..."
