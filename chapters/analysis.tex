@@ -226,6 +226,31 @@ Perspiration is, in fact, an activity governed by the sympathetic nervous system
 
 \subsection{Measurement}\label{subsec:eda-measurement}
 
+% https://www.birmingham.ac.uk/Documents/college-les/psych/saal/guide-electrodermal-activity.pdf
+
+In order to detect Electrodermal Activity on and individual's skin, two different methods may be employed:
+
+\begin{itemize}
+    \item Exosomatic Method
+    \item Endosomatic Method
+\end{itemize}
+
+The first one tends to be the most commonly used and implies the application of a direct or alternating current directly on the skin. The second one, instead, does not involve the usage of any external current.
+
+% https://www.tobiipro.com/learn-and-support/learn/GSR-essentials/how-does-a-gsr-sensor-work/
+The implementation of the exosomatic methodology requires the usage of \textbf{two electrodes} through which a voltage of direct current of 0.5 VDC is trasmitted. When applied to the skin, the current flow through the electrodes is measured. The application of the \textbf{Ohm's Law} allows, then, the calculation of the resistance opposed by the skin.
+
+\begin{figure}[h]
+    \begin{equation}
+    I = \frac{V}{R}
+    \newline
+    R = \frac{V}{I}
+    \end{equation}
+    \caption{Ohm's Law Formula}
+    \label{fig:ohmlaw}
+\end{figure}
+
+
 % cite \cite{turpin}
 % Electrodermal activity is usually expressed in conductance units (microsiemens or micromhos), even if a measure of skin resistance was originally obtained (i.e., conductance = 1/resistance). Researchers usually discriminate between tonic and phasic electrodermal measures. Tonic measures refer to long-term fluctuations in EDA and are best characterized by changes in skin conductance level (SCL) and the frequency of nonspecific or spontaneous fluctuations (see Figure 1). They are brief changes in EDA that are not specifically elicited by external stimuli but that arise due to internal thoughts, situational demands, emotional states, and individual differences in electrodermal lability. In contrast, phasic measures are specific skin conductance responses (SCRs), which have been elicited by an identified and usually externally presented stimulus. Phasic SCRs are usually quantified as an amplitude change from a baseline level value (prior to presentation of a stimulus) to the peak of the response (see Figure 1). In addition to amplitude measures, temporal indices such as response latency, rise time, and half-recovery time may also assessed. Skin conductance responses are frequently obtained within what is known as an habituation paradigm, whereby simple sensory stimuli are presented to the participant and the autonomic responses measured to subsequent repetitions. When habituation paradigms are used, further measures of change in response amplitude across successive trials are also calculated using regression techniques.
 
