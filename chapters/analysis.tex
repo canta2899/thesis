@@ -242,28 +242,79 @@ The implementation of the exosomatic methodology requires the usage of \textbf{t
 
 \begin{figure}[h]
     \begin{equation}
-    I = \frac{V}{R}
-    \newline
-    R = \frac{V}{I}
+    \begin{aligned}
+    I = \frac{U}{R} \\
+    \\
+    R = \frac{U}{I}
+    \end{aligned}
     \end{equation}
     \caption{Ohm's Law Formula}
     \label{fig:ohmlaw}
 \end{figure}
 
-It is important to place both the electrodes on the palm of the hand, on two adjacent fingers or, otherwise, on the sole of the foot. These areas have been, in fact, identified as the most prominent in terms of perspiration. Modern EDA sensors employ electrodes with Ag/AgCl contact points in order to accuratly trasmit the electrical current \cite{eda-imotions}. Ionic gel is also generally used to accomodate the signal trasmission from the skin and consequently improve the its quality.
+It is important to place both the electrodes on the palm of the hand, on two adjacent fingers or, otherwise, on the sole of the foot. These areas have been, in fact, identified as the most prominent in terms of perspiration. Modern EDA sensors employ electrodes with Ag/AgCl contact points in order to accurately transmit the electrical current \cite{eda-imotions}. Isotonic gel is also generally used to accommodate the signal transmission from the skin and consequently improve the its quality.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{./images/skin-resistance.drawio.png}
+    \caption{Representation of the EDA measurement principle}
+    \label{fig:eda-ans}
+\end{figure}
+
+The resistance obtained is expressed in terms of the \textbf{Siemens} ($S$) measuring unit. More specifically, because of the small values obtained, microSiemens ($\mu S$) are normally employed.
+
+\subsection{Sample rates}\label{subsec:eda-signal-properties}
+
+EDA is regarded as a slow measure \cite{eda-guide}. According to the related literature, typical frequency intervals are, in fact:
+
+\begin{itemize}
+    \item 0 - 3 Hz \cite{biosignalplux-guide}
+    \item 0 - 10 Hz \cite{eda-hci}
+    \item 0.0167 - 0.25 Hz \cite{eda-interval-3}
+    \item 0.045 - 0.25 Hz \cite{eda-interval-4}
+    \item 0.05 - 35 Hz \cite{eda-guide}
+\end{itemize}
+
+By applying the \textbf{Nyquist Theorem} \cite{nyquist}, which states that a signal should be sampled at least at two times its highest frequency, it can be inferred that EDA signals must be sampled at 70 Hz or more. In practice, sample rates between 70 Hz and 400 Hz are commonly used according to the requirements of an experimentation in order to provide a greater accuracy during the signal processing stage \cite{eda-guide}.
+
+\subsection{Phasic and Tonic component}\label{subsec:phasic-tonic}
+
+EDA signals are characterized by two \textbf{additive} components \cite{eda-guide} referred as
+
+\begin{itemize}
+    \item \textbf{Tonic component} (also known as Skin Conductance Level or SCL)
+    \item \textbf{Phasic component} (also known as Skin Conductance Response or SCR)
+\end{itemize}
+
+While the tonic component describes the slowly and continuously changing part of the signal, the phasic component depicts, instead, a fast changing signal whose variations are determined by event-related stimulations.
+
+In order to decompose the recorded signal in its components, an approach based on \textbf{standard deconvolution} can be employed. Assumed the additivity of the two signals, the skin conductance can be represented as follows:
+
+\begin{equation}
+    SC = SC_{tonic} + SC_{phasic}
+\end{equation}
+
+Furthermore, both the $SC_{tonic}$ and $SC_{phasic}$ components can be represented by a convolution operation which foresees the multiplication of a so-called \textbf{driver component} recorded by the sensor with an Impulse Response function \cite{edasvm}:
+
+\begin{figure}[h]
+\begin{equation}
+SC = Driver_{tonic} \cdot IRF + Driver_{phasic} \cdot IRF
+\end{equation}
+\caption{Convolution process of the tonic and phasic components}
+\label{fig:eda-convolution}
+\end{figure}
+
+In order to detect variations of an individual's arousal over a specific time interval, the phasic component obtained by the deconvolution process is generally employed for feature extraction purposes.
+
+
+\subsection{Use Cases}\label{subsec:eda-usecases}
 
 
 % cite \cite{turpin}
-% Electrodermal activity is usually expressed in conductance units (microsiemens or micromhos), even if a measure of skin resistance was originally obtained (i.e., conductance = 1/resistance). Researchers usually discriminate between tonic and phasic electrodermal measures. Tonic measures refer to long-term fluctuations in EDA and are best characterized by changes in skin conductance level (SCL) and the frequency of nonspecific or spontaneous fluctuations (see Figure 1). They are brief changes in EDA that are not specifically elicited by external stimuli but that arise due to internal thoughts, situational demands, emotional states, and individual differences in electrodermal lability. In contrast, phasic measures are specific skin conductance responses (SCRs), which have been elicited by an identified and usually externally presented stimulus. Phasic SCRs are usually quantified as an amplitude change from a baseline level value (prior to presentation of a stimulus) to the peak of the response (see Figure 1). In addition to amplitude measures, temporal indices such as response latency, rise time, and half-recovery time may also assessed. Skin conductance responses are frequently obtained within what is known as an habituation paradigm, whereby simple sensory stimuli are presented to the participant and the autonomic responses measured to subsequent repetitions. When habituation paradigms are used, further measures of change in response amplitude across successive trials are also calculated using regression techniques.
-
-
-% cite \cite{innocente}
-% In a typical human study employing skin conductance measures, electrodes filled with isotonic paste are placed either on the hypothenar surface of the palm or on outer phalanges of the middle and index fingers of the nondominant hand. Skin conductance response is relatively slow, with an onset latency of 1–4 s and peak values achieved between 3 and 6 s poststimulus presentation, meaning that skin conductance can be sampled at much lower rates than other autonomic measures (as low as 10 Hz; Jovanovic & Norrholm, 2016).
+%. In addition to amplitude measures, temporal indices such as response latency, rise time, and half-recovery time may also assessed. Skin conductance responses are frequently obtained within what is known as an habituation paradigm, whereby simple sensory stimuli are presented to the participant and the autonomic responses measured to subsequent repetitions. When habituation paradigms are used, further measures of change in response amplitude across successive trials are also calculated using regression techniques.
 
 
 % Useful? 
-
 % https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2892750/#:~:text=Electrodermal%20activity%20(EDA)%20refers%20to,et%20al.%2C%201981).
 
 
