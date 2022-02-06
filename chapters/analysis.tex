@@ -306,6 +306,23 @@ SC = Driver_{tonic} \cdot IRF + Driver_{phasic} \cdot IRF
 
 In order to detect variations of an individual's arousal over a specific time interval, the phasic component obtained by the deconvolution process is generally employed for feature extraction purposes.
 
+The example reported in \ref{fig:eda-example} illustrates:
+
+\begin{itemize}
+    \item A raw EDA signal with duration of 15 seconds depicting an increase in the arousal 
+    \item The subsequently extrapolated SCR component
+    \item The SCL component
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{./images/eda-simulation.png}
+    \caption{Decomposition of Raw EDA signal in its two components}
+    \label{fig:eda-example}
+\end{figure}
+
+The raw signals were generated thorugh NeuroKit2, a Python Toolbox for Neurophysiological Signal Processing that implements several biosignal processing routines, including EDA-related ones \cite{neurokit}.
+
 \subsection{Use Cases}\label{subsec:eda-usecases}
 
 The application of psychophysiological sensors is becoming an increasingly frequent practice in the context of Human Computer Interaction \cite{eda-hci}. More specifically, the Electrodermal Activity may provide a measure to define the level of \textbf{arousal} that characterizes and individual during experimentations and, generally, the usage of specific technologies.
