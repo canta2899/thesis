@@ -1,1 +1,24 @@
 \label{ch:implementation}
+
+Besides the realization of EDA sensors results relatively simple when compared with the circuitry of other devices, its limited diffusion at present implies a series of issues that are required to be addressed. More specifically:
+
+\begin{itemize}
+    \item EDA wearables oriented to research purposes tend to be particularly expensive (and most of the time unaffordable for small research projects)
+    \item Well-known devices implementing EDA-related features do not provide Application Programming Interfaces for developers and do not provide open-source solutions either
+\end{itemize}
+
+The following chapter describes the implementation of a \textbf{simple} and completely \textbf{open-source} wearable device, aimed at providing a low-cost framework for the Electrodermal Activity measurement in experimental contexts.
+
+\section{BITalino Electrodermal Activity Sensor}\label{sec:bitalino}
+
+The sensor unit employed is the purpose-built \textbf{Electrodermal Activity Sensor} by \textbf{BITalino}. This constitutes a single module provided by the company aimed at composing, along with many others, the \textbf{BITalino (r)evolution Board Kit} \cite{bitalino-general}, an all-in-one device implementing a custom firmware for the collection and aggregation of data retrieved from multiple biosensors. Besides all the features implemented by these boards result interesting in research contexts, the main drawbacks are related to the lack of mobility that the device would cause, which is a primary concern within the bounds of fall detection systems.
+
+On that basis, a single EDA module was purchased for a 25,00 € (Tax Excluded) price and a minimal Arduino-based firmware was implemented in order to retrieve measurements from the individual unit without having to rely on third-party solutions.
+
+\subsection{Description and Features}\label{sec:bitalino-features}
+
+
+
+
+
+
