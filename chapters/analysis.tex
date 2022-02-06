@@ -13,7 +13,7 @@ The consequences of falling may be observed through a series of data that addres
     \item A decrease of the body temperature (in cases in which the individual remains prone on the ground for extended periods of time)
 \end{itemize}
 
-The following section introduces some of the most commonly used instruments to retrieve data that can be functional to fall detection systems.
+The following section introduces some of the most commonly used instruments to retrieve data that may be functional to fall detection systems.
 
 \subsection{Accelerometer}\label{subsec:accelerometer}
 
@@ -43,7 +43,7 @@ The \textbf{inertial motion sensor} units (commonly referred as IMUs) provide a 
     \item A 3-axis magnetometer 
 \end{itemize}
 
-While the accelerometer and gyroscope signals provide measures to describe the \emph{rotation} and the \emph{acceleration} around each axis, a magnetometer is employed in order to sense the surrounding \emph{magnetic field} and correct small drifts over long lasting data collection sessions.
+While the accelerometer and gyroscope signals provide measures to describe the \emph{rotation} and the \emph{acceleration} around each axis, a magnetometer is employed in order to sense the surrounding \emph{magnetic field} and correct small drifts over long lasting periods of time. 
 
 The combination of the latter sources provides a criteria to compute the \textbf{complete orientation in space} and offers remarkable advantages in order to improve accuracy in motion tracking and fall detection systems.
 
@@ -51,7 +51,7 @@ The combination of the latter sources provides a criteria to compute the \textbf
 
 The barometric altimeter determines changes in elevation by employing a pressure sensor. Compared to the changes in the atmospheric pressure, in fact, the altitude variation result inversely proportional \cite{mems-altimeter}.
 
-Although barometric altimeters are involved in a multitude of usages the data collected may provide useful information in the context of fall detection systems. The altitude level, when combined with the data retrieved from a 9-Axis IMU or an accelerometer, may confirm that a fall event just happened with a higher level of accuracy.
+Although barometric altimeters are involved in a multitude of usages the data collected may provide useful information in the context of fall detection systems. The altitude level, when combined with the data retrieved from a 9-Axis IMU or an accelerometer, may confirm that a fall event just happened with higher levels of accuracy.
 
 Several instruments for motion tracking include both a 9-Axis inertial measurement unit and a barometric altimeter. For that, they are commonly referred as \textbf{10-Axis IMUs}.
 
@@ -71,7 +71,7 @@ Despite the fact that various falls datasets have been made available throughout
 
 The \textbf{UMAFall} dataset gained considerable interest since its publication (happened in 2017). The primary difference from other datasets was, in fact, related to the way Casilari \textit{et al., 2018}~\cite{umafall} approached the data collection stage, which involved the usage of multiple units of the same sensor. 
 
-Basing on the conclusions drawn by previous publications, UMAFall was designed in order to provide a public dataset to study the importance of sensor units placement for the effectiveness of fall detection algorithms \cite{umafall}. The traces collected provide measurements of the mobility during daily life activities and falls, obtained by \textbf{five sensing nodes} places on different positions of the individual's body.
+Basing on the conclusions drawn by previous publications, UMAFall was designed in order to provide a public dataset to study the importance of sensor units placement for the effectiveness of fall detection algorithms \cite{umafall}. The traces collected provide measurements of the mobility during daily life activities and falls, obtained by \textbf{five sensing nodes} placed on different positions of the body of several individuals.
 
 \subsubsection{Technologies Involved}\label{subsubsec:umafall-technologies}
 
@@ -89,7 +89,7 @@ The nodes were implemented through multiple \textbf{SimpleLink SensorTag} units.
     \item 10 embedded sensors, including an MPU-9250 multichip module
 \end{itemize}
 
-The latter made possible the retrieval of motion related data, combining the values registered by a 3-axis gyroscope, a 3-axis accelerometer and a 3-axis magnetometer, which were regularly sent to the master unit and later saved in a CSV file. However, the usage of Bluetooth communications has demanded low resolutions in order to avoid saturating the communication channel. Therefore, the \textbf{sample rate} was set to 20 Hz for each unit.
+The latter made possible the retrieval of motion related data, combining the values registered by a 3-axis gyroscope, a 3-axis accelerometer and a 3-axis magnetometer, which were regularly sent to the master unit and later saved in a CSV file. However, the usage of the Bluetooth protocol has demanded low resolutions in order to avoid saturating the communication channel. Therefore, the \textbf{sample rate} was set to 20 Hz for each unit.
 
 \subsubsection{Activities Performed}\label{subsubsec:umafall-activities}
 
@@ -275,7 +275,7 @@ EDA is regarded as a slow measure \cite{eda-guide}. According to the related lit
     \item 0.05 - 35 Hz \cite{eda-guide}
 \end{itemize}
 
-By applying the \textbf{Nyquist Theorem} \cite{nyquist}, which states that a signal should be sampled at least at two times its highest frequency, it can be inferred that EDA signals must be sampled at 70 Hz or more. In practice, sample rates between 70 Hz and 400 Hz are commonly used according to the requirements of an experimentation in order to provide greater accuracy during the signal processing stage \cite{eda-guide}.
+By applying the \textbf{Nyquist Theorem} \cite{nyquist}, which states that a signal should be sampled at least at two times its highest frequency, it can be inferred that EDA signals must be sampled at 70 Hz or more. In practice, sample rates between 70 Hz and 400 Hz are commonly used according to the requirements of the experimentation in order to provide greater accuracy during the signal processing stage \cite{eda-guide}. Lowpass and bandpass filters are, then, applied in order to smooth the signal and remove unwanted \textbf{noises}.
 
 \subsection{Phasic and Tonic component}\label{subsec:phasic-tonic}
 
@@ -306,10 +306,10 @@ SC = Driver_{tonic} \cdot IRF + Driver_{phasic} \cdot IRF
 
 In order to detect variations of an individual's arousal over a specific time interval, the phasic component obtained by the deconvolution process is generally employed for feature extraction purposes.
 
-The example reported in \ref{fig:eda-example} illustrates:
+The example reported in Figure \ref{fig:eda-example} illustrates:
 
 \begin{itemize}
-    \item A raw EDA signal with duration of 15 seconds depicting an increase in the arousal 
+    \item A raw EDA signal with a duration of 15 seconds depicting an increase in the arousal level
     \item The subsequently extrapolated SCR component
     \item The SCL component
 \end{itemize}
@@ -327,7 +327,7 @@ The raw signals were generated thorugh NeuroKit2, a Python Toolbox for Neurophys
 
 The application of psychophysiological sensors is becoming an increasingly frequent practice in the context of Human Computer Interaction \cite{eda-hci}. More specifically, the Electrodermal Activity may provide a measure to define the level of \textbf{arousal} that characterizes and individual during experimentations and, generally, the usage of specific technologies.
 
-Recent studies involved, for example, the measurement of Heart Rate and Electrodermal Activity in order to define an objective evaluation method for experiences based on \textbf{virtual reality}.
+Recent studies involved, for example, the measurement of Heart Rate and Electrodermal Activity in order to define an objective evaluation method for experiences based on \textbf{virtual reality}. Moreover, excellent results have been obtained by Sánchez-Reolid \textit{et al., 2018}~\cite{edasvm}, whose classification model based on \textbf{Deep Support Vector Machines} have achieved excellent results in the identification of stress pattern by employing EDA measurements acquired from a wearable device.
 
 \section{Electrodermal Activity and Fall Detection Systems}\label{sec:eda-fall-detection}
 
@@ -337,11 +337,11 @@ In 2013, T. Horta \textit{et al., 2018}~\cite{eda-fall-detection} included EDA s
 
 \subsection{Correlations between EDA and Wearable Devices}\label{subsec:eda-wearables}
 
-Because of the nature of EDA signals, during the years the main object of interest has been monitoring patients over extended periods of time and in real-life environments in order to identify patterns that are difficult to replicate in artificial environments. This has consequently focused the interest of researchers in the development of wearable devices for the electrodermal activity measurement \cite{poh-wearable}. 
+Because of the nature of EDA signals, during the years the main object of interest has been monitoring patients over extended periods of time and in real-life situations in order to identify patterns that are difficult to replicate in artificial environments. This has consequently focused the interest of researchers in the development of wearable devices for the electrodermal activity measurement \cite{poh-wearable}. 
 
 In 2010, Poh \textit{et al., 2018}~\cite{poh-wearable} described one of the first implementations of a compact and cost-effective wearable sensor for unobtrusive and long-term assessment of Electrodermal Activity. This was packed inside a wristband exposing two electrodes. The outcomes obtained were strongly correlated with FDA-approved measurement systems. Furthermore, over the last decade several companies such \textbf{Empatica} (an MIT spin-off) or \textbf{Movisens GmbH} (a global leader in ambulatory assessment solutions) implemented highly performing wearable devices for EDA measurement which have been commonly employed in the field of research.
 
-Additionally, at the end of September 2020 \textbf{Fitbit} released \textbf{Sense}, the first commercial wearable device implementing EDA measurement as one of its key features \cite{fitbit-eda}. This opened the way to new opportunities for developers, that will be able to build software in order to measure and analyse the Electrodermal Activity by employing Application Programming Interfaces of commercial and commonly diffused devices, without having to rely on expensive and invasive equipment.
+Additionally, at the end of September 2020 \textbf{Fitbit} released \textbf{Sense}, the first commercial wearable device implementing EDA measurement as one of its key features \cite{fitbit-eda}. This opened the way to new opportunities for developers, that will ghopefully be able to build software in order to measure and analyse the Electrodermal Activity by employing Application Programming Interfaces of commercial and commonly diffused devices, without having to rely on expensive and invasive equipment.
 % Useful? 
 
 % https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2892750/#:~:text=Electrodermal%20activity%20(EDA)%20refers%20to,et%20al.%2C%201981).
