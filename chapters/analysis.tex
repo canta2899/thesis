@@ -1,6 +1,6 @@
 \label{ch:analysis}
 
-With the purpose of providing a deeper understanding of how some of the most relevant datasets regarding fall detection were collected, an analysis was performed in order to identify common \textbf{patterns}, the \textbf{technologies} employed and the \textbf{results obtained}. Afterwards, the previously mentioned \textbf{Electrodermal Activity} and its potential implications in the context of fall detection was investigated.
+With the purpose of providing a deeper understanding of how some of the most relevant datasets regarding fall detection were collected, an analysis was performed in order to identify common \textbf{patterns}, the \textbf{technologies} employed and the \textbf{results obtained}. Afterwards, the previously mentioned \textbf{Electrodermal Activity} and its potential implications in the context of fall detection were both investigated.
 
 \section{Typical biometric data employed in fall detection}\label{sec:hardware}
 
@@ -312,14 +312,19 @@ The application of psychophysiological sensors is becoming an increasingly frequ
 
 Recent studies involved, for example, the measurement of Heart Rate and Electrodermal Activity in order to define an objective evaluation method for experiences based on \textbf{virtual reality}.
 
-\section{Electrodermal Activity applied to Fall Detection}\label{sec:eda-fall-detection}
+\section{Electrodermal Activity and Fall Detection Systems}\label{sec:eda-fall-detection}
 
-In the context of fall detection systems, EDA activity has not been a real object of intereset yet. It is, however, reasonable to assume that analyzing the skin conductance response may help to provide additional information in order to help classifiers to reach higher levels of accuracy.
+The Electrodermal Activity measurement in the context of fall detection has not been a true object of interest yet. It is, however, reasonable to assume that analyzing the skin conductance response may help to provide additional information in order to help classifiers to reach higher levels of accuracy. 
 
+In 2013, T. Horta \textit{et al., 2018}~\cite{eda-fall-detection} included EDA signals in the development of a system for fall detection and prevention based on biofeedback monitoring solutions. The lattern obtained valid results, but the analysis performed by the authors did not aim to provide assessments on the influence that Electrodermal Activity had on the accuracy of the whole system (which include other bio-sensors such as electroencephalography, electrocardiogram, electromyography and blood volume pressure).
 
-% cite \cite{turpin}
-%. In addition to amplitude measures, temporal indices such as response latency, rise time, and half-recovery time may also assessed. Skin conductance responses are frequently obtained within what is known as an habituation paradigm, whereby simple sensory stimuli are presented to the participant and the autonomic responses measured to subsequent repetitions. When habituation paradigms are used, further measures of change in response amplitude across successive trials are also calculated using regression techniques.
+\subsection{Correlations between EDA and Wearable Devices}\label{subsec:eda-wearables}
 
+Because of the nature of EDA signals, during the years the main object of interest has been monitoring patients over extended periods of time and in real-life environments in order to identify patterns that are difficult to replicate in artificial environments. This has consequently focused the interest oe researchers in the development of wearable devices for the electrodermal activity measurement \cite{poh-wearable}. 
+
+In 2010, Poh \textit{et al., 2018}~\cite{poh-wearable} described one of the first implementations of a compact and cost-effective wearable sensor for unobtrusive and long-term assessment of Electrodermal Activity. This was packed inside a wristband exposing two electrodes and the outcomes obtained were strongly correlated with FDA-approved measurement systems. Furthermore, over the last decade several companies such \textbf{Empatica} (an MIT spin-off) or \textbf{Movisens GmbH} (a global leader in ambulatory assessment solutions) implemented wearable highly performing wearable devices for EDA measurement which are commonly employed in the field of research.
+
+Additionaly, at the end of September 2020 \textbf{Fitbit} released \textbf{Sense}, the first commercial wearable device implementing EDA measurement as one of its key features \cite{fitbit-eda}. This opened the way to new opportunities for developers, that will be able to build software in order to measure and analyse the Electrodermal Activity by employing Application Programming Interfaces of commercial and commonly diffused devices, without having to rely on expensive and invasive instruments.
 
 % Useful? 
 % https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2892750/#:~:text=Electrodermal%20activity%20(EDA)%20refers%20to,et%20al.%2C%201981).
