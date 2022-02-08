@@ -1,6 +1,9 @@
-.PHONY : all view
+.PHONY : all view compile
 
-all: 
+all: compile
+	@open thesis.pdf	
+
+compile: 
 	@echo "First compilation..."
 	@pdflatex --shell-escape --synctex=1 --output-format=pdf thesis.tex > /dev/null
 	@echo "Compiling bibliography"
