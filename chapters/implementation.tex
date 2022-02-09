@@ -175,7 +175,7 @@ The figure \ref{fig:d1mini} reports a picture of the D1 Mini unit employed for t
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=7cm]{./images/d1mini.png}
+    \includegraphics[width=5cm]{./images/d1mini.png}
     \caption{The D1 Mini module employed for the experimentation}
     \label{fig:d1mini}
 \end{figure}
@@ -186,9 +186,27 @@ The modifications applied to the BITalino unit (described in \ref{subsec:bitalno
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{./images/circuit-diagram.png}
+    \includegraphics[width=10cm]{./images/circuit-diagram.png}
     \caption{Circuit diagram}
     \label{fig:circuit-diagram}
 \end{figure}
 
+The result obtained was finally soldered on a \textbf{matrix board} and packed inside an arm pocket in order to provide protection against the impacts and shocks that a fall may cause.  
 
+\subsection{Firmware Implementation}\label{subsec:firmware-implementation}
+
+As stated previously, the firmware implemented in order to acquire ED data from the sensor was based on the \textbf{Arduino Framework}, which is at present completely compatible with ESP8266 boards. The latter provides great flexibility and allows easy development for embedded devices. 
+
+The main requirements for the system were the followings:
+
+\begin{itemize}
+    \item A functionality that allows the end-user to start each measurement
+    \item A functionality that allows to retrieved the measurement data
+    \item Reading data with a sufficiently high sample rate in accordance with the Nyquist Theorem, as reported in \ref{subsec:eda-signal-properties}
+\end{itemize}
+
+
+
+% - Libraries Employed
+% - implementation
+% - Usage
