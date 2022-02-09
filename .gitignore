@@ -14,5 +14,5 @@
 *.xmpi
 thesis.pdf
 .DS_Store
-_minted_thesis
+_minted-thesis
 README

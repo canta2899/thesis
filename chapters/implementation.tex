@@ -201,12 +201,82 @@ The main requirements for the system were the followings:
 
 \begin{itemize}
     \item A functionality that allows the end-user to start each measurement
-    \item A functionality that allows to retrieved the measurement data
-    \item Reading data with a sufficiently high sample rate in accordance with the Nyquist Theorem, as reported in \ref{subsec:eda-signal-properties}
+    \item A functionality that allows to retrieve the measured data
+    \item Being able to read data with a sufficiently high sample rate in accordance with the Nyquist Theorem, as stated in \ref{subsec:eda-signal-properties}
 \end{itemize}
 
+%IPAddress    apIP(10, 10, 10, 1);                               // Private network address: local & gateway
+%
+%
+%<...>
+%void setup() {
+%  WiFi.mode(WIFI_AP_STA);
+%  WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));   // subnet FF FF FF 00
+%  WiFi.softAP("TardisTime");
 
+In order to address the aforementioned requirements, the device was configured as a \textbf{Soft Access Point} exposing a \textbf{WebServer} with a series of endpoints providing the functionalities required to start each measurement and retrieve the collected data. The EDA activity was sampled at 100 Hz and retrieved from the sensor by employing a logic based on \textbf{Interrupt Service Routines}. The obtained data was, then, buffered and saved on a minimal file system indexed on the flash memory of the microcontroller.
 
+\subsubsection{Libraries Employed}\label{subsubsec:libraries-employed}
+
+In order to exploit the various functionalities required, two additional libraries were included besides the Standard Library that composes the Arduino Framework. The latter were:
+
+\begin{itemize}
+    \item \textbf{LittleFS}
+    \item \textbf{ESP8266TimerInterrupt}
+\end{itemize}
+
+\textbf{LittleFS} is a library that provides primitives to index and access a file system from the EEPROM (Electrically Erasable Programmable Read-Only Memory) of micro-controllers. It is designed in order to work with limited amounts of storage, providing power-loss resilience and dynamic wear leveling \cite{littlefs}. The latter results fundamental in order to prolong the memory life, which would otherwise be extremely limited in case of micro-controllers. This is made possible be providing a hash-map data structure that maintains a reference for each logical block address that composes the memory space and its current status, in order to select blocks with the lowest erase count for the following write. Furthermore, the library provides functionalities for buffered reading and writing. It was employed in order to gradually save the data retrieved from the EDA sensor in a binary file.
+
+\vspace{8mm}
+
+\textbf{ESP8266TimerInterrupt} enables, instead, the definition of Interrupt Service Routines based on Hardware Timers on ESP8266-based boards \cite{esp8266timerinterrupt}. The latter were employed in order to provide a 100 Hz constant readout from the EDA sensor, by defining a timer that triggers an ISR (which reads data from the sensor and buffers the result) every 10ms.
+
+\vspace{8mm}
+A
+The firmware was developed in \texttt{C++} using PlatformIO, an open-source framework licensed under the Apache 2.0 license \cite{platformio} which provides several functionalities for embedded development, including scripts for flashing programs to the devices and debug them.
+
+\subsubsection{Program Structure}\label{subsubsec:program-structure}
+
+As required by the Arduino Framework, then program relies on a \mintinline{c}{void setup()} function which is executed once everytime the device is started and a \mintinline{c}{void loop()} which is, then, executed repeatedly. After including the required libraries, two macro directives were specified in order to indicate the analog pin used for the sensor reading and the sample rate (which is specified in Hz).
+
+\begin{minted}{c}
+#define EDAPIN A0
+#define EDA_SAMPLE_RATE 100
+\end{minted}
+
+The main variables and handlers were, then, defined with a global scope. This was performed in order to provide access to:
+
+\begin{itemize}
+    \item The \textbf{ESP8266WebServer} handler
+    \item The \textbf{ESP8266Timer} handler
+    \item The current file descriptor provided by \textbf{LittleFS}
+    \item Synchronization flags, declared as \texttt{volatile} when accessed by the Interrupt Service Routine
+\end{itemize}
+
+\begin{minted}{c}
+
+IPAddress local_IP(192,168,4,22);
+IPAddress gateway(192,168,4,9);
+IPAddress subnet(255,255,255,0);
+ESP8266WebServer server(80);
+
+ESP8266Timer ITimer;
+
+volatile bool measuring = false;
+
+File file;
+\end{minted}
+
+The setup function provided the configuration
+
+% \begin{minted}{c}
+%     int main() {
+%         printf("Hello world\n");
+%         return 0;
+%     }
+% \end{minted}
+
+% \mintinline{json}{"type": "movements"}
 % - Libraries Employed
 % - implementation
 % - Usage
