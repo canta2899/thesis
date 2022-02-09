@@ -75,7 +75,7 @@ The role of the pins provided by the breakout board is depicted by the diagram r
 \begin{figure}[h]
     \centering
     \includegraphics[width=10cm]{./images/bitalino.drawio.png}
-    \caption{BITalino EDA sensor pin-map}
+    \caption{BITalino EDA sensor pin mapping}
     \label{fig:bitalino-pinmap}
 \end{figure}
 
@@ -113,7 +113,6 @@ The result obtained after the aforementioned modifications were applied is repor
 \end{figure}
 
 It is important to note the role of the \texttt{VCC/2} pin, which permits the flow of a so-called mid-point voltage through the circuit. This provides the necessary \textbf{stability} in order to compute the microSiemens value corresponding to signal measured basing on the output voltage obtained by the sensor \cite{bitalino-midpoint-voltage}. With the aim of providing a correct tension to the \texttt{VCC/2} pin, a voltage divider was implemented by employing two $100 k\Omega$ resistors according to the schematization reported in figure \ref{fig:voltage-divider-schema} 
-
 \begin{figure}
     \centering
     \includegraphics[width=11cm]{./images/midpoint-resistor.drawio.png}
@@ -140,16 +139,56 @@ In accordance with the above-stated requirements, a unit based on the well-known
 
 % cite https://en.wikipedia.org/wiki/ESP8266
 
-The ESP8266 consists of an inexpensive 32-bit microcontroller based on the L106 RISC microprocessor that is produced by Espressif Systems. It is widely known and employed in IoT contexts because of its limited dimensions and its native implementation of a full TCP/IP stack, allowing the development of networking-based applications without the requiring additional hardware \cite{esp8266}.
+The ESP8266 consists of an inexpensive 32-bit microcontroller based on the L106 RISC microprocessor that is produced by Espressif Systems. It is widely known and employed in IoT contexts because of its limited dimensions and its native implementation of a full TCP/IP stack, allowing the development of networking-based applications without requiring additional hardware \cite{esp8266}.
 
-Furthermore, the unit exposes 17 GPIO pins and allows 
+Furthermore, the unit exposes 17 GPIO pins which provide a 10-bit resolution analog input and external hardware interfacing through the following protocols:
 
+\begin{itemize}
+    \item UART (which allows asynchronous serial communication)
+    \item Serial Peripheral Interface (which allows synchronous serial communication)
+    \item I$^2$C
+    \item I$^2$S
+    \item IEEE 802.11 b/g/n
+\end{itemize}
 
+Moreover, the ESP8266 offers a capacious flash memory of various Megabytes according to the chosen version and configuration. The latter features allows the indexing of apposite file systems in order to provide persistent memory over restarts. The unit does, though, not provide compatibility with the Bluetooth Low Energy protocol stack (which is a feature that was implemented for the following model, the ESP32).
 
+Additionally, besides Espressif provides its own Software Development Kit (SDK), a multitude of open-source SDKs has been developed over the years. Among all of them, the \textbf{Arduino Framework} stands out because of its accessibility and thanks to the multitude of libraries available. 
 
+\subsubsection{Wemos D1 Mini}\label{subsubsec:d1mini}
 
+For the purposes of this research, a ready-made ESP8266 based board named "Wemos D1 Mini" was employed. The latter provides 16 pins divided into:
 
+\begin{itemize}
+    \item 11 digital I/O
+    \item 1 analog I/O
+    \item 1 RST pin configured for control and reset functions
+    \item A single pin for 5V input voltage
+    \item A single pin for 3.3V input voltage, which cannot be used together with the 5V one
+\end{itemize}
 
+Additionally, the board provides a \textbf{Micro-USB} port which can provide input voltage (substituting the role of the 5V input pin) and data transfer. This allows user to flash compiled binaries to the microcontroller memory in order to execute them. Moreover, since the ESP8266 requires a constant 3.3V input current, the D1 Mini implements a \textbf{voltage regulator} in order to provide the correct internal current, even when the power source provides a voltage above the limit (such as when the unit is powered by a USB cable).
 
+In terms of power consumption, the D1 Mini has a constant drain of 85 mA (which can be reduced drastically when the "Deep Sleep" mode is enabled) and reaches a peak corresponding to 800 mA when powered on.
+
+The figure \ref{fig:d1mini} reports a picture of the D1 Mini unit employed for the experimentation, on which all the pins have been soldered in order to facilitate the test activity by using a breadboard.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=7cm]{./images/d1mini.png}
+    \caption{The D1 Mini module employed for the experimentation}
+    \label{fig:d1mini}
+\end{figure}
+
+\subsubsection{Connection with the BITalino EDA sensor}\label{subsubsec:d1mini}
+
+The modifications applied to the BITalino unit (described in \ref{subsec:bitalno-modifications}) allowed a seamless connection between the D1 Mini and the EDA sensor. The latter was, in fact, directly powered by the microcontroller and connected to its 10-bit resolution analog input. The whole system was, then, powered by a 3.7V-1200mAh Lipo battery. A diagram representing the final circuit is presented in figure \ref{fig:circuit-diagram}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{./images/circuit-diagram.png}
+    \caption{Circuit diagram}
+    \label{fig:circuit-diagram}
+\end{figure}
 
 
