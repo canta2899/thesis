@@ -214,11 +214,11 @@ The main requirements for the system were the followings:
 %  WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));   // subnet FF FF FF 00
 %  WiFi.softAP("TardisTime");
 
-In order to address the aforementioned requirements, the device was configured as a \textbf{Soft Access Point} exposing a \textbf{WebServer} with a series of endpoints providing the functionalities required to start each measurement and retrieve the collected data. The EDA activity was sampled at 100 Hz and retrieved from the sensor by employing a logic based on \textbf{Interrupt Service Routines}. The obtained data was, then, buffered and saved on a minimal file system indexed on the flash memory of the microcontroller.
+In order to address the aforementioned requirements, the device was configured as a \textbf{Soft Access Point} exposing a REST \textbf{WebServer} which provides a series of endpoints according to the functionalities required to start each measurement and retrieve the collected data. The EDA activity was sampled at 100 Hz and retrieved from the sensor by employing a logic based on \textbf{Interrupt Service Routines}. The obtained data was, then, buffered and saved on a minimal file system indexed on the flash memory of the microcontroller.
 
 \subsubsection{Libraries Employed}\label{subsubsec:libraries-employed}
 
-In order to exploit the various functionalities required, two additional libraries were included besides the Standard Library that composes the Arduino Framework. The latter were:
+In order to exploit the various functionalities required, two additional libraries were included besides the Standard Library that composes the Arduino Framework:
 
 \begin{itemize}
     \item \textbf{LittleFS}
@@ -237,9 +237,9 @@ The firmware was developed in \texttt{C++} using PlatformIO, an open-source fram
 
 \subsubsection{Program Structure}\label{subsubsec:program-structure}
 
-As required by the Arduino Framework, then program relies on a \mintinline{c}{void setup()} function which is executed once everytime the device is started and a \mintinline{c}{void loop()} which is, then, executed repeatedly. After including the required libraries, two macro directives were specified in order to indicate the analog pin used for the sensor reading and the sample rate (which is specified in Hz).
+As required by the Arduino Framework, then program relies on a \mintinline{cpp}{void setup()} function which is executed once everytime the device is started and a \mintinline{cpp}{void loop()} which is, then, executed repeatedly. After including the required libraries, two macro directives were specified in order to indicate the analog pin used for the sensor reading and the sample rate (which is specified in Hz).
 
-\begin{minted}{c}
+\begin{minted}{cpp}
 #define EDAPIN A0
 #define EDA_SAMPLE_RATE 100
 \end{minted}
@@ -250,24 +250,109 @@ The main variables and handlers were, then, defined with a global scope. This wa
     \item The \textbf{ESP8266WebServer} handler
     \item The \textbf{ESP8266Timer} handler
     \item The current file descriptor provided by \textbf{LittleFS}
-    \item Synchronization flags, declared as \texttt{volatile} when accessed by the Interrupt Service Routine
+    \item Synchronization flags, declared as \mintinline{cpp}{volatile} when accessed by the Interrupt Service Routine
 \end{itemize}
 
-\begin{minted}{c}
-
+\begin{minted}{cpp}
 IPAddress local_IP(192,168,4,22);
 IPAddress gateway(192,168,4,9);
 IPAddress subnet(255,255,255,0);
 ESP8266WebServer server(80);
-
 ESP8266Timer ITimer;
-
-volatile bool measuring = false;
-
 File file;
+volatile bool measuring = false;
+volatile int measurementDuration = 60;
+char paramsBuffer[100];
+byte payload[12];
 \end{minted}
 
-The setup function provided the configuration
+\vspace{3mm}
+
+The setup function configures the WebServer and the Hardware Timer, other than specifying the role of the \texttt{A0} pin. More specifically, the \texttt{/}, \texttt{/start} and \texttt{/retrieve} endpoints are defined in order to respectively acquire informations about the device status, start a measurement for the specified duration and retrieve the previously stored data.
+
+\begin{minted}{cpp}
+void setup() 
+{
+    pinMode(A0, INPUT);
+
+    WiFi.softAPConfig(local_IP, gateway, subnet);
+    
+    if(!WiFi.softAP("eda-measurement", NULL, 1, 0, 1)){
+        Serial.Println("Unable to run as Soft Access Point");
+        while(1);
+    }
+
+    if(!LittleFS.begin()) {
+        Serial.Println("Unable to run as Soft Access Point");
+        while(1);
+    }
+
+    ITimer.attachInterrupt(EDA_SAMPLE_RATE, ISRHandler);
+
+    server.on("/", HTTP_GET, info);
+    server.on("/start", HTTP_POST, start);
+    server.on("/retrieve", HTTP_GET, retrieve);
+    server.begin();
+}
+\end{minted}
+
+More specifically, the \texttt{/start} endpoint starts a measurement for a specified duration and saves the data on a binary file whose name is also specified as a request parameter.
+
+\begin{minted}{cpp}
+bool initializeNewFile(char *name){
+    return (file = LittleFS.open(name, "w"));
+}
+
+void startMeasurement(int durationInSeconds) {
+    measurementDuration = durationInSeconds;
+    measuring = true;
+}
+
+void start(){
+    const char *args = server.arg("plain").c_str();
+
+    strcpy(paramsBuffer, args);
+    char *filename = strtok(paramsBuffer, "|");
+    int duration = atoi(strtok(NULL, "|"));
+
+    if(initializeNewFile(filename)) {
+        startMeasurement(duration);
+        server.send(200, "plain/text", "Starting measurement");
+    } else {
+        server.send(500, "plain/text", "Unable to initialize a new reading");
+    }
+}
+\end{minted}
+
+The interrupt service routine, which executes on each timer tick according to the configured sample rate, performs an \mintinline{cpp}{analogRead()} and writes a new reading to the currently opened file. It is configured as follows:
+
+\begin{minted}{cpp}
+
+void writeNewDataLine(int sample, long timestamp){
+    payload[0] = (sample >> 24) & 0xFF;
+    payload[1] = (sample >> 16) & 0xFF;
+    payload[2] = (sample >> 8) & 0xFF;
+    payload[3] = sample & 0xFF;  
+
+    payload[4] = (timestamp >> 56) & 0xFF;
+    payload[5] = (timestamp >> 48) & 0xFF;
+    payload[6] = (timestamp >> 40) & 0xFF;
+    payload[7] = (timestamp >> 32) & 0xFF;
+    payload[8] = (timestamp >> 24) & 0xFF;
+    payload[9] = (timestamp >> 16) & 0xFF;
+    payload[10] = (timestamp >> 8) & 0xFF;
+    payload[11] = timestamp & 0xFF;
+
+    file.write(payload, 12);
+}
+
+void IRAM_ATTR ISRHandler(void){
+    if(measuring){
+        writeNewDataLine(analogRead(EDAPIN), millis());
+    }
+}
+
+\end{minted}
 
 % \begin{minted}{c}
 %     int main() {
