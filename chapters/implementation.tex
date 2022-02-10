@@ -340,13 +340,13 @@ void start() {
 }
 \end{minted}
 
-The interrupt service routine performs an \mintinline{cpp}{analogRead()} on the EDA sensor pin. Subsequently, the value read from the sensor is combined, together with the one returned by \mintinline{cpp}{millis()}, in a 12-byte payload (using bit-wise operators). The latter is, then, written to the memory as binary data. This is performed by the two following subroutines.
+The interrupt service routine performs an \mintinline{cpp}{analogRead()} on the EDA sensor pin. Subsequently, the value read from the sensor (which, as an integer, has a size of four bytes in the ESP8266 architecture) is combined, together with the one returned by \mintinline{cpp}{millis()} (which, instead, has a size of eight bytes as an unsigned long datatype). A 12-byte payload (encoded using bit-wise operations) is, then, stored as binary data.
 
 %pagebreak % added to move the whole code block to a new page since the previous one is almost ending
 
 \begin{minted}[frame=single,framesep=10pt]{cpp}
 
-void writeNewDataLine(int sample, long timestamp) {
+void writeMeasurement(int sample, long timestamp) {
     payload[0] = (sample >> 24) & 0xFF;
     payload[1] = (sample >> 16) & 0xFF;
     payload[2] = (sample >> 8) & 0xFF;
@@ -366,7 +366,7 @@ void writeNewDataLine(int sample, long timestamp) {
 
 void IRAM_ATTR ISRHandler(void) {
     if (measuring) {
-        writeNewDataLine(analogRead(EDAPIN), millis());
+        writeMeasurement(analogRead(EDAPIN), millis());
     }
 }
 \end{minted}
@@ -387,7 +387,7 @@ bool closeFile() {
     return false;
 }
 
-bool stop() {
+bool stopMeasurement() {
     if (measuring) {
         measuring = false;
         closeFile();
@@ -428,7 +428,7 @@ void loop() {
     } else {
         const long currentMillis = millis();
         if (currentMillis - measurementStart > measurementDuration * 1000 ) {
-            stop();
+            stopMeasurement();
         }
     }
 }
@@ -460,4 +460,7 @@ The device was tested during a session of the \textbf{WP8 ALT-FRAILTY} dataset a
 \caption{Falls performed during the first experimentation}
 \label{toc:bitalino-falls}
 \end{table}
+
+Subsequently, the data obtained from the device (encoded as a binary file) was \textbf{decoded} in respective CSV files and later analyzed using the functionalities provided by the \textbf{Python Programming Language} and the \textbf{NeuroKit2} \cite{neurokit} library.
+
 

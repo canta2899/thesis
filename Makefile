@@ -5,7 +5,7 @@ chp := $(wildcard chapters/*.tex)
 all: thesis.pdf 
 	@open thesis.pdf
 
-thesis.pdf: thesis.tex $(chp)
+thesis.pdf: thesis.tex thud.bib $(chp)
 	@echo "First compilation..."
 	@pdflatex --shell-escape --synctex=1 --output-format=pdf thesis.tex > /dev/null
 	@echo "Compiling bibliography"
