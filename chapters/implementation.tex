@@ -105,6 +105,8 @@ More specifically, the function of each pin is reported in table \ref{toc:bitali
 
 The result obtained after the aforementioned modifications were applied is reported in figure \ref{fig:full-sensor-configuration}. 
 
+It is important to note the role of the \texttt{VCC/2} pin, which permits the flow of a so-called mid-point voltage through the circuit. This provides the necessary \textbf{stability} in order to compute the microSiemens value corresponding to signal measured basing on the output voltage obtained by the sensor \cite{bitalino-midpoint-voltage}. With the aim of providing a correct tension to the \texttt{VCC/2} pin, a voltage divider was implemented by employing two $100 k\Omega$ resistors according to the schematization reported in figure \ref{fig:voltage-divider-schema} . In order to convert the voltage measured by the sensor to the corresponding microSiemens value, the transfer function reported in figure \ref{fig:bitalino-transfer-function} is provided by the official BITalino documentation \cite{bitalino-general}.
+
 \begin{figure}
     \centering
     \includegraphics[width=10cm]{./images/full-sensor-view.drawio.png}
@@ -112,13 +114,25 @@ The result obtained after the aforementioned modifications were applied is repor
     \label{fig:full-sensor-configuration}
 \end{figure}
 
-It is important to note the role of the \texttt{VCC/2} pin, which permits the flow of a so-called mid-point voltage through the circuit. This provides the necessary \textbf{stability} in order to compute the microSiemens value corresponding to signal measured basing on the output voltage obtained by the sensor \cite{bitalino-midpoint-voltage}. With the aim of providing a correct tension to the \texttt{VCC/2} pin, a voltage divider was implemented by employing two $100 k\Omega$ resistors according to the schematization reported in figure \ref{fig:voltage-divider-schema} 
 \begin{figure}
     \centering
     \includegraphics[width=11cm]{./images/midpoint-resistor.drawio.png}
     \caption{Mid-point resistor implemented for the \texttt{VCC/2} pin}
     \label{fig:voltage-divider-schema}
 \end{figure}
+
+\begin{figure}
+    \begingroup
+    \Large
+    \begin{equation}
+    EDA(\mu S) = \frac{\frac{ADC}{2^n} \cdot VCC}{0.132}
+    \end{equation}
+    \caption{Transfer function employed for the BITalino EDA sensor}
+    \label{fig:bitalino-transfer-function}
+    \endgroup
+\end{figure}
+
+\pagebreak
 
 \section{Developing a firmware based on the Arduino Framework}\label{sec:firmware}
 
@@ -195,7 +209,7 @@ The result obtained was finally soldered on a \textbf{matrix board} and packed i
 
 \subsection{Firmware Implementation}\label{subsec:firmware-implementation}
 
-As stated previously, the firmware implemented in order to acquire ED data from the sensor was based on the \textbf{Arduino Framework}, which is at present completely compatible with ESP8266 boards. The latter provides great flexibility and allows easy development for embedded devices. 
+As stated previously, the firmware implemented in order to acquire EDA data from the sensor was based on the \textbf{Arduino Framework}, which is at present completely compatible with ESP8266 boards. The latter provides great flexibility and allows easy development for embedded devices. 
 
 The main requirements for the system were the followings:
 
@@ -253,37 +267,38 @@ The main variables and handlers were, then, defined with a global scope. This wa
     \item Synchronization flags, declared as \mintinline{cpp}{volatile} when accessed by the Interrupt Service Routine
 \end{itemize}
 
-\begin{minted}{cpp}
-IPAddress local_IP(192,168,4,22);
+\begin{minted}[frame=single,framesep=10pt]{cpp}
+volatile int measurementDuration = 60;
+volatile bool measuring = false;
+volatile int measurementStart;
+
+IPAddress localIP(192,168,4,22);
 IPAddress gateway(192,168,4,9);
 IPAddress subnet(255,255,255,0);
 ESP8266WebServer server(80);
+
 ESP8266Timer ITimer;
-File file;
-volatile bool measuring = false;
-volatile int measurementDuration = 60;
+
 char paramsBuffer[100];
 byte payload[12];
+File file;
 \end{minted}
-
-\vspace{3mm}
 
 The setup function configures the WebServer and the Hardware Timer, other than specifying the role of the \texttt{A0} pin. More specifically, the \texttt{/}, \texttt{/start} and \texttt{/retrieve} endpoints are defined in order to respectively acquire informations about the device status, start a measurement for the specified duration and retrieve the previously stored data.
 
-\begin{minted}{cpp}
-void setup() 
-{
+\begin{minted}[frame=single,framesep=10pt]{cpp}
+void setup() {
     pinMode(A0, INPUT);
 
-    WiFi.softAPConfig(local_IP, gateway, subnet);
+    WiFi.softAPConfig(localIP, gateway, subnet);
     
-    if(!WiFi.softAP("eda-measurement", NULL, 1, 0, 1)){
-        Serial.Println("Unable to run as Soft Access Point");
+    if (!WiFi.softAP("eda-measurement", NULL, 1, 0, 1)) {
+        Serial.println("Unable to run as Soft Access Point");
         while(1);
     }
 
-    if(!LittleFS.begin()) {
-        Serial.Println("Unable to run as Soft Access Point");
+    if (!LittleFS.begin()) {
+        Serial.println("Unable to run as Soft Access Point");
         while(1);
     }
 
@@ -298,24 +313,25 @@ void setup()
 
 More specifically, the \texttt{/start} endpoint starts a measurement for a specified duration and saves the data on a binary file whose name is also specified as a request parameter.
 
-\begin{minted}{cpp}
-bool initializeNewFile(char *name){
+\begin{minted}[frame=single,framesep=10pt]{cpp}
+bool initializeNewFile(char *name) {
     return (file = LittleFS.open(name, "w"));
 }
 
 void startMeasurement(int durationInSeconds) {
     measurementDuration = durationInSeconds;
+    measurementStart = millis();
     measuring = true;
 }
 
-void start(){
+void start() {
     const char *args = server.arg("plain").c_str();
 
     strcpy(paramsBuffer, args);
     char *filename = strtok(paramsBuffer, "|");
     int duration = atoi(strtok(NULL, "|"));
 
-    if(initializeNewFile(filename)) {
+    if (initializeNewFile(filename)) {
         startMeasurement(duration);
         server.send(200, "plain/text", "Starting measurement");
     } else {
@@ -324,11 +340,13 @@ void start(){
 }
 \end{minted}
 
-The interrupt service routine, which executes on each timer tick according to the configured sample rate, performs an \mintinline{cpp}{analogRead()} and writes a new reading to the currently opened file. It is configured as follows:
+The interrupt service routine performs an \mintinline{cpp}{analogRead()} on the EDA sensor pin. Subsequently, the value read from the sensor is combined, together with the one returned by \mintinline{cpp}{millis()}, in a 12-byte payload (using bit-wise operators). The latter is, then, written to the memory as binary data. This is performed by the two following subroutines.
 
-\begin{minted}{cpp}
+%pagebreak % added to move the whole code block to a new page since the previous one is almost ending
 
-void writeNewDataLine(int sample, long timestamp){
+\begin{minted}[frame=single,framesep=10pt]{cpp}
+
+void writeNewDataLine(int sample, long timestamp) {
     payload[0] = (sample >> 24) & 0xFF;
     payload[1] = (sample >> 16) & 0xFF;
     payload[2] = (sample >> 8) & 0xFF;
@@ -346,22 +364,99 @@ void writeNewDataLine(int sample, long timestamp){
     file.write(payload, 12);
 }
 
-void IRAM_ATTR ISRHandler(void){
-    if(measuring){
+void IRAM_ATTR ISRHandler(void) {
+    if (measuring) {
         writeNewDataLine(analogRead(EDAPIN), millis());
     }
 }
-
 \end{minted}
 
-% \begin{minted}{c}
-%     int main() {
-%         printf("Hello world\n");
-%         return 0;
-%     }
-% \end{minted}
+It is important to note that \mintinline{cpp}{millis()} returns the number of milliseconds elapsed since the microcontroller was powered. Its value was acquired in order to determine the number of milliseconds elapsed between each measurement.
 
-% \mintinline{json}{"type": "movements"}
-% - Libraries Employed
-% - implementation
-% - Usage
+The following subroutine was, instead, defined in order to stop the measurement and save the binary data to the memory storage:
+
+%pagebreak
+
+\begin{minted}[frame=single,framesep=10pt]{cpp}
+
+bool closeFile() {
+    if (file) {
+        file.close();
+        return true;
+    }
+    return false;
+}
+
+bool stop() {
+    if (measuring) {
+        measuring = false;
+        closeFile();
+        return true;
+    }
+    return false;
+}
+\end{minted}
+
+The \texttt{/retrieve} endpoint was, then, defined in order to send the required binary data as an application/octet-stream mimetype. Once completely streamed to the client, the file is subsequently removed from the memory storage.
+
+\begin{minted}[frame=single,framesep=10pt]{cpp}
+void retrieve() {
+    String filename = server.arg("plain");
+    file = LittleFS.open(filename, "r");
+
+    if (file) {
+        server.sendHeader("Content-Type", "text/text");
+        server.sendHeader("Content-Disposition", 
+                          "attachment; filename=" + filename);
+        server.sendHeader("Connection", "close");
+        server.streamFile(file, "application/octet-stream");
+        file.close();
+        LittleFS.remove(filename);
+    } else {
+        server.send(200, "plain/text", 
+                    "Unable to retrieve measurement from memory");
+    }
+}
+\end{minted}
+
+Finally, the \mintinline{cpp}{void loop()} function was configured in order to poll incoming HTTP requests when no measurement is happening or, otherwise, determine when to stop the currently running measurement. This was done with the aim of preventing HTTP requests during a measurement, since both the Wi-Fi antenna and the EDA sensor rely on the same (and only) analog input of the microcontroller.
+
+\begin{minted}[frame=single,framesep=10pt]{cpp}
+void loop() {
+    if (!measuring) {
+        server.handleClient();
+    } else {
+        const long currentMillis = millis();
+        if (currentMillis - measurementStart > measurementDuration * 1000 ) {
+            stop();
+        }
+    }
+}
+\end{minted}
+
+\pagebreak
+
+\section{Data Collection}\label{sec:data-collection}
+
+% TODO ALTFRAILTY
+
+The device was tested during a session of the \textbf{WP8 ALT-FRAILTY} dataset acquisition. More specifically, the falls reported in table \ref{toc:bitalino-falls} were performed by a 22 years old male volunteer wearing the device on his non-dominant arm.
+
+\vspace{7mm}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+    \hline
+    Name            &  Description           \\
+    \hline
+    Rolling         & Falling forward from a chair, landing on the knees \\
+    Left Shoulder   & Standing and subsequently falling on the left shoulder \\
+    Right Shoulder  & Standing and subsequently falling on the right shoulder \\
+    Sidewards       & Standing and subsequently falling sidewards directly on the ground \\
+    Bed             & Falling while getting up from the bed \\
+    \hline
+\end{tabular}
+\caption{Falls performed during the first experimentation}
+\label{toc:bitalino-falls}
+\end{table}
