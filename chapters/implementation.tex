@@ -228,7 +228,7 @@ The main requirements for the system were the followings:
 %  WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));   // subnet FF FF FF 00
 %  WiFi.softAP("TardisTime");
 
-In order to address the aforementioned requirements, the device was configured as a \textbf{Soft Access Point} exposing a REST \textbf{WebServer} which provides a series of endpoints according to the functionalities required to start each measurement and retrieve the collected data. The EDA activity was sampled at 100 Hz and retrieved from the sensor by employing a logic based on \textbf{Interrupt Service Routines}. The obtained data was, then, buffered and saved on a minimal file system indexed on the flash memory of the microcontroller.
+In order to address the aforementioned requirements, the device was configured as a \textbf{Soft Access Point} exposing a \textbf{RESTful WebServer} which provides a series of endpoints according to the functionalities required to start each measurement and retrieve the collected data. The EDA activity was sampled at 100 Hz and retrieved from the sensor by employing a logic based on \textbf{Interrupt Service Routines}. The obtained data was, then, buffered and saved on a minimal file system indexed on the flash memory of the microcontroller.
 
 \subsubsection{Libraries Employed}\label{subsubsec:libraries-employed}
 
@@ -460,3 +460,4 @@ The device was tested during a session of the \textbf{WP8 ALT-FRAILTY} dataset a
 \caption{Falls performed during the first experimentation}
 \label{toc:bitalino-falls}
 \end{table}
+

@@ -1,9 +1,11 @@
-.PHONY : all view compile
+.PHONY : all 
 
-all: compile
-	@open thesis.pdf	
+chp := $(wildcard chapters/*.tex)
 
-compile: 
+all: thesis.pdf 
+	@open thesis.pdf
+
+thesis.pdf: thesis.tex $(chp)
 	@echo "First compilation..."
 	@pdflatex --shell-escape --synctex=1 --output-format=pdf thesis.tex > /dev/null
 	@echo "Compiling bibliography"
@@ -14,6 +16,3 @@ compile:
 	@pdflatex --shell-escape --synctex=1 --output-format=pdf thesis.tex > /dev/null
 	@echo "Done"
 
-view:
-	@open thesis.pdf
-	
