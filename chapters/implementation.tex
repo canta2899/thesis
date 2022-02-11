@@ -19,7 +19,7 @@ A \textbf{single EDA module} was purchased for a 25,00 € (Tax Excluded) price 
 
 \subsection{Description and Features}\label{subsec:bitalino-features}
 
-The EDA sensor module consists of a breakout board whose dimensions correspond to 12mm x 27mm \cite{bitalino-general}. A complete list of informations regarding the configuration of the unit is reported in Table \ref{toc:bitalino-features} .
+The EDA sensor module consists of a single breakout board whose dimensions correspond to 12mm x 27mm \cite{bitalino-general}. A complete list of informations regarding the configuration of the unit is reported in Table \ref{toc:bitalino-features} .
 
 \begin{table}[H]
 \centering
@@ -67,7 +67,7 @@ In order to exploit the convenience provided by the case and the pre-soldered el
     \item Desoldering the four UC-E6 connector cables from their respective pins on the breakout board
     \item Soldering a dupont cable on each one of the pins
     \item Widening the cable conduit of the ABS case in order to allow the passage of the previously soldered cables
-    \item Closing back the ABS case
+    \item Closing the ABS case back
 \end{enumerate}
 
 The role of the pins provided by the breakout board is depicted by the diagram reported in figure \ref{fig:bitalino-pinmap}
@@ -87,14 +87,14 @@ More specifically, the function of each pin is reported in table \ref{toc:bitali
 \centering
 \begin{tabular}{ll}
     \hline
-    \textbf{Pin}            & \textbf{Application} \\
+    \textbf{Pin}                    & \textbf{Application} \\
     \hline
-    \texttt{IN+}            & Connection input for the positive electrode \\
-    \texttt{IN-}            & Connection input for the negative electrode \\
-    \texttt{A3}             & Analog output for the EDA signal reading \\
-    \texttt{VCC/2}          & Midpoint voltage input, necessary for the microSiemens conversion \\
-    \texttt{VCC}            & 3.3 V Voltage input \\
-    \texttt{GND}            & Ground input \\
+    \texttt{IN+}                    & Connection input for the positive electrode \\
+    \texttt{IN-}                    & Connection input for the negative electrode \\
+    \texttt{A3}                     & Analog output for the EDA signal reading \\
+    \texttt{VCC/2} (\texttt{REF})   & Midpoint voltage input, necessary for the microSiemens conversion \\
+    \texttt{VCC} (\texttt{AVCC})    & 3.3 V Voltage input \\
+    \texttt{GND}                    & Ground input \\
     \hline
 \end{tabular}
 \caption{Description of the BITalino EDA sensor pin-map}
@@ -105,7 +105,7 @@ More specifically, the function of each pin is reported in table \ref{toc:bitali
 
 The result obtained after the aforementioned modifications were applied is reported in figure \ref{fig:full-sensor-configuration}. 
 
-It is important to note the role of the \texttt{VCC/2} pin, which permits the flow of a so-called mid-point voltage through the circuit. This provides the necessary \textbf{stability} in order to compute the microSiemens value corresponding to signal measured basing on the output voltage obtained by the sensor \cite{bitalino-midpoint-voltage}. With the aim of providing a correct tension to the \texttt{VCC/2} pin, a voltage divider was implemented by employing two $100 k\Omega$ resistors according to the schematization reported in figure \ref{fig:voltage-divider-schema} . In order to convert the voltage measured by the sensor to the corresponding microSiemens value, the transfer function reported in figure \ref{fig:bitalino-transfer-function} is provided by the official BITalino documentation \cite{bitalino-general}.
+It is important to note the role of the \texttt{VCC/2} pin, which permits the flow of a so-called mid-point voltage through the circuit. This provides the necessary \textbf{stability} in order to compute the microSiemens value corresponding to the signal measured basing on the output voltage obtained by the sensor \cite{bitalino-midpoint-voltage}. With the aim of providing a correct tension to the \texttt{VCC/2} pin, a voltage divider was implemented by employing two $100 k\Omega$ resistors according to the schematization reported in figure \ref{fig:voltage-divider-schema}. In order to convert the voltage measured by the sensor to the corresponding microSiemens value, the transfer function reported in figure \ref{fig:bitalino-transfer-function} was used, according to the official BITalino documentation \cite{bitalino-general}.
 
 \begin{figure}
     \centering
@@ -147,25 +147,23 @@ After applying the necessary changes to the EDA sensor, a research was conducted
 
 \subsection{Hardware Employed}\label{sec:hardware-employed}
 
-In accordance with the above-stated requirements, a unit based on the well-known \textbf{ESP8266} was employed. The latter consisted, more specifically, of the \textbf{D1 Mini by Wemos} board, which provides easy access to a multitude of functionalities maintaining limited dimensions.
+In accordance with the above-stated requirements, a unit based on the well-known \textbf{ESP8266} was employed. More specifically, the latter consisted of the \textbf{D1 Mini by Wemos} board, which provides easy access to a multitude of functionalities maintaining limited dimensions.
 
 \subsubsection{An overview of the ESP8266}\label{sec:esp8266}
 
-% cite https://en.wikipedia.org/wiki/ESP8266
+The ESP8266 consists of an inexpensive 32-bit microcontroller based on the L106 RISC microprocessor that is produced by Espressif Systems. It is widely known and employed in contexts related to the Internet of Things because of its limited dimensions and its native implementation of a full TCP/IP stack, allowing the development of networking-based applications without requiring additional hardware \cite{esp8266}.
 
-The ESP8266 consists of an inexpensive 32-bit microcontroller based on the L106 RISC microprocessor that is produced by Espressif Systems. It is widely known and employed in IoT contexts because of its limited dimensions and its native implementation of a full TCP/IP stack, allowing the development of networking-based applications without requiring additional hardware \cite{esp8266}.
-
-Furthermore, the unit exposes 17 GPIO pins which provide a 10-bit resolution analog input and external hardware interfacing through the following protocols:
+Furthermore, the unit exposes 17 GPIO pins, which provide a single 10-bit resolution analog input and external hardware interfacing through the following protocols:
 
 \begin{itemize}
     \item UART (which allows asynchronous serial communication)
-    \item Serial Peripheral Interface (which allows synchronous serial communication)
-    \item I$^2$C
-    \item I$^2$S
+    \item SPI (which allows synchronous serial communication)
+    \item I$^2$C %i2c
+    \item I$^2$S %i2s
     \item IEEE 802.11 b/g/n
 \end{itemize}
 
-Moreover, the ESP8266 offers a capacious flash memory of various Megabytes according to the chosen version and configuration. The latter features allows the indexing of apposite file systems in order to provide persistent memory over restarts. The unit does, though, not provide compatibility with the Bluetooth Low Energy protocol stack (which is a feature that was implemented for the following model, the ESP32).
+Moreover, the ESP8266 offers a capacious flash memory, whose dimension varies according to the chosen version and configuration. The latter features allow the indexing of apposite file systems in order to provide persistent memory over restarts. One of them is commonly known as SPIFFS, which is a file system intended for SPI NOR flash devices on embedded targets. The unit does, though, not provide compatibility with the Bluetooth Low Energy protocol stack (which is a feature that was implemented for the following model, the ESP32).
 
 Additionally, besides Espressif provides its own Software Development Kit (SDK), a multitude of open-source SDKs has been developed over the years. Among all of them, the \textbf{Arduino Framework} stands out because of its accessibility and thanks to the multitude of libraries available. 
 
@@ -177,20 +175,20 @@ For the purposes of this research, a ready-made ESP8266 based board named "Wemos
     \item 11 digital I/O
     \item 1 analog I/O
     \item 1 RST pin configured for control and reset functions
-    \item A single pin for 5V input voltage
-    \item A single pin for 3.3V input voltage, which cannot be used together with the 5V one
+    \item A single pin for a 5V input voltage
+    \item A single pin for a 3.3V input voltage, which cannot be used together with the previous one
 \end{itemize}
 
-Additionally, the board provides a \textbf{Micro-USB} port which can provide input voltage (substituting the role of the 5V input pin) and data transfer. This allows user to flash compiled binaries to the microcontroller memory in order to execute them. Moreover, since the ESP8266 requires a constant 3.3V input current, the D1 Mini implements a \textbf{voltage regulator} in order to provide the correct internal current, even when the power source provides a voltage above the limit (such as when the unit is powered by a USB cable).
+Additionally, the board mounts a \textbf{Micro-USB} port which can provide input voltage (substituting the role of the 5V input pin) and data transfer. This allows users to flash compiled binaries to the microcontroller memory in order to execute them. Moreover, since the ESP8266 requires a constant 3.3V input current, the D1 Mini implements a \textbf{voltage regulator} in order to provide a 3.3V internal voltage even when the power source exceeds the limit (this happens, for example, when the unit is powered by a USB cable).
 
-In terms of power consumption, the D1 Mini has a constant drain of 85 mA (which can be reduced drastically when the "Deep Sleep" mode is enabled) and reaches a peak corresponding to 800 mA when powered on.
+In terms of power consumption, the D1 Mini has a constant drain of 85 mA (which can be reduced drastically when the "Deep Sleep" mode is enabled) and reaches a maximum peak of 800 mA when powered on.
 
 The figure \ref{fig:d1mini} reports a picture of the D1 Mini unit employed for the experimentation, on which all the pins have been soldered in order to facilitate the test activity by using a breadboard.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=5cm]{./images/d1mini.png}
-    \caption{The D1 Mini module employed for the experimentation}
+    \caption{The D1 Mini module employed}
     \label{fig:d1mini}
 \end{figure}
 
@@ -209,26 +207,17 @@ The result obtained was finally soldered on a \textbf{matrix board} and packed i
 
 \subsection{Firmware Implementation}\label{subsec:firmware-implementation}
 
-As stated previously, the firmware implemented in order to acquire EDA data from the sensor was based on the \textbf{Arduino Framework}, which is at present completely compatible with ESP8266 boards. The latter provides great flexibility and allows easy development for embedded devices. 
+As stated previously, the firmware implemented in order to acquire EDA data from the sensor was based on the \textbf{Arduino Framework}, which is at present completely compatible with ESP8266-based boards. The latter provides great flexibility and allows easy development for embedded devices. 
 
 The main requirements for the system were the followings:
 
 \begin{itemize}
     \item A functionality that allows the end-user to start each measurement
-    \item A functionality that allows to retrieve the measured data
-    \item Being able to read data with a sufficiently high sample rate in accordance with the Nyquist Theorem, as stated in \ref{subsec:eda-signal-properties}
+    \item A functionality that allows the retrieval of measured data
+    \item A readout of sufficiently high sample rate in accordance with the Nyquist Theorem, as stated in \ref{subsec:eda-signal-properties}
 \end{itemize}
 
-%IPAddress    apIP(10, 10, 10, 1);                               // Private network address: local & gateway
-%
-%
-%<...>
-%void setup() {
-%  WiFi.mode(WIFI_AP_STA);
-%  WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));   // subnet FF FF FF 00
-%  WiFi.softAP("TardisTime");
-
-In order to address the aforementioned requirements, the device was configured as a \textbf{Soft Access Point} exposing a \textbf{RESTful WebServer} which provides a series of endpoints according to the functionalities required to start each measurement and retrieve the collected data. The EDA activity was sampled at 100 Hz and retrieved from the sensor by employing a logic based on \textbf{Interrupt Service Routines}. The obtained data was, then, buffered and saved on a minimal file system indexed on the flash memory of the microcontroller.
+In order to address the aforementioned requirements, the device was configured as a \textbf{Soft Access Point} exposing a \textbf{RESTful WebServer} providing a series of endpoints according to the functionalities stated above. The EDA activity was sampled at 100 Hz and retrieved from the sensor by employing a logic based on \textbf{Interrupt Service Routines}. The obtained data was, then, buffered and saved on a minimal file system indexed on the flash memory of the microcontroller.
 
 \subsubsection{Libraries Employed}\label{subsubsec:libraries-employed}
 
@@ -239,8 +228,8 @@ In order to exploit the various functionalities required, two additional librari
     \item \textbf{ESP8266TimerInterrupt}
 \end{itemize}
 
-\textbf{LittleFS} is a library that provides primitives to index and access a file system from the EEPROM (Electrically Erasable Programmable Read-Only Memory) of micro-controllers. It is designed in order to work with limited amounts of storage, providing power-loss resilience and dynamic wear leveling \cite{littlefs}. The latter results fundamental in order to prolong the memory life, which would otherwise be extremely limited in case of micro-controllers. This is made possible be providing a hash-map data structure that maintains a reference for each logical block address that composes the memory space and its current status, in order to select blocks with the lowest erase count for the following write. Furthermore, the library provides functionalities for buffered reading and writing. It was employed in order to gradually save the data retrieved from the EDA sensor in a binary file.
-The library is publicly available and licensed under the BSD 3-Clause "New" or "Revised" License.
+\textbf{LittleFS} is a library that provides primitives to index and access a SPIFFS file system from the EEPROM (Electrically Erasable Programmable Read-Only Memory) of micro-controllers. It is designed in order to work with limited amounts of storage, providing power-loss resilience and dynamic wear leveling \cite{littlefs}. The latter results fundamental in order to prolong the memory life, which would otherwise be extremely limited in case of micro-controllers. This is made possible by providing a hash-map data structure that maintains a reference for each logical block address that composes the memory space and its current status, in order to select blocks with the lowest erase count for writing. Furthermore, the library provides functionalities for buffered reading and writing. It was employed in order to gradually save the data retrieved from the EDA sensor in a binary file.
+LittleFS is publicly available and licensed under the BSD 3-Clause "New" or "Revised" License.
 
 \vspace{8mm}
 
@@ -248,11 +237,11 @@ The library is publicly available and licensed under the BSD 3-Clause "New" or "
 
 \vspace{8mm}
 
-The firmware was developed in \texttt{C++} using PlatformIO \cite{platformio}, an open-source framework licensed under the Apache 2.0 License which provides several functionalities for embedded development, including scripts for flashing programs to the devices and debug them.
+The firmware was developed in \texttt{C++} using PlatformIO \cite{platformio}, an open-source framework licensed under the Apache 2.0 License which provides several functionalities for embedded development, including scripts for flashing programs to microcontrollers and debug them.
 
 \subsubsection{Program Structure}\label{subsubsec:program-structure}
 
-As required by the Arduino Framework, the program relies on a \mintinline{cpp}{void setup()} function which is executed once everytime the device is started and a \mintinline{cpp}{void loop()} which is, then, executed repeatedly. After including the required libraries, two macro directives were specified in order to indicate the analog pin used for the sensor reading and the sample rate (which is specified in Hz).
+As required by the Arduino Framework, the program relies on a \mintinline{cpp}{void setup()} function which is executed once everytime the device is started and a \mintinline{cpp}{void loop()} which is, then, executed repeatedly. After including the required libraries, two macro directives were specified in order to indicate the analog pin used for the sensor reading and the sample rate (in Hz).
 
 \begin{minted}{cpp}
 #define EDAPIN A0
@@ -268,7 +257,9 @@ The main variables and handlers were, then, defined with a global scope. This wa
     \item Synchronization flags, declared as \mintinline{cpp}{volatile} when accessed by the Interrupt Service Routine, in order to avoid optimizations by the compiler that may result in inconsistent access to the variable.
 \end{itemize}
 
-\begin{minted}[frame=single,framesep=10pt]{cpp}
+% for borders on code [frame=single,framesep=10pt]
+
+\begin{minted}{cpp}
 volatile int measurementDuration = 60;
 volatile bool measuring = false;
 volatile int measurementStart;
@@ -287,7 +278,7 @@ File file;
 
 The setup function configures the WebServer and the Hardware Timer, other than specifying the role of the \texttt{A0} pin. More specifically, the \texttt{/}, \texttt{/start} and \texttt{/retrieve} endpoints are defined in order to respectively acquire informations about the device status, start a measurement for the specified duration and retrieve the previously stored data.
 
-\begin{minted}[frame=single,framesep=10pt]{cpp}
+\begin{minted}{cpp}
 void setup() {
     pinMode(A0, INPUT);
 
@@ -314,7 +305,7 @@ void setup() {
 
 More specifically, the \texttt{/start} endpoint starts a measurement for a specified duration and saves the data on a binary file whose name is also specified as a request parameter.
 
-\begin{minted}[frame=single,framesep=10pt]{cpp}
+\begin{minted}{cpp}
 bool initializeNewFile(char *name) {
     return (file = LittleFS.open(name, "w"));
 }
@@ -345,7 +336,9 @@ The interrupt service routine performs an \mintinline{cpp}{analogRead()} on the 
 
 %pagebreak % added to move the whole code block to a new page since the previous one is almost ending
 
-\begin{minted}[frame=single,framesep=10pt]{cpp}
+\pagebreak
+
+\begin{minted}{cpp}
 
 void writeMeasurement(int sample, long timestamp) {
     payload[0] = (sample >> 24) & 0xFF;
@@ -376,9 +369,7 @@ It is important to note that \mintinline{cpp}{millis()} returns the number of mi
 
 The following subroutine was, instead, defined in order to stop the measurement and save the binary data to the memory storage:
 
-%pagebreak
-
-\begin{minted}[frame=single,framesep=10pt]{cpp}
+\begin{minted}{cpp}
 
 bool closeFile() {
     if (file) {
@@ -398,9 +389,9 @@ bool stopMeasurement() {
 }
 \end{minted}
 
-The \texttt{/retrieve} endpoint was, then, defined in order to send the required binary data as a mimetype known as "application/octet-stream". Once completely streamed to the client, the file is subsequently removed from the memory storage.
+The \texttt{/retrieve} endpoint was, then, defined in order to send the required binary data as a mimetype known as "application/octet-stream". Once completely streamed to the client, the file is subsequently removed from the memory storage in order to preserve space and avoid saturating the EEPROM.
 
-\begin{minted}[frame=single,framesep=10pt]{cpp}
+\begin{minted}{cpp}
 void retrieve() {
     String filename = server.arg("plain");
     file = LittleFS.open(filename, "r");
@@ -420,9 +411,9 @@ void retrieve() {
 }
 \end{minted}
 
-Finally, the \mintinline{cpp}{void loop()} function was configured in order to poll for incoming HTTP requests when no measurement is happening or, otherwise, determine when to stop the currently running measurement. This was done with the aim of preventing HTTP requests during a measurement, since both the Wi-Fi antenna and the EDA sensor rely on the same (and only) analog input of the microcontroller.
+Finally, the \mintinline{cpp}{void loop()} function was configured in order to handle incoming HTTP requests when no measurement is happening or, otherwise, determine when to stop the currently running measurement. This was done with the aim of preventing HTTP requests during a measurement, since both the Wi-Fi antenna and the EDA sensor rely on the same (and only) analog input of the microcontroller. Moreover, request handling causes a series of side-effects, including interrupts that may interfere with the execution of the timer-bases ISR defined in order to retrieve data from the sensor.
 
-\begin{minted}[frame=single,framesep=10pt]{cpp}
+\begin{minted}{cpp}
 void loop() {
     if (!measuring) {
         server.handleClient();
@@ -437,11 +428,11 @@ void loop() {
 
 \pagebreak
 
-\section{Data Collection}\label{sec:data-collection}
+\section{Data Collection and Analysis}\label{sec:data-collection}
 
 % TODO ALTFRAILTY
 
-The device was tested during one of the data acquisition sessions of the \textbf{WP8}, a branch of the \textbf{ALT-FRAILTY} research project that aims to evaluate deep learning techniques for real-time fall detection. More specifically, in a wider scenario, ALT-FRAILTY has providing personalized health management of physical, mental and social frailty in the Elderly as its main objective \cite{altfrailty}.
+The device was tested during one of the data acquisition sessions of \textbf{WP8}, a branch of the \textbf{ALT-FRAILTY} research project that aims to evaluate deep learning techniques for real-time fall detection. More specifically, in a wider scenario, ALT-FRAILTY has providing personalized health management of physical, mental and social frailty in the Elderly as its main objective \cite{altfrailty}.
 
 The falls reported in table \ref{toc:bitalino-falls} were performed by a 22 years old male volunteer wearing the device on his non-dominant arm.
 
@@ -466,44 +457,58 @@ The falls reported in table \ref{toc:bitalino-falls} were performed by a 22 year
 Subsequently, the data obtained from the device (encoded as a binary file) was \textbf{decoded} in respective CSV files and later analyzed using the functionalities provided by the \textbf{Python Programming Language} and the \textbf{NeuroKit2} \cite{neurokit} library. More specifically, the following steps were performed in order to process and plot the resulting data:
 
 \begin{enumerate}
+    \item Conversion of the sampled value to the corresponding value in $\mu S$, by implementing the transfer function reported in figure \ref{fig:bitalino-transfer-function}
     \item Application of a 30 Hz \textbf{low-pass butterworth filter} 
     \item Deconvolution process in order to separate the \textbf{tonic} and the \textbf{phasic} component of the signal
     \item Peak detection in relation to the phasic component of the signal
 \end{enumerate}
 
-It is essential to consider that all the falls performed by the aforementioned volunteer were \textbf{self-initiated} and executed in conditions of \textbf{complete safety}. This was fundamental in order to prevent risk situations but, as stated in \ref{subsubsec:upfall-activities} while examining the activities performed during the UP-Fall research study, may have also caused inaccuracy because of the substantial difference between the falls occourring in real scenarios and the simulated ones. In the specific case of the Electrodermal Activity Data Analysis, it is reasonable to assume that simulated and self-initiatied falls may not cause an \textbf{emotional distress} condition as real-life ones probably would.
+It is essential to consider that all the falls performed by the aforementioned volunteer were \textbf{self-initiated} and executed in conditions of \textbf{complete safety}. This was fundamental in order to prevent risk situations but, as stated in \ref{subsubsec:upfall-activities}, it may have also caused inaccuracy due to the substantial difference between the falls that occur in real scenarios compared to simulated ones. In the specific case of the Electrodermal Activity Data Analysis, it is reasonable to assume that simulated and self-initiated falls may not be cause of \textbf{emotional distress}.
 
 Finally, it is import to note that, because of the nature of WP8 ALT-FRAILTY experimentation, all the falls were performed in sequence. Consequently, it was not possible to observe the changes in the detected EDA activity for the time succeeding a fall event. An analysis of the variations of both mental and physical conditions of an individual after a hard fall would require a different approach for the conduction of related clinical trials. 
 
 The obtained results have been reported respectively in figure \ref{fig:bitalino-rolling}, \ref{fig:bitalino-shoulder}, \ref{fig:bitalino-backwards} and \ref{fig:bitalino-front}.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/bitalino/Rolling.png}
     \caption{Rolling Fall - Electrodermal Activity Trace}
     \label{fig:bitalino-rolling}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/bitalino/Shoulder.png}
     \caption{Shoulder Fall - Electrodermal Activity Trace}
     \label{fig:bitalino-shoulder}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/bitalino/Backwards.png}
     \caption{Backwards Fall - Electrodermal Activity Trace}
     \label{fig:bitalino-backwards}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/bitalino/Front.png}
     \caption{Front Fall - Electrodermal Activity Trace}
     \label{fig:bitalino-front}
 \end{figure}
+
+\pagebreak
+
+% Rolling fall shows a minor increase in skin conductance level but also movement in the skin conductance response. 
+% Shoulder fall shows nothing useful
+% Backwards fall depicts something that is similar to a typical EDA trace
+% Front fall shows a trace similar to the one detected during the rolling fall
+
+The results obtained were \textbf{equivocal}. Both the \textbf{Rolling} and \textbf{Front} fall traces depict a minor and slow increase in the Skin Conductance Level which is, therefore, not significant in order to determine an increase in the stress levels of the individual. Moreover, the Skin Conductance Response shows several peaks during the whole measurement. It is reasonable to associate the cause of the detected peaks to the movements performed by the individual during the experimentation, which have been detected by the electrodes.
+
+Furthermore, the trace obtained by the \textbf{Shoulder} fall describes an initial decrease in the skin conductance levels (which may have been caused by the previous fall performed) followed by a slight increase. The latter corresponds to an event-related peak, visible by observing the corresponding phasic trace (SCR). This suggests the presence of variations in the skin conductance activity during a fall. These are, however, minimal and therefore poorly significant for classification purposes.
+
+The measurement obtained for the \textbf{Backwards} fall depicts, instead, a typical EDA trace related to stressful conditions. While the tonic component describes an increment of nearly 2 $\mu S$, the phasic component is determined by a corresponding increase of event-related peaks. Since the individual was not able to see the ground while falling backwards, it is reasonable to assume (in connection with the acquired data) that the fall event may have been perceived as more stressful than the others. A further investigation would be adopting different approaches for fall detection trials aimed at the analysis of psychophysiological metrics.
 
 
 
