@@ -105,7 +105,7 @@ More specifically, the function of each pin is reported in table \ref{toc:bitali
 
 The result obtained after the aforementioned modifications were applied is reported in figure \ref{fig:full-sensor-configuration}. 
 
-It is important to note the role of the \texttt{VCC/2} pin, which permits the flow of a so-called mid-point voltage through the circuit. This provides the necessary \textbf{stability} in order to compute the microSiemens value corresponding to the signal measured basing on the output voltage obtained by the sensor \cite{bitalino-midpoint-voltage}. With the aim of providing a correct tension to the \texttt{VCC/2} pin, a voltage divider was implemented by employing two $100 k\Omega$ resistors according to the schematization reported in figure \ref{fig:voltage-divider-schema}. In order to convert the voltage measured by the sensor to the corresponding microSiemens value, the transfer function reported in figure \ref{fig:bitalino-transfer-function} was used, according to the official BITalino documentation \cite{bitalino-general}.
+It is important to note the role of the \texttt{VCC/2} pin, which permits the flow of a so-called mid-point voltage through the circuit. This provides the necessary \textbf{stability} in order to compute the microSiemens value corresponding to the signal measured basing on the output voltage obtained by the sensor \cite{bitalino-midpoint-voltage}. With the aim of providing a correct tension to the \texttt{VCC/2} pin, a voltage divider was implemented by employing two 100 $k\Omega$ resistors according to the schematization reported in figure \ref{fig:voltage-divider-schema}. In order to convert the voltage measured by the sensor to the corresponding microSiemens value, the transfer function reported in figure \ref{fig:bitalino-transfer-function} was used, according to the official BITalino documentation \cite{bitalino-general}.
 
 \begin{figure}
     \centering
@@ -217,7 +217,7 @@ The main requirements for the system were the followings:
     \item A readout of sufficiently high sample rate in accordance with the Nyquist Theorem, as stated in \ref{subsec:eda-signal-properties}
 \end{itemize}
 
-In order to address the aforementioned requirements, the device was configured as a \textbf{Soft Access Point} exposing a \textbf{RESTful WebServer} providing a series of endpoints according to the functionalities stated above. The EDA activity was sampled at 100 Hz and retrieved from the sensor by employing a logic based on \textbf{Interrupt Service Routines}. The obtained data was, then, buffered and saved on a minimal file system indexed on the flash memory of the microcontroller.
+In order to address the aforementioned requirements, the device was configured as a \textbf{Soft Access Point} exposing a \textbf{RESTful WebServer} providing a series of endpoints according to the above stated functionalities. The EDA activity was sampled at 100 Hz and retrieved from the sensor by employing a logic based on \textbf{Interrupt Service Routines}. The obtained data was, then, buffered and saved on a minimal file system indexed on the flash memory of the microcontroller.
 
 \subsubsection{Libraries Employed}\label{subsubsec:libraries-employed}
 
@@ -233,7 +233,7 @@ LittleFS is publicly available and licensed under the BSD 3-Clause "New" or "Rev
 
 \vspace{8mm}
 
-\textbf{ESP8266TimerInterrupt} enables, instead, the definition of Interrupt Service Routines based on Hardware Timers on ESP8266-based boards \cite{esp8266timerinterrupt}. The latter were employed in order to provide a 100 Hz constant readout from the EDA sensor, by defining a timer that triggers an ISR (which reads data from the sensor and buffers the result) every 10ms. The library is publicly available and licensed under the MIT license.
+\textbf{ESP8266TimerInterrupt} enables, instead, the definition of Interrupt Service Routines based on Hardware Timers on ESP8266-based boards \cite{esp8266timerinterrupt}. The latter were employed in order to provide a 100 Hz constant readout from the EDA sensor, by defining a timer that triggers an ISR (which reads data from the sensor and buffers the result) every 10 milliseconds. The library is publicly available and licensed under the MIT license.
 
 \vspace{8mm}
 
@@ -434,7 +434,7 @@ void loop() {
 
 The device was tested during one of the data acquisition sessions of \textbf{WP8}, a branch of the \textbf{ALT-FRAILTY} research project that aims to evaluate deep learning techniques for real-time fall detection. More specifically, in a wider scenario, ALT-FRAILTY has providing personalized health management of physical, mental and social frailty in the Elderly as its main objective \cite{altfrailty}.
 
-The falls reported in table \ref{toc:bitalino-falls} were performed by a 22 years old male volunteer wearing the device on his non-dominant arm.
+The falls reported in table \ref{toc:bitalino-falls} were performed by a 22 years old male volunteer wearing the device on his non-dominant arm. The latter was wearing four wearable IMUs respectively on his wrists and ankles and was, meanwhile, recorded by several high-resolution cameras. The aim of the experimentation was, in fact, acquiring data addressed to the fusion of new Machine Vision approaches based on Deep Learning techniques, together with traditional ones such as Inertial Measurement Unit data retrieval.
 
 \vspace{7mm}
 
@@ -454,18 +454,16 @@ The falls reported in table \ref{toc:bitalino-falls} were performed by a 22 year
 \label{toc:bitalino-falls}
 \end{table}
 
-Subsequently, the data obtained from the device (encoded as a binary file) was \textbf{decoded} in respective CSV files and later analyzed using the functionalities provided by the \textbf{Python Programming Language} and the \textbf{NeuroKit2} \cite{neurokit} library. More specifically, the following steps were performed in order to process and plot the resulting data:
+Subsequently, the data obtained from the device (encoded as a binary file) was \textbf{decoded} in respective CSV files (by reading each block of 12 bytes) and later analyzed using the functionalities provided by the \textbf{Python Programming Language} and the \textbf{NeuroKit2} \cite{neurokit} library. More specifically, the following steps were performed in order to process and plot the resulting data:
 
 \begin{enumerate}
-    \item Conversion of the sampled value to the corresponding value in $\mu S$, by implementing the transfer function reported in figure \ref{fig:bitalino-transfer-function}
+    \item Conversion of the sampled value to the corresponding value in $\mu S$, by applying the transfer function (\ref{fig:bitalino-transfer-function})
     \item Application of a 30 Hz \textbf{low-pass butterworth filter} 
     \item Deconvolution process in order to separate the \textbf{tonic} and the \textbf{phasic} component of the signal
     \item Peak detection in relation to the phasic component of the signal
 \end{enumerate}
 
-It is essential to consider that all the falls performed by the aforementioned volunteer were \textbf{self-initiated} and executed in conditions of \textbf{complete safety}. This was fundamental in order to prevent risk situations but, as stated in \ref{subsubsec:upfall-activities}, it may have also caused inaccuracy due to the substantial difference between the falls that occur in real scenarios compared to simulated ones. In the specific case of the Electrodermal Activity Data Analysis, it is reasonable to assume that simulated and self-initiated falls may not be cause of \textbf{emotional distress}.
-
-Finally, it is import to note that, because of the nature of WP8 ALT-FRAILTY experimentation, all the falls were performed in sequence. Consequently, it was not possible to observe the changes in the detected EDA activity for the time succeeding a fall event. An analysis of the variations of both mental and physical conditions of an individual after a hard fall would require a different approach for the conduction of related clinical trials. 
+It is essential to consider that all the falls performed by the aforementioned volunteer were \textbf{self-initiated} and executed in conditions of \textbf{complete safety}. This was fundamental in order to prevent risk situations but, as stated in \ref{subsubsec:upfall-activities}, it may have also caused inaccuracy due to the substantial difference between the falls that occur in real scenarios compared to simulated ones. In the specific case of the Electrodermal Activity Data Analysis, it is reasonable to assume that simulated and self-initiated falls may not be cause of \textbf{emotional distress}. Finally, it is import to note that, because of the nature of WP8 ALT-FRAILTY experimentation, all the falls were performed in sequence. Consequently, it was not possible to observe the changes in the detected EDA activity for the time succeeding a fall event. An analysis of the variations of both mental and physical conditions of an individual after a hard fall would require a different approach for the conduction of related clinical trials. 
 
 The obtained results have been reported respectively in figure \ref{fig:bitalino-rolling}, \ref{fig:bitalino-shoulder}, \ref{fig:bitalino-backwards} and \ref{fig:bitalino-front}.
 
@@ -499,16 +497,13 @@ The obtained results have been reported respectively in figure \ref{fig:bitalino
 
 \pagebreak
 
-% Rolling fall shows a minor increase in skin conductance level but also movement in the skin conductance response. 
-% Shoulder fall shows nothing useful
-% Backwards fall depicts something that is similar to a typical EDA trace
-% Front fall shows a trace similar to the one detected during the rolling fall
-
 The results obtained were \textbf{equivocal}. Both the \textbf{Rolling} and \textbf{Front} fall traces depict a minor and slow increase in the Skin Conductance Level which is, therefore, not significant in order to determine an increase in the stress levels of the individual. Moreover, the Skin Conductance Response shows several peaks during the whole measurement. It is reasonable to associate the cause of the detected peaks to the movements performed by the individual during the experimentation, which have been detected by the electrodes.
 
 Furthermore, the trace obtained by the \textbf{Shoulder} fall describes an initial decrease in the skin conductance levels (which may have been caused by the previous fall performed) followed by a slight increase. The latter corresponds to an event-related peak, visible by observing the corresponding phasic trace (SCR). This suggests the presence of variations in the skin conductance activity during a fall. These are, however, minimal and therefore poorly significant for classification purposes.
 
-The measurement obtained for the \textbf{Backwards} fall depicts, instead, a typical EDA trace related to stressful conditions. While the tonic component describes an increment of nearly 2 $\mu S$, the phasic component is determined by a corresponding increase of event-related peaks. Since the individual was not able to see the ground while falling backwards, it is reasonable to assume (in connection with the acquired data) that the fall event may have been perceived as more stressful than the others. A further investigation would be adopting different approaches for fall detection trials aimed at the analysis of psychophysiological metrics.
+The measurement obtained for the \textbf{Backwards} fall depicts, instead, a typical EDA trace related to stressful conditions. While the tonic component describes an increment of nearly 2 $\mu S$, the phasic component is determined by a corresponding increase in the number of event-related peaks. Since the individual was not able to see the ground while falling backwards, a hypothesis supported by the acquired data leads to assume that the fall event may have been perceived as more stressful than the others. A further investigation in these terms would require the adoption of different approaches for fall detection trials aimed at analysing psychophysiological metrics.
+
+Lastly, even though the device worked seamlessly from a software perspective, the hardware has been proven to be too fragile and at risk of damage despite precautions were adopted, as stated in \ref{subsubsec:d1mini}, in order to limit the impact caused by falls.
 
 
 
