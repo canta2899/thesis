@@ -5,12 +5,11 @@
 %
 % we decided to use a commercial product
 % movisens and the edamove4
-%     - movisens
-%     - edamove4
-%     - sensor usage and data retrieval
+%     - movisens ok
+%     - edamove4 ok
+%     - sensor usage and data retrieval ok
+%     - unisens data format 
 %     - accessory tools
-%     - unisens data format
-%     - data analyzer and implemented features
 % data Collection (falls performed and the hospital context)
 % results
 %
@@ -43,7 +42,6 @@ The current catalog offers several sensor units for data collection and differen
     \textbf{movisensXS}      & A mobile solutions for Experience Sampling purposes \\
     \textbf{DataMerger}      & A desktop-based application for the integration of heterogeneous data \\
     \textbf{DataAnalyzer}    & A desktop-based application to analyze and report the acquired data \\
-    \textbf{Unisens Viewer}  & A desktop-based application to examine the acquire data \\
     \hline
 \end{tabular}
 \caption{List of products offered by Movisens GmbH}
@@ -88,11 +86,24 @@ The EdaMove 4 mounts a capacious Lithium battery which provides a constant 3.7 v
 
 Finally, the EdaMove 4 has been employed in several scientific publications that overall validated its functionalities.
 
-\subsection{Sensor Usage}\label{subsec:edamove4-usage}
+\subsection{Usage}\label{subsec:edamove4-usage}
 
 In order to organise a measurement session and subsequently extract the obtained data, Movisens provides a specific software toolchain intended to offer a cross-compatibility with all the \textbf{Move} sensors. 
 
-The sensors can be configured through the \textbf{Sensor Manager} software, which allows to define the personal data of the participant
+The sensors can be configured through the \textbf{Sensor Manager} software, which allows to define the personal data of the participant wearing the sensor and set specific parameter such as the \textbf{duration} and the \textbf{start time} for the measurement. Furthermore, the software detects whether the unit has non-retrieved measurements in its storage and provides the functionalities to download the collected data on the machine. More specifically, the data storage configuration can be set in order to match one of the two modalities proposed: 
+
+\begin{itemize}
+    \item Plain CSV files
+    \item \textbf{Unisens} File Format 
+\end{itemize}
+
+Besides the inclusion of a CSV modality, the company highly suggests the usage of the Unisens format in order to exploit the features that the standard implements and because it is the only format compatible with the \textbf{Unisens Viewer} and the \textbf{Data Analyzer} software products. The Unisens Viewew consists of a free and convenient tool that allows to plot and pre-process the raw data encoded in the Unisens format, providing functionalities to edit the measurements timeline by removing unwanted parts and by setting specific markers in order to later identify events of interest.
+
+The pre-processed and examined dataset obtained can, then, be analysed by employing the Data Analyzer, a paid software that implements several algorithms and data processing techniques for the various data sources provided by the Movisens products.
+
+
+\subsection{The Unisens Data Format}\label{subsec:unisens}
+
 
 
 
