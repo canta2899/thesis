@@ -29,7 +29,7 @@ The EDA sensor module consists of a single breakout board whose dimensions corre
     \hline
     Current                 & DC \\
     Range                   & 0-30 $\mu S$ \\
-    Consumption             & $\pm 0.1 mA$ \\
+    Consumption             & 0.1 $\pm mA$ \\
     Bandwidth               & 0 - 2.8 Hz \\
     Measurement             & continuous \\
     Input Voltage Range     & 1.8 - 5.5 V \\
@@ -254,7 +254,7 @@ The main variables and handlers were, then, defined with a global scope. This wa
     \item The \textbf{ESP8266WebServer} handler
     \item The \textbf{ESP8266Timer} handler
     \item The current file descriptor provided by \textbf{LittleFS}
-    \item Synchronization flags, declared as \mintinline{cpp}{volatile} when accessed by the Interrupt Service Routine, in order to avoid optimizations by the compiler that may result in inconsistent access to the variable.
+    \item Synchronization flags, declared as \mintinline{cpp}{volatile} when accessed by the Interrupt Service Routine, in order to avoid optimizations by the compiler that may result in inconsistent access to the variable
 \end{itemize}
 
 % for borders on code [frame=single,framesep=10pt]
@@ -411,7 +411,7 @@ void retrieve() {
 }
 \end{minted}
 
-Finally, the \mintinline{cpp}{void loop()} function was configured in order to handle incoming HTTP requests when no measurement is happening or, otherwise, determine when to stop the currently running measurement. This was done with the aim of preventing HTTP requests during a measurement, since both the Wi-Fi antenna and the EDA sensor rely on the same (and only) analog input of the microcontroller. Moreover, request handling causes a series of side-effects, including interrupts that may interfere with the execution of the timer-bases ISR defined in order to retrieve data from the sensor.
+Finally, the \mintinline{cpp}{void loop()} function was configured in order to handle incoming HTTP requests when no measurement is happening or, otherwise, determine when to stop the currently running measurement. This was done with the aim of preventing HTTP requests during a measurement, since both the Wi-Fi antenna and the EDA sensor rely on the same (and only) analog input of the microcontroller. Moreover, request handling causes a series of side-effects, including interrupts that may interfere with the execution of the timer-based ISR defined in order to retrieve data from the sensor.
 
 \begin{minted}{cpp}
 void loop() {
@@ -454,7 +454,7 @@ The falls reported in table \ref{toc:bitalino-falls} were performed by a 22 year
 \label{toc:bitalino-falls}
 \end{table}
 
-Subsequently, the data obtained from the device (encoded as a binary file) was \textbf{decoded} in respective CSV files (by reading each block of 12 bytes) and later analyzed using the functionalities provided by the \textbf{Python Programming Language} and the \textbf{NeuroKit2} \cite{neurokit} library. More specifically, the following steps were performed in order to process and plot the resulting data:
+The data obtained from the device (encoded as a binary file) was \textbf{decoded} in respective CSV files (by reading each block of 12 bytes) and later analyzed using the functionalities provided by the \textbf{Python Programming Language} and the \textbf{NeuroKit2} \cite{neurokit} library. More specifically, the following steps were performed in order to process and plot the resulting data:
 
 \begin{enumerate}
     \item Conversion of the sampled value to the corresponding value in $\mu S$, by applying the transfer function (\ref{fig:bitalino-transfer-function})
@@ -463,7 +463,7 @@ Subsequently, the data obtained from the device (encoded as a binary file) was \
     \item Peak detection in relation to the phasic component of the signal
 \end{enumerate}
 
-It is essential to consider that all the falls performed by the aforementioned volunteer were \textbf{self-initiated} and executed in conditions of \textbf{complete safety}. This was fundamental in order to prevent risk situations but, as stated in \ref{subsubsec:upfall-activities}, it may have also caused inaccuracy due to the substantial difference between the falls that occur in real scenarios compared to simulated ones. In the specific case of the Electrodermal Activity Data Analysis, it is reasonable to assume that simulated and self-initiated falls may not be cause of \textbf{emotional distress}. Finally, it is import to note that, because of the nature of WP8 ALT-FRAILTY experimentation, all the falls were performed in sequence. Consequently, it was not possible to observe the changes in the detected EDA activity for the time succeeding a fall event. An analysis of the variations of both mental and physical conditions of an individual after a hard fall would require a different approach for the conduction of related clinical trials. 
+It is essential to consider that all the falls performed by the aforementioned volunteer were \textbf{self-initiated} and executed in conditions of \textbf{complete safety}. This was fundamental in order to prevent risk situations but, as stated in \ref{subsubsec:upfall-activities}, may have also been cause of inaccuracy due to the substantial difference between the falls that occur in real scenarios compared to simulated ones. In the specific case of the Electrodermal Activity Data Analysis, it is reasonable to assume that simulated and self-initiated falls may not be cause of \textbf{emotional distress}. Finally, it is import to note that, because of the nature of the WP8 ALT-FRAILTY experimentation, all the falls were performed in sequence. Consequently, it was not possible to observe the changes in the detected EDA signal for the time succeeding a fall event. An analysis of the variations of both mental and physical conditions of an individual after a hard fall would require a different approach for the conduction of related clinical trials. 
 
 The obtained results have been reported respectively in figure \ref{fig:bitalino-rolling}, \ref{fig:bitalino-shoulder}, \ref{fig:bitalino-backwards} and \ref{fig:bitalino-front}.
 

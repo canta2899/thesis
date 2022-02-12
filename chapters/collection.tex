@@ -4,29 +4,22 @@
 % |      ROADMAP      |
 % +===================+
 %
-% we decided to use a commercial product
-% movisens and the edamove4
-%     - movisens OK
-%     - edamove4 OK
-%     - sensor usage and data retrieval OK
-%     - unisens data format 
-%     - Consumables Employed 
 % data Collection (falls performed and the hospital context)
 % results
 %
 
-In order to further investigate the result obtained during the first experimentation session, a second testing trial was performed. This allowed the collection of additional data in order to draw conclusions in relation to the \textbf{feasibility} of the Electrodermal Activity analysis for classification purposes in the context of fall detection.
+In order to further investigate the results obtained during the first experimentation session, a second testing trial was performed. This allowed the collection of additional data in order to draw conclusions in relation to the \textbf{feasibility} of the Electrodermal Activity analysis for classification purposes in the context of fall detection.
 
 In this case, a commercial and publicly acknowledged device was employed in order to overcome the issues concerning the sensitivity to shocks and impacts of the BITalino device and, in addition, to acquire further bio-signals along with the Electrodermal Activity data.
 
 \section{Selection of a High End Electrodermal Activity Sensor}\label{sec:movisens}
 
-The device employed consists of the \textbf{EdaMove4} sensor by \textbf{Movisens GmbH}, which is one of the most accurate and popular wearable devices aimed at the Electrodermal Activity measurement together with other such as the previously mentioned \textbf{Empatica E4}. Therefore, the following sections propose a brief overview of the product and its features.
+The device employed consists of the \textbf{EdaMove 4} sensor by \textbf{Movisens GmbH}, which is one of the most accurate and popular wearable devices aimed at the Electrodermal Activity measurement together with others such as the previously mentioned \textbf{Empatica E4}. In the following sections, a brief overview of the product and its features in proposed.
 
 \subsection{Movisens GmbH}\label{subsec:movisens-company}
 
-Movisens GmbH is a German company deemed as a global leader in ambulatory assessment solutions \cite{movisens}, which offers several services such as workshops, consults, customized products and software in order to both support researchers and provide technologies and solutions for the healthcare sector.
-The current catalog offers several sensor units for data collection and different mobile and desktop applications for data integration, processing and analysis. More specifically, the table \ref{toc:movisens-products} provides a list of the current available products.
+Movisens GmbH is a German company deemed as a global leader in ambulatory assessment solutions \cite{movisens}, which offers several services such as workshops, consults, customized products and software in order to support researchers and provide technologies for the healthcare sector.
+The current catalog offers several instruments for data collection, integration, processing and analysis. More specifically, a list of the currently available products is reported in table \ref{toc:movisens-products}.
 
 \begin{table}[H]
 \centering
@@ -35,24 +28,24 @@ The current catalog offers several sensor units for data collection and differen
     Name                     &  Description \\
     \hline
     \textbf{Move 4}          & A 10-Axis IMU that integrates a temperature sensor \\
-    \textbf{EcgMove 4}       & A Move 4 unit that integrates ECG data collection  \\
-    \textbf{EdaMove 4}       & A Move 4 unit that integrates EDA data collection \\
-    \textbf{LightMove 4}     & A Move 4 unit that integrates the acquisition of ambient light measurements \\
-    \textbf{SensorTrigger}   & A mobile solutions for activity-triggered data logging \\
-    \textbf{movisensXS}      & A mobile solutions for Experience Sampling purposes \\
+    \textbf{EcgMove 4}       & A Move 4 unit that integrates ECG data \\
+    \textbf{EdaMove 4}       & A Move 4 unit that integrates EDA data \\
+    \textbf{LightMove 4}     & A Move 4 unit that integrates the acquisition of ambient light measurement \\
+    \textbf{SensorTrigger}   & A mobile solution for activity-triggered data logging \\
+    \textbf{movisensXS}      & A mobile solution for Experience Sampling purposes \\
     \textbf{DataMerger}      & A desktop-based application for the integration of heterogeneous data \\
     \textbf{DataAnalyzer}    & A desktop-based application to analyze and report the acquired data \\
     \hline
 \end{tabular}
-\caption{List of products offered by Movisens GmbH}
+\caption{List of the products implemented by Movisens GmbH}
 \label{toc:movisens-products}
 \end{table}
 
-Moreover, the company provides several solutions that allow researchers and students to utilize the needed instrumentation by requiring a free, limited rent for a specific product. In this case, the company has consented a rental related to the \textbf{EdaMove 4} sensor for the required period of time. 
+Additionally, the company provides several solutions that allow researchers and students to utilize the needed instrumentation by requiring a free, limited rent for a specific product. In this case, the company has consented a rental of the \textbf{EdaMove 4} sensor for the required period of time. 
 
 \subsection{The EdaMove 4 Sensor}\label{subsec:edamove4}
 
-Across all the products developed by Movisens, the EdaMove 4 is the one that implements measurement functionalities for the Electrodermal Activity. It consists of a 62,3 x 38,6 x 11,5 mm case with a 26 g weight \cite{edamove4} that provides a Micro-USB connection (in order to connect the unit to the \textit{Sensor Manager} software) and two snap-button connectors in order to attach the positive and negative electrode. Moreover, a proper wrist band with pre-connected electrodes and specific mount points for the EdaMove 4 sensor allows the device to be worn seamlessly on the wrist or the ankle.
+Across all the products developed by Movisens, the EdaMove 4 is the one that implements measurement functionalities for the Electrodermal Activity. It consists of a 62,3 x 38,6 x 11,5 mm case with a 26 g weight \cite{edamove4} that provides a Micro-USB connection (in order to connect the unit to the \textit{Sensor Manager} software) and two snap-button connectors in order to attach the positive and negative electrodes. Moreover, a proper wrist band with pre-connected electrodes and specific mount points for the EdaMove 4 sensor allows the device to be worn seamlessly on the wrist or the ankle.
 
 
 \begin{figure}[htp]
@@ -62,7 +55,7 @@ Across all the products developed by Movisens, the EdaMove 4 is the one that imp
         \label{fig:edamovesensor-up}%
     }%
     \hfill%
-    \subfloat[Electrodes Placement]{%
+    \subfloat[The Sensor Unit Employed]{%
         \includegraphics[width=0.4\textwidth]{./images/edamove2.jpeg}%
         \label{fig:edamovesensor-up}%
     }%
@@ -80,48 +73,42 @@ Other than acquiring EDA measurement, the unit also offers:
 
 More specifically, the unit implements an exosomatic acquisition technique by applying a standard voltage of 0.5 V DC. The internal Analog to Digital Converter provides a 14 bit resolution and the output rate corresponds to 32 Hz for a 8 Hz bandwidth.
 
-Moreover, the 3D accelerometers provides a $\pm$ 16 g range with an output rate of 64 Hz, while the rotation rate sensor offers a $\pm$ 2000 dps range, with a 64 Hz output rate and a 70 mdps resolution. The pressure sensor provides, instead, a measurement range between 300 and 1100 hPa, with a 8 Hz output rate and a 0.03 hPa resolution. Finally, the temperature sensor provides an output rate of 1 Hz.
+Furthermore, the 3D accelerometer provides a $\pm$ 16 g range with an output rate of 64 Hz, while the rotation rate sensor offers a $\pm$ 2000 dps range, with a 64 Hz output rate and a 70 mdps resolution. The pressure sensor provides, instead, a measurement range between 300 and 1100 hPa, with a 8 Hz output rate and a 0.03 hPa resolution. Finally, the temperature sensor provides an output rate of 1 Hz.
 
-The EdaMove 4 mounts a capacious Lithium battery which provides a constant 3.7 voltage and offers a continuous runtime of almost four days. An internal memory of 4 Gigabytes provides, instead, a maximum recording capacity of 4 weeks, allowing the usage of the sensor in varied contexts, from controlled experimentations to uncontrolled, domestic environments. 
+The EdaMove 4 mounts a capacious Lithium battery which provides a constant 3.7 voltage and offers a continuous runtime of almost four days. An internal memory of 4 Gigabytes offers, instead, a maximum recording capacity of 4 weeks, allowing the usage of the sensor in varied contexts, from controlled experimentations to uncontrolled, domestic environments. 
 
-Finally, the EdaMove 4 has been employed in several scientific publications that overall validated its functionalities.
+Finally, the EdaMove 4 has been employed in several scientific publications that overall validated its functionalities and accuracy.
 
 \subsection{Sensor Usage}\label{subsec:edamove4-usage}
 
-In order to organise a measurement session and subsequently extract the obtained data, Movisens provides a specific software toolchain intended to offer a cross-compatibility with all the \textbf{Move} sensors. 
+In order to organise a measurement session and subsequently extract the obtained data, Movisens provides a specific software toolchain, which is cross-compatible between all the Move sensors. 
 
-The sensors can be configured through the \textbf{Sensor Manager} software, which allows to define the personal data of the participant wearing the sensor and set specific parameter such as the \textbf{duration} and the \textbf{start time} for the measurement. Furthermore, the software detects whether the unit has non-retrieved measurements in its storage and provides the functionalities to download the collected data on the machine. More specifically, the data storage configuration can be set in order to match one of the two modalities proposed: 
+More specifically, the sensors can be configured through the \textbf{Sensor Manager} software, which allows the definition of personal data in relation to the individual and the specification of parameters such as the \textbf{duration} and the \textbf{start time} of the following measurement. Furthermore, the software detects whether the unit has non-retrieved measurements in its storage and provides functionalities to transfer the acquired dataset to the machine of the user. The data acquisition criteria can be configured in order to match one of the two modalities proposed: 
 
 \begin{itemize}
     \item \textbf{Plain CSV} files
     \item \textbf{Unisens} File Format 
 \end{itemize}
 
-Besides the inclusion of a CSV modality, the company highly suggests the usage of the Unisens format in order to exploit the features that the standard implements and because it is the only format compatible with the \textbf{Unisens Viewer} and the \textbf{Data Analyzer} software products. The Unisens Viewer consists of a free and convenient tool that allows to plot and pre-process the raw data encoded in the Unisens format, providing functionalities to edit the measurements timeline by removing unwanted parts and by setting specific markers in order to later identify events of interest.
-
-The pre-processed and examined dataset obtained can, then, be analysed by employing the Data Analyzer, a paid software that implements several algorithms and data processing techniques for the various data sources provided by the Movisens products.
+Besides Plain CSV is included as an option, the company highly suggests the usage of the Unisens format in order to exploit the functionalities that the standard implements. The latter is, in fact, compatible with both the \textbf{Unisens Viewer} and the \textbf{Data Analyzer} software. The first consists of a free and convenient tool that allows to plot and pre-process the raw data acquired (providing functionalities to remove unwanted sections and set specific markers in order to identify events of interest). The second one, instead, consists of a paid software that implements several algorithms and data processing techniques for the analysis of all the data acquired by Movisens products.
 
 \subsection{The Unisens Data Format}\label{subsec:unisens}
 
-One of the main difficulties that are required to be addressed when collecting data from multiple and heterogeneous data sources is related to the storage and representation of the information acquired. More specifically, data can be retrieved at different sample rates or at specific time intervals and requires to be later synchronized e recomposed for both analytic and classification purposes. This problematic has been addressed in a multitude of different ways by researches. For example, as stated in \ref{subsubsec:upfall-technologies}, in the case of the UP-Fall dataset, an unique sample rate was define in order to allow data synchronization from different sources. 
+One of the main difficulties that are required to be addressed when collecting data from multiple and heterogeneous sources is related to the storage and representation of the acquired information. More specifically, data can be retrieved at different sample rates or at specific time intervals and requires to be later synchronized e recomposed in order to be represented, analyzed and, eventually, classified. This problematic has been addressed in a multitude of different ways by researches. For example, as stated in \ref{subsubsec:upfall-technologies}, in the case of the UP-Fall dataset, a unique sample rate was defined in order to allow data synchronization from different sources. This strategy, however, required to lower the sample rate of certain devices which could have provided much more accuracy by configuring higher sample rates.
 
-With these aims, the \textbf{FZI Research Center for Information Technology} and the \textbf{Institute for Information Processing Technology} at the University of Karlsruhe developed \textbf{Unisens}, a universal format standard that provides a shared criteria to collect multi sensor data \cite{unisens}.
-
-Unisens is licensed under the LGPL license and provides the following abilities and features: 
+With these aims, the \textbf{FZI Research Center for Information Technology} and the \textbf{Institute for Information Processing Technology} at the University of Karlsruhe developed \textbf{Unisens}, a universal format standard that provides a shared criteria to collect multi sensor data \cite{unisens}. The latter is licensed under the LGPL license and provides the following abilities and features: 
 
 \begin{itemize}
     \item Handling of continuous signals, as well as annotations and values
     \item Separate storage of multiple data channels
     \item Ability to synchronize data collected at various sample rates
-    \item Provide a layer of separation between raw data and meta information
-    \item Provide a flexible criteria to organise data in logical groups
-    \item Define a human and machine readable met information source
-    \item Privilege ease of use, even in the case of embedded systems
+    \item A layer of separation between raw data and meta information
+    \item A flexible criteria to organise data in logical groups
+    \item A human and machine readable meta information source file
+    \item Ease of use, even in the case of embedded systems
 \end{itemize}
 
-The structure of a Unisens dataset involves the presence of several independent data sources stored as CSV or binary files which are, then, \textbf{aggregated} through the usage of an XML file. The latter provides generic meta information in relation to, for example, additional sensor-related data, the initial time-stamp of the measurement or the source file for each data channel, with the required parameters in order to allow a correct parsing.
-
-An brief example of the aforementioned file is reported below.
+The structure of a Unisens dataset involves the presence of several independent data sources stored as CSV or binary files which are, then, \textbf{aggregated} through a single XML file. The latter provides generic meta information in relation to additional sensor-related data, the initial time-stamp of the measurement, the source file of each data channel (with the required parameters in order to allow a correct parsing) and more. A brief example of the aforementioned file is reported below.
 
 \begin{minted}{xml}
 
@@ -154,9 +141,11 @@ An brief example of the aforementioned file is reported below.
 </unisens>
 \end{minted}
 
-As stated previously, all the Movisens provide a complete integration of the Unisens data format, which was therefore used in order to acquire and store fall detection related data. Additionally, Unisens provides support for common general-purpose programming languages such as \textbf{Python}, \textbf{Java}, \textbf{C\#} and others.
+As stated previously, the Movisens software toolchain provides a complete integration of the Unisens data format, which was therefore used in order to acquire and store fall detection related data. Additionally, Unisens provides support for common general-purpose programming languages such as \textbf{Python}, \textbf{Java}, \textbf{C\#} and \textbf{Matlab} other than offering the previously mentioned Unisens Viewer software, a desktop based application compatible with the Windows Operative System that allows users to interact with datasets through a graphical user interface. 
 
 \section{Data Collection}\label{sec:edamove4-data-collection}
+
+
 
 
 
