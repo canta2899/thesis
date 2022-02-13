@@ -332,7 +332,7 @@ void start() {
 }
 \end{minted}
 
-The interrupt service routine performs an \mintinline{cpp}{analogRead()} on the EDA sensor pin. Subsequently, the value read from the sensor (which, as an integer, has a size of four bytes in the ESP8266 architecture) is combined, together with the one returned by \mintinline{cpp}{millis()} (which, instead, has a size of eight bytes as an unsigned long datatype). A 12-byte payload (encoded using bit-wise operations) is, then, stored as binary data.
+The interrupt service routine performs an \mintinline{cpp}{analogRead()} on the EDA sensor pin. Subsequently, the value read from the sensor (which, as an integer, has a size of four bytes in the ESP8266 architecture) is combined, together with the one returned by \mintinline{cpp}{millis()} (which, instead, has a size of eight bytes as an unsigned long datatype). A 12-byte payload (encoded using bit-wise operations with a \textbf{Big Endian} approach) is, then, stored as binary data.
 
 %pagebreak % added to move the whole code block to a new page since the previous one is almost ending
 
