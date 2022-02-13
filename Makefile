@@ -5,14 +5,14 @@ chp := $(wildcard chapters/*.tex)
 all: thesis.pdf 
 	@open thesis.pdf
 
-thesis.pdf: thesis.tex $(chp) thud.bib book.thud.tex beamer.thud.tex thud.cls
-	@echo "First compilation..."
+thesis.pdf: thesis.tex thud.bib book.thud.tex beamer.thud.tex thud.cls $(chp)
+	@printf "Compilation: [1]"
 	@pdflatex --shell-escape --synctex=1 --output-format=pdf thesis.tex > /dev/null
-	@echo "Compiling bibliography"
+	@printf "\rCompilation: [B]"
 	@bibtex thesis > /dev/null
-	@echo "Second compilation..."
+	@printf "\rCompilation: [2]"
 	@pdflatex --shell-escape --synctex=1 --output-format=pdf thesis.tex > /dev/null
-	@echo "Third compilation..."
+	@printf "\rCompilation: [3]"
 	@pdflatex --shell-escape --synctex=1 --output-format=pdf thesis.tex > /dev/null
-	@echo "Done"
+	@printf "\nDone\n"
 
