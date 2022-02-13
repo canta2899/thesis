@@ -153,7 +153,7 @@ As stated previously, the Movisens software toolchain provides a complete integr
 
 \subsection{Organisation of the Session}\label{subsec:session-org}
 
-The data collection session was performed at the \textbf{Simulation Center} of the Santa Maria della Misericoria hospital in Udine and involved the participation of a single 49 years old male and healthy individual. A single EDA Move 4 sensor was employed and worn on the wrist of the dominant arm of the participant, as depicted in figure \ref{fig:edamovesensor}. All the activities performed have been reported in table \ref{toc:falls-performed-edamove}. Moreover, like for the previous session, it is important to note that all the falls were self-initiated and performed on purpose in a completely safe environment.
+The data collection session was performed at the \textbf{Simulation Center} of the Santa Maria della Misericoria Hospital in Udine and involved the participation of a single 49 years old male and healthy individual. A single EDA Move 4 sensor was employed and worn on the wrist of the dominant arm of the participant, as depicted in figure \ref{fig:edamovesensor}. All the activities performed have been reported in table \ref{toc:falls-performed-edamove}. Moreover, like for the previous session, it is important to note that all the falls were self-initiated and performed on purpose in a completely safe environment. Finally, in some cases the same fall was performed multiple times.
 
 \begin{table}[H]
 \centering
@@ -162,11 +162,15 @@ The data collection session was performed at the \textbf{Simulation Center} of t
     Name         & Description \\
     \hline
     Bed          & Falling while getting up from a bed \\
-    Sidewards    & Standing and subsequently falling on the side \\ 
+    BedSX        & Falling while getting up on the left side of the bed \\
+    BedDX        & Falling while getting up on the right side of the bed \\
+    SlumpingSX   & Falling while getting up on the left side of the bed \\
+    SlumpingDX   & Falling while getting up on the right side of the bed \\
+    SidewardsSX  & Standing and subsequently falling on the left side \\ 
+    SidewardsDX  & Standing and subsequently falling on the right side \\ 
     Bending      & Falling while picking up an object from the ground \\ 
-    Standing     & Standing and subsequently falling slumping on the bed \\
+    Backwards    & Standing and subsequently falling backwards \\
     Front        & Standing and subsequently falling anteriorly  \\
-    Backwards    & Standing and subsequenlty falling backwards \\
     \hline
 \end{tabular}
 \caption{List of the products implemented by Movisens GmbH}
@@ -175,7 +179,7 @@ The data collection session was performed at the \textbf{Simulation Center} of t
 
 In this case, a \textbf{unique} and \textbf{continuous} measurement was acquired for the whole duration of the session. This strategy was adopted in order to provide the ability to analyze single event-related episodes as well as the whole evolution of the Electrodermal Activity throughout the entire duration of the experimentation. Moreover, timestamps were acquired in order to mark the beginning and the end of each fall in order to facilitate the subsequent process of separation of different events.
 
-The acquired data (which also included information retrieved from the other sensors that compose the EdaMove 4) was, then, extracted and preprocessed in order to provide a single Unisens dataset for each one of the falls performed.
+The acquired data (which also included information retrieved from the other sensors that compose the EdaMove 4) was, then, extracted and preprocessed in order to extract the raw EDA data (which was already converted in $\mu S$ by the sensor itself) and separate each fall. With these aims, a data processing algorithm was programmed and executed on a \textbf{Python Jupyter Notebook} by using the \textbf{PyUnisens} library.
 
 
 
