@@ -12,7 +12,7 @@ In order to further investigate the results obtained during the first experiment
 
 In this case, a commercial and publicly acknowledged device was employed in order to overcome the issues concerning the sensitivity to shocks and impacts of the BITalino device and, in addition, to acquire further bio-signals along with the Electrodermal Activity data.
 
-\section{Selection of a High End Electrodermal Activity Sensor}\label{sec:movisens}
+\section{Choosing a High End Electrodermal Activity Sensor}\label{sec:movisens}
 
 The device employed consists of the \textbf{EdaMove 4} sensor by \textbf{Movisens GmbH}, which is one of the most accurate and popular wearable devices aimed at the Electrodermal Activity measurement together with others such as the previously mentioned \textbf{Empatica E4}. In the following sections, a brief overview of the product and its features in proposed.
 
@@ -162,10 +162,10 @@ The data collection session was performed at the \textbf{Simulation Center} of t
     Name         & Description \\
     \hline
     Bed          & Falling while getting up from a bed \\
-    BedSX        & Falling while getting up on the left side of the bed \\
-    BedDX        & Falling while getting up on the right side of the bed \\
-    SlumpingSX   & Falling while getting up on the left side of the bed \\
-    SlumpingDX   & Falling while getting up on the right side of the bed \\
+    BedSX        & Falling off the left side of the bed while getting up\\
+    BedDX        & Falling off the right side of the bed while getting up \\
+    SlumpingSX   & Slumping on the left side of the bed while falling  \\
+    SlumpingDX   & Slumping on the right side of the bed while falling  \\
     SidewardsSX  & Standing and subsequently falling on the left side \\ 
     SidewardsDX  & Standing and subsequently falling on the right side \\ 
     Bending      & Falling while picking up an object from the ground \\ 
@@ -177,11 +177,99 @@ The data collection session was performed at the \textbf{Simulation Center} of t
 \label{toc:falls-performed-edamove}
 \end{table}
 
+\subsection{Techniques Adopted}\label{subsec:session-techniques}
+
 In this case, a \textbf{unique} and \textbf{continuous} measurement was acquired for the whole duration of the session. This strategy was adopted in order to provide the ability to analyze single event-related episodes as well as the whole evolution of the Electrodermal Activity throughout the entire duration of the experimentation. Moreover, timestamps were acquired in order to mark the beginning and the end of each fall in order to facilitate the subsequent process of separation of different events.
 
 The acquired data (which also included information retrieved from the other sensors that compose the EdaMove 4) was, then, extracted and preprocessed in order to extract the raw EDA data (which was already converted in $\mu S$ by the sensor itself) and separate each fall. With these aims, a data processing algorithm was programmed and executed on a \textbf{Python Jupyter Notebook} by using the \textbf{PyUnisens} library.
 
+Since timestamps have been acquired (by employing a stopwatch) in order to mark the beginning and the ending of each measurement, these were used in order to extract the data related to each fall. Since the EDA trace obtained from the Unisens dataset, as a measurement of fixed sample rate, did not provide time-related information, the \textbf{Measurement Start Timestamp} was used. This constitutes part of the standard meta information included in the Unisens XML file. More specifically, the EDA signal (which, in Python, is decoded as a Numpy array) was grouped in sub-arrays of fixed size, corresponding to the sample rate (which is, as stated in \ref{subsec:edamove4}, of 32 Hz). A time indication was, then, assigned (with an increment rate of one second) to every group. The latter procedure made possible the usage of the acquired time information in order to isolate each measurement.
 
+\subsection{Results}\label{subsec:results}
 
+The following sections report the most relevant results observed, which have been analyzed and plotted using the Python Programming Language and the previously mentioned \textbf{NeuroKit2} library. For this purposes, minor modifications were applied to the NeuroKit2 source code in order to fine tune specific parameters that provide cleaner results. All the plots were, then, produced by integrating the functionalities of the previously mentioned notebook. 
 
+\subsubsection{Bed Fall}\label{subsubsec:bed-fall}
+
+The first fall performed was the so-called \textbf{Bed Fall}. Three different variants of the latter were performed, which together reflect the most common bed-related fall that involves the majority of people, especially the elderlies. These respectively concern: 
+
+\begin{itemize}
+    \item The act of falling while getting up from the bed, which may be caused by an unexpected inability to stand up 
+    \item The act of falling due to the attempt to reach an object on the floor while lying on the bed, respectively on the left and right size
+\end{itemize}
+
+The results obtained have been reported in figures \ref{fig:movisens-bed}, \ref{fig:movisens-beddx} and \ref{fig:movisens-bedsx}. More specifically, with the same methodology adopted for Chapter \ref{ch:implementation}, the two signals components were separated through a deconvolution approach and plotted separately, together with the raw signal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/Bed.png}
+    \caption{EDA Trace for the Bed Fall}
+    \label{fig:movisens-bed}
+\end{figure}
+
+The trace corresponding to the \textbf{Bed Fall} does not depict any increase in the levels of stress or arousal. Besides the raw signal shows a slight increase, it is clear from the separation of the two components that this is completely dictated by the influence of the phasic component. Because the Skin Conductance Level does not show any increase during the whole measurement duration, it is reasonable to assume that the activity described by the phasic component is mainly influenced by the hand movements and the impact of the sensor with the ground.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/BedDX.png}
+    \caption{EDA Trace for the BedDX Fall}
+    \label{fig:movisens-beddx}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/BedSX.png}
+    \caption{EDA Trace for the BedSX Fall}
+    \label{fig:movisens-bedsx}
+\end{figure}
+
+The traces for the two other falls (respectively, the \textbf{BedDX} and \textbf{BedSX} one) have, instead, a similar pattern. More specifically, a \textbf{slight} and therefore \textbf{poorly significant} increase is observed for the tonic component, while a varying and eventful trace is described by the phasic component. Besides the raw signal of both falls shows an increase of almost 2 $\mu S$, it is possible to assume (by observing tonic activity) that the cause may be mainly found in the hand movements produced by the individual. In both cases, in fact, the participant landed on the ground by actively putting all of his weight on the hands and therefore causing the electrodes to acquire more event-related stimuli.
+
+In all the three cases examined, the Electrodermal Activity measurement did not, therefore, provide a clear and useful pattern for classification purposes.
+
+\subsubsection{Slumping Fall}\label{subsubsec:slumping-fall}
+
+After the bed falls, the slumping falls were performed. These involve the activity of slumping on the ground while failing the attempt of using the bed as a support in order to avoid keeling over. The action configures itself as a pattern that involves elderly and disabled people. Even in this case, the fall was performed for both the left and right side.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/SlumpingSX.png}
+    \caption{EDA Trace for the SlumpingSX Fall}
+    \label{fig:movisens-slumpsx}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/SlumpingDX.png}
+    \caption{EDA Trace for the SlumpingDX Fall}
+    \label{fig:movisens-slumpdx}
+\end{figure}
+
+Both the measurements show a slight increase in the Skin Conductance Level, which was higher in the case of the right fall. At the same time, though, the right fall describes a more irregular activity of the phasic component. The latter may have been caused by motion artifacts happened during the falls and consequently have influenced the growth of the signal level. Both the traces do not, however, describe an EDA trace referable to a variation in the emotional condition, which would provide clear and isolated peaks with a significant increase of the SCL component.
+
+\subsubsection{Bending Fall}\label{subsubsec:bending-fall}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/Bending1.png}
+    \caption{EDA Trace for a Bending Fall}
+    \label{fig:movisens-bending1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/Bending2.png}
+    \caption{EDA Trace for a Bending Fall}
+    \label{fig:movisens-bending2}
+\end{figure}
+
+\subsubsection{Sidewards Fall}\label{subsubsec:sidewards-fall}
+
+\subsubsection{Backwards Fall}\label{subsubsec:backwards-fall}
+
+\subsubsection{Front Fall}\label{subsubsec:front-fall}
+
+\subsubsection{Further Observations}\label{subsubsec:further-observations}
+
+\subsection{Results Obtained}\label{subsec:summary-results}
 
