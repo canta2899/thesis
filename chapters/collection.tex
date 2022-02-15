@@ -107,22 +107,33 @@ With these aims, the \textbf{FZI Research Center for Information Technology} and
     \item Ease of use, even in the case of embedded systems
 \end{itemize}
 
-The structure of a Unisens dataset involves the presence of several independent data sources stored as CSV or binary files which are, then, \textbf{aggregated} through a single XML file. The latter provides generic meta information in relation to additional sensor-related data, the initial time-stamp of the measurement, the source file of each data channel (with the required parameters in order to allow a correct parsing) and more. A brief example of the aforementioned file is reported below.
+The structure of a Unisens dataset involves the presence of several independent data sources stored as CSV or binary files which are, then, \textbf{aggregated} through a single XML file. The latter provides generic meta information in relation to additional sensor-related data, the initial time-stamp of the measurement, the source file of each data channel (with the required parameters in order to allow a correct parsing) and more.
 
+\vspace{5mm}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=15cm]{./images/unisens_viewer.png}
+    \caption{The Unisens Viewer Application}
+    \label{fig:unisens-viewer-gui}
+\end{figure}
+
+As stated previously, the Movisens software toolchain provides a complete integration of the Unisens data format, which was therefore used in order to acquire and store fall detection related data. Additionally, Unisens provides support for common general-purpose programming languages such as \textbf{Python}, \textbf{Java}, \textbf{C\#} and \textbf{Matlab} other than offering the previously mentioned Unisens Viewer software, a desktop based application compatible with the Windows Operative System that allows users to interact with datasets through a graphical user interface. An extract of the content of a Unisens XML file has been reported in figure \ref{fig:unisens-xml}.
+
+\vspace{20mm}
+
+\begin{figure}[H]
 \begin{minted}{xml}
 
 <?xml version="2.0" encoding="UTF-8" standalone="no"?>
-<unisens comment="Description of the measurement" 
-         duration="1186.0"
+<unisens comment="Description of the measurement" duration="1186.0"
          timestampStart="2021-12-02T15:12:01.569"
-         ...
-         >
+         ...>
     <customAttributes>
         <customAttribute key="sensorLocation" value="right_wrist"/>
         ...
         <customAttribute key="sensorTimeDrift" value="-3.7783"/>
     </customAttributes>
-
     <signalEntry adcResolution="16"
                  comment="acc"
                  contentClass="acc"
@@ -139,15 +150,11 @@ The structure of a Unisens dataset involves the presence of several independent 
     ...
 </unisens>
 \end{minted}
-
-As stated previously, the Movisens software toolchain provides a complete integration of the Unisens data format, which was therefore used in order to acquire and store fall detection related data. Additionally, Unisens provides support for common general-purpose programming languages such as \textbf{Python}, \textbf{Java}, \textbf{C\#} and \textbf{Matlab} other than offering the previously mentioned Unisens Viewer software, a desktop based application compatible with the Windows Operative System that allows users to interact with datasets through a graphical user interface. 
-
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=0.9\textwidth]{./images/unisens_viewer.png}
-    \caption{The Unisens Viewer Application}
-    \label{fig:unisens-viewer-gui}
+\caption{A brief extract of a Unisens XML file}
+\label{fig:unisens-xml}
 \end{figure}
+
+\newpage
 
 \section{Data Collection}\label{sec:edamove4-data-collection}
 
@@ -173,13 +180,13 @@ The data collection session was performed at the \textbf{Simulation Center} of t
     Front        & Standing and subsequently falling anteriorly  \\
     \hline
 \end{tabular}
-\caption{List of the products implemented by Movisens GmbH}
+\caption{List of the falls performed}
 \label{toc:falls-performed-edamove}
 \end{table}
 
 \subsection{Techniques Adopted}\label{subsec:session-techniques}
 
-In this case, a \textbf{unique} and \textbf{continuous} measurement was acquired for the whole duration of the session. This strategy was adopted in order to provide the ability to analyze single event-related episodes as well as the whole evolution of the Electrodermal Activity throughout the entire duration of the experimentation. Moreover, timestamps were acquired in order to mark the beginning and the end of each fall in order to facilitate the subsequent process of separation of different events.
+In this case, a \textbf{unique} and \textbf{continuous} measurement was acquired for the whole duration of the session. This strategy was adopted in order to provide the ability to analyze single event-related episodes as well as the whole evolution of the Electrodermal Activity throughout the entire duration of the experimentation. Moreover, timestamps were acquired in order to mark the beginning and the end of each fall and facilitate the subsequent process of separation of different events.
 
 The acquired data (which also included information retrieved from the other sensors that compose the EdaMove 4) was, then, extracted and preprocessed in order to extract the raw EDA data (which was already converted in $\mu S$ by the sensor itself) and separate each fall. With these aims, a data processing algorithm was programmed and executed on a \textbf{Python Jupyter Notebook} by using the \textbf{PyUnisens} library.
 
@@ -191,7 +198,7 @@ The following sections report the most relevant results observed, which have bee
 
 \subsubsection{Bed Fall}\label{subsubsec:bed-fall}
 
-The first fall performed was the so-called \textbf{Bed Fall}. Three different variants of the latter were performed, which together reflect the most common bed-related fall that involves the majority of people, especially the elderlies. These respectively concern: 
+The first fall performed was the so-called \textbf{Bed Fall}. Three different variants of the latter were performed, which together reflect the most common bed-related fall that involve the majority of people, especially in the case of elderlies. These respectively concern: 
 
 \begin{itemize}
     \item The act of falling while getting up from the bed, which may be caused by an unexpected inability to stand up 
@@ -200,7 +207,7 @@ The first fall performed was the so-called \textbf{Bed Fall}. Three different va
 
 The results obtained have been reported in figures \ref{fig:movisens-bed}, \ref{fig:movisens-beddx} and \ref{fig:movisens-bedsx}. More specifically, with the same methodology adopted for Chapter \ref{ch:implementation}, the two signals components were separated through a deconvolution approach and plotted separately, together with the raw signal.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{./images/movisens/Bed.png}
     \caption{EDA Trace for the Bed Fall}
@@ -209,21 +216,21 @@ The results obtained have been reported in figures \ref{fig:movisens-bed}, \ref{
 
 The trace corresponding to the \textbf{Bed Fall} does not depict any increase in the levels of stress or arousal. Besides the raw signal shows a slight increase, it is clear from the separation of the two components that this is completely dictated by the influence of the phasic component. Because the Skin Conductance Level does not show any increase during the whole measurement duration, it is reasonable to assume that the activity described by the phasic component is mainly influenced by the hand movements and the impact of the sensor with the ground.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{./images/movisens/BedDX.png}
     \caption{EDA Trace for the BedDX Fall}
     \label{fig:movisens-beddx}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{./images/movisens/BedSX.png}
     \caption{EDA Trace for the BedSX Fall}
     \label{fig:movisens-bedsx}
 \end{figure}
 
-The traces for the two other falls (respectively, the \textbf{BedDX} and \textbf{BedSX} one) have, instead, a similar pattern. More specifically, a \textbf{slight} and therefore \textbf{poorly significant} increase is observed for the tonic component, while a varying and eventful trace is described by the phasic component. Besides the raw signal of both falls shows an increase of almost 2 $\mu S$, it is possible to assume (by observing tonic activity) that the cause may be mainly found in the hand movements produced by the individual. In both cases, in fact, the participant landed on the ground by actively putting all of his weight on the hands and therefore causing the electrodes to acquire more event-related stimuli.
+The traces for the two other falls (respectively, the \textbf{BedDX} and \textbf{BedSX} one) have, instead, a similar pattern. More specifically, a \textbf{slight} and therefore \textbf{poorly significant} increase is observed for the tonic component, while a varying and eventful trace is described by the phasic component. Besides the raw signal of both falls shows an increase of almost 2 $\mu S$, it is possible to assume (by observing the tonic activity) that the cause may be mainly found in the hand movements produced by the individual. In both cases, in fact, the participant landed on the ground by actively putting all of his weight on the hands and therefore causing the electrodes to acquire more event-related stimuli.
 
 In all the three cases examined, the Electrodermal Activity measurement did not, therefore, provide a clear and useful pattern for classification purposes.
 
@@ -231,14 +238,14 @@ In all the three cases examined, the Electrodermal Activity measurement did not,
 
 After the bed falls, the slumping falls were performed. These involve the activity of slumping on the ground while failing the attempt of using the bed as a support in order to avoid keeling over. The action configures itself as a pattern that involves elderly and disabled people. Even in this case, the fall was performed for both the left and right side.
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{./images/movisens/SlumpingSX.png}
     \caption{EDA Trace for the SlumpingSX Fall}
     \label{fig:movisens-slumpsx}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{./images/movisens/SlumpingDX.png}
     \caption{EDA Trace for the SlumpingDX Fall}
@@ -251,31 +258,91 @@ Both the measurements show a slight increase in the Skin Conductance Level, whic
 
 The \textbf{Bending Fall} was, then, performed. The latter involves the activity of falling while trying to reach an object in order to grab it. It is, again, a common pattern for elderly people, but, may result significant even for young and healthy individuals.
 
-% The results obtained are reported respectively in \ref{fig:movisens-bending1} and \ref{fig:movisens-bending2}.
+\vspace{10mm}
 
-Even for the bending falls, the results obtained were poorly significant. The first fall, which is reported in figure \ref{fig:movisens-bending1}, shows a very limited increase of the Skin Conductance Level while the Skin Conductance Response describes an irregular trace that does not provide meaningful event-related information. The same observations apply even for the second fall, which is reported in figure \ref{fig:movisens-bending2}. Despite the fact that the Skin Conductance Level depicts a consistent increase of 2 $\mu S$, the Skin Conductance Response does not provide information that allow to locate a specific stimulation. A similar trace can be achieved while performing physical activity without any external stimulation that increases the levels of stress and fear of an individual.
-
-\begin{figure}[H]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{./images/movisens/Bending1.png}
     \caption{EDA Trace for the first Bending Fall}
     \label{fig:movisens-bending1}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{./images/movisens/Bending2.png}
     \caption{EDA Trace for the second Bending Fall}
     \label{fig:movisens-bending2}
 \end{figure}
 
+\vspace{15mm}
+Even for the bending falls, the results obtained were poorly significant. The first fall, which is reported in figure \ref{fig:movisens-bending1}, shows a very limited increase of the Skin Conductance Level while the Skin Conductance Response describes an irregular trace that does not provide meaningful event-related information. The same observations apply even for the second fall, which is reported in figure \ref{fig:movisens-bending2}. Despite the fact that the Skin Conductance Level depicts a consistent increase of 2 $\mu S$, the Skin Conductance Response does not provide information that allow to locate a specific stimulation. A similar trace can be achieved while performing physical activity without any external stimulation that increases the levels of stress and fear of an individual.
+
+\newpage
+
 \subsubsection{Sidewards Fall}\label{subsubsec:sidewards-fall}
+
+The \textbf{Sidewards Fall} was performed as one of the most common falls that involve every kind of individuals, from young ones to elderlies. The activity involves falling respectively on the right and left side from a standing position.
+%The obtained results are reported below, respectively in figure \ref{fig:movisens-sidewardsdx} and \ref{fig:movisens-sidewardssx}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/SidewardsDX.png}
+    \caption{EDA Trace for the SidewardsDX Fall}
+    \label{fig:movisens-sidewardsdx}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/SidewardsSX.png}
+    \caption{EDA Trace for the SidewardsSX Fall}
+    \label{fig:movisens-sidewardssx}
+\end{figure}
+
+In both cases, the EDA trace results irregular and does not describe relevant activity patterns for classification purposes. The right fall, reported in figure \ref{fig:movisens-sidewardsdx}, does not show increases in the tonic component, while the Skin Conductance Response results irregular and lacks of clear peak patterns. The left fall, which is instead reported in figure \ref{fig:movisens-sidewardssx}, does not describe a meaningful increase of the tonic component, while the phasic one does not show any relevant peak and, besides, includes a visible gap which may have been caused by a momentarily detachment of one of the two electrodes. Even though the latter where properly attached to the epidermis, the issues regarding possible detachments constitute a substantial problematic that is difficult to address in high-motion activity contexts.
 
 \subsubsection{Backwards Fall}\label{subsubsec:backwards-fall}
 
+Similarly to the first experimentation session, two backwards falls were performed. These were both based on the activity of falling posteriorly, which normally involves people of variable age and physical conditions.
+% The results obtained are respectively reported in figures \ref{fig:movisens-backwards1} and \ref{fig:movisens-backwards2}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/Backwards1.png}
+    \caption{EDA Trace for the first Backwards Fall}
+    \label{fig:movisens-backwards1}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/Backwards2.png}
+    \caption{EDA Trace for the second Backwards Fall}
+    \label{fig:movisens-backwards2}
+\end{figure}
+
+In both the observed cases, reported respectively in figure \ref{fig:movisens-backwards1} and \ref{fig:movisens-backwards2}, the phasic component shows more evident peaks while the tonic one describes a slight increase. Similarly to what have been observed in the first experimentation, the backwards fall depicts a clearer EDA trace in relation to the other ones observed. It is reasonable to assume that the cause may rely on the fact that, as stated previously, the psychophysiological reaction for a fall in which the individual is not able to see the ground may be different. However, it is not possible to discriminate the variations induced by the movements detected by the electrodes and similar behaviours should be further investigated.
+
 \subsubsection{Front Fall}\label{subsubsec:front-fall}
 
-\subsubsection{Further Observations}\label{subsubsec:further-observations}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/Front.png}
+    \caption{EDA Trace for the Front Fall}
+    \label{fig:movisens-front}
+\end{figure}
 
-\subsection{Results Obtained}\label{subsec:summary-results}
+The last activity performed was the front fall, which required the participant to fall forward on his hands while landing on the ground. The result obtained has been reported in figure \ref{fig:movisens-front}.
 
+In this case, a peak in the Skin Conductance Response is clearly visible. Only minimal variations were, instead, detected within the terms of the Skin Conductance Level. Again, this leads to the supposition that the movement may have affected the event-related measurement by causing the observable peak, especially considering the pattern of the fall performed, which required the participant to oppose resistance with his hands (including the dominant one, whose wrist is the one on which the sensor was worn). Even in this case, conclusions cannot be drawn without further investigations.
+
+\subsubsection{Considerations}\label{subsubsec:further-observations}
+
+In order to provide a complete analysis of the results obtained, the complete measurement of the whole experimentation sessions was also examined. For this purpose, only the \textbf{filtered Raw signal} and the subsequently extracted \textbf{Tonic Component} were observed.
+
+More specifically, the maximum difference in the EDA values detected during the whole session corresponds to \textbf{13.9103} $\mu S$. The diagram provided in figure \ref{fig:movisens-global} proves, through the computation of the Tonic Component, that this variation happened slowly with an almost constant increasing pattern during the experimentation. This observation corresponds to the original expectations. More specifically, the participant performed several falls in a short period of time and, according to the available literature, \textbf{the Electrodermal Activity is supposed to increase during physical activity} \cite{eda-interval-4}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{./images/movisens/Global.png}
+    \caption{EDA Trace for the whole Measurement Session}
+    \label{fig:movisens-global}
+\end{figure}
