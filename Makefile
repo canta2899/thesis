@@ -8,6 +8,9 @@ bib := bibtex
 all: thesis.pdf 
 	@open thesis.pdf
 
+sync: thesis.pdf
+	@./sync
+
 thesis.pdf: thesis.tex thud.bib book.thud.tex beamer.thud.tex thud.cls $(chp)
 	@printf "Compilation [1]"
 	@$(compile) thesis.tex > /dev/null

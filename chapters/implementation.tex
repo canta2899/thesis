@@ -163,9 +163,9 @@ Furthermore, the unit exposes 17 GPIO pins, which provide a single 10-bit resolu
     \item IEEE 802.11 b/g/n
 \end{itemize}
 
-Moreover, the ESP8266 offers a capacious flash memory, whose dimension varies according to the chosen version and configuration. The latter features allow the indexing of apposite file systems in order to provide persistent memory over restarts. One of them is commonly known as SPIFFS, which is a file system intended for SPI NOR flash devices on embedded targets. The unit does, though, not provide compatibility with the Bluetooth Low Energy protocol stack (which is a feature that was implemented for the following model, the ESP32).
+Moreover, the ESP8266 offers a capacious flash memory, whose dimension varies according to the chosen version and configuration. The latter feature allows the indexing of apposite file systems in order to provide persistent memory storage over restarts. One of them is commonly known as SPIFFS, which is a file system intended for SPI NOR flash devices on embedded targets. The unit does, though, not provide compatibility with the Bluetooth Low Energy protocol stack (which is a feature that was implemented for the following model, the ESP32).
 
-Additionally, besides Espressif provides its own Software Development Kit (SDK), a multitude of open-source SDKs has been developed over the years. Among all of them, the \textbf{Arduino Framework} stands out because of its accessibility and thanks to the multitude of libraries available. 
+Additionally, besides Espressif provides its own Software Development Kit (SDK), a multitude of open-source SDKs has been developed over the years. Among all of them, the \textbf{Arduino Framework} stands out because of its accessibility and thanks to the multitude of libraries and documentation available. 
 
 \subsubsection{Wemos D1 Mini}\label{subsubsec:d1mini}
 
@@ -332,7 +332,7 @@ void start() {
 }
 \end{minted}
 
-The interrupt service routine performs an \mintinline{cpp}{analogRead()} on the EDA sensor pin. Subsequently, the value read from the sensor (which, as an integer, has a size of four bytes in the ESP8266 architecture) is combined, together with the one returned by \mintinline{cpp}{millis()} (which, instead, has a size of eight bytes as an unsigned long datatype). A 12-byte payload (encoded using bit-wise operations with a \textbf{Big Endian} approach) is, then, stored as binary data.
+The interrupt service routine performs an \mintinline{cpp}{analogRead()} on the EDA sensor pin. Subsequently, the value read from the sensor (which, as an integer, has a size of four bytes in the L106 RISC architecture) is combined, together with the one returned by \mintinline{cpp}{millis()} (which, instead, has a size of eight bytes as an unsigned long datatype). A 12-byte payload (encoded using bit-wise operations with a \textbf{Big Endian} approach) is, then, stored as binary data.
 
 %pagebreak % added to move the whole code block to a new page since the previous one is almost ending
 
@@ -463,7 +463,7 @@ The data obtained from the device (encoded as a binary file) was \textbf{decoded
     \item Peak detection in relation to the phasic component of the signal
 \end{enumerate}
 
-It is essential to consider that all the falls performed by the aforementioned volunteer were \textbf{self-initiated} and executed in conditions of \textbf{complete safety}. This was fundamental in order to prevent risk situations but, as stated in \ref{subsubsec:upfall-activities}, may have also been cause of inaccuracy due to the substantial difference between the falls that occur in real scenarios compared to simulated ones. In the specific case of the Electrodermal Activity Data Analysis, it is reasonable to assume that simulated and self-initiated falls may not be cause of \textbf{emotional distress}. Finally, it is import to note that, because of the nature of the WP8 ALT-FRAILTY experimentation, all the falls were performed in sequence. Consequently, it was not possible to observe the changes in the detected EDA signal for the time succeeding a fall event. An analysis of the variations of both mental and physical conditions of an individual after a hard fall would require a different approach for the conduction of related clinical trials. 
+It is essential to consider that all the falls performed by the aforementioned volunteer were \textbf{self-initiated} and executed in conditions of \textbf{complete safety}. This was fundamental in order to prevent risk situations but, as stated in \ref{subsubsec:upfall-activities}, may have also been cause of inaccuracy due to the substantial difference between the falls that occur in real scenarios compared to simulated ones. In the specific case of the Electrodermal Activity Data Analysis, it is reasonable to assume that simulated and self-initiated falls may not be cause of \textbf{emotional distress}. Finally, it is important to note that, because of the nature of the WP8 ALT-FRAILTY experimentation, all the falls were performed in sequence. Consequently, it was not possible to observe the changes in the detected EDA signal for the time succeeding a fall event. An analysis of the variations of both mental and physical conditions of an individual after a hard fall would require a different approach for the conduction of related clinical trials. 
 
 The obtained results have been reported respectively in figure \ref{fig:bitalino-rolling}, \ref{fig:bitalino-shoulder}, \ref{fig:bitalino-backwards} and \ref{fig:bitalino-front}.
 
@@ -501,7 +501,7 @@ The results obtained were \textbf{equivocal}. Both the \textbf{Rolling} and \tex
 
 Furthermore, the trace obtained by the \textbf{Shoulder} fall describes an initial decrease in the skin conductance levels (which may have been caused by the previous fall performed) followed by a slight increase. The latter corresponds to an event-related peak, visible by observing the corresponding phasic trace (SCR). This suggests the presence of variations in the skin conductance activity during a fall. These are, however, minimal and therefore poorly significant for classification purposes.
 
-The measurement obtained for the \textbf{Backwards} fall depicts, instead, a typical EDA trace related to stressful conditions. While the tonic component describes an increment of nearly 2 $\mu S$, the phasic component is determined by a corresponding increase in the number of event-related peaks. Since the individual was not able to see the ground while falling backwards, a hypothesis supported by the acquired data leads to assume that the fall event may have been perceived as more stressful than the others. A further investigation in these terms would require the adoption of different approaches for fall detection trials aimed at analysing psychophysiological metrics.
+The measurement obtained for the \textbf{Backwards} fall depicts, instead, a typical EDA trace related to stressful conditions. While the tonic component describes an increment of nearly 1 $\mu S$, the phasic component is determined by a corresponding increase in the number of event-related peaks. Since the individual was not able to see the ground while falling backwards, a hypothesis supported by the acquired data leads to assume that the fall event may have been perceived as more stressful than the others. A further investigation in these terms would require the adoption of different approaches for fall detection trials aimed at analysing psychophysiological metrics.
 
 Lastly, even though the device worked seamlessly from a software perspective, the hardware has been proven to be too fragile and at risk of damage despite precautions were adopted, as stated in \ref{subsubsec:d1mini}, in order to limit the impact caused by falls.
 
