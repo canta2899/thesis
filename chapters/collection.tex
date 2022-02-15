@@ -6,7 +6,7 @@ In this case, a commercial and publicly acknowledged device was employed in orde
 
 \section{Choosing a High End Electrodermal Activity Sensor}\label{sec:movisens}
 
-The device employed consists of the \textbf{EdaMove 4} sensor by \textbf{Movisens GmbH}, which is one of the most accurate and popular wearable devices aimed at the Electrodermal Activity measurement together with others such as the previously mentioned \textbf{Empatica E4}. In the following sections, a brief overview of the product and its features in proposed.
+The device employed consists of the \textbf{EdaMove 4} sensor by \textbf{Movisens GmbH}, which is one of the most accurate and popular wearable devices aimed at the Electrodermal Activity measurement together with others such as the previously mentioned \textbf{Empatica E4}. In the following sections, a brief overview of the product and its features is proposed.
 
 \subsection{Movisens GmbH}\label{subsec:movisens-company}
 
@@ -66,7 +66,7 @@ More specifically, the unit implements an exosomatic acquisition technique by ap
 
 Furthermore, the 3D accelerometer provides a $\pm$ 16 g range with an output rate of 64 Hz, while the rotation rate sensor offers a $\pm$ 2000 dps range, with a 64 Hz output rate and a 70 mdps resolution. The pressure sensor provides, instead, a measurement range between 300 and 1100 hPa, with a 8 Hz output rate and a 0.03 hPa resolution. Finally, the temperature sensor provides an output rate of 1 Hz.
 
-The EdaMove 4 mounts a capacious Lithium battery which provides a constant 3.7 voltage and offers a continuous runtime of almost four days. An internal memory of 4 Gigabytes offers, instead, a maximum recording capacity of 4 weeks, allowing the usage of the sensor in varied contexts, from controlled experimentations to uncontrolled, domestic environments. 
+The EdaMove 4 mounts a capacious Lithium battery which provides a constant 3.7 V voltage and offers a continuous runtime of almost four days. An internal memory of 4 Gigabytes offers, instead, a maximum recording capacity of 4 weeks, allowing the usage of the sensor in varied contexts, from controlled experimentations to uncontrolled, domestic environments. 
 
 Finally, the EdaMove 4 has been employed in several scientific publications that overall validated its functionalities and accuracy.
 
@@ -74,18 +74,18 @@ Finally, the EdaMove 4 has been employed in several scientific publications that
 
 In order to organise a measurement session and subsequently extract the obtained data, Movisens provides a specific software toolchain, which is cross-compatible between all the Move sensors. 
 
-More specifically, the sensors can be configured through the \textbf{Sensor Manager} software, which allows the definition of personal data in relation to the individual and the specification of parameters such as the \textbf{duration} and the \textbf{start time} of the following measurement. Furthermore, the software detects whether the unit has non-retrieved measurements in its storage and provides functionalities to transfer the acquired dataset to the machine of the user. The data acquisition criteria can be configured in order to match one of the two modalities proposed: 
+More specifically, the sensors can be configured through the \textbf{Sensor Manager} software, which allows the definition of personal data in relation to the individual and the specification of parameters such as the \textbf{duration} and the \textbf{start time} of the measurement. Furthermore, the software detects whether the unit has non-retrieved measurements in its storage and provides functionalities to transfer the acquired dataset to the machine of the user. The data acquisition criteria can be configured in order to match one of the two modalities proposed:
 
 \begin{itemize}
-    \item \textbf{Plain CSV} files
+    \item \textbf{Plain CSV} file
     \item \textbf{Unisens} File Format 
 \end{itemize}
 
-Besides Plain CSV is included as an option, the company highly suggests the usage of the Unisens format in order to exploit the functionalities that the standard implements. The latter is, in fact, compatible with both the \textbf{Unisens Viewer} and the \textbf{Data Analyzer} software. The first consists of a free and convenient tool that allows to plot and pre-process the raw data acquired (providing functionalities to remove unwanted sections and set specific markers in order to identify events of interest). The second one, instead, consists of a paid software that implements several algorithms and data processing techniques for the analysis of all the data acquired by Movisens products.
+Besides Plain CSV is included as an option, the company highly suggests the usage of the Unisens format in order to exploit the functionalities that the standard implements. The latter is, in fact, compatible with both the \textbf{Unisens Viewer} and the \textbf{Data Analyzer} software. The first consists of a free and convenient tool that allows to plot and pre-process raw data, providing functionalities to remove unwanted sections and set specific markers in order to identify events of interest. The second one, instead, consists of a paid software that implements several algorithms and data processing techniques for the analysis of data acquired by Movisens products.
 
 \subsection{The Unisens Data Format}\label{subsec:unisens}
 
-One of the main difficulties that are required to be addressed when collecting data from multiple and heterogeneous sources is related to the storage and representation of the acquired information. More specifically, data can be retrieved at different sample rates or at specific time intervals and requires to be later synchronized e recomposed in order to be represented, analyzed and, eventually, classified. This problematic has been addressed in a multitude of different ways by researches. For example, as stated in \ref{subsubsec:upfall-technologies}, in the case of the UP-Fall dataset, a unique sample rate was defined in order to allow data synchronization from different sources. This strategy, however, required to lower the sample rate of certain devices which could have provided much more accuracy by configuring higher sample rates.
+One of the main difficulties that are required to be addressed when collecting data from multiple and heterogeneous sources is related to the storage and representation of the acquired information. More specifically, data can be retrieved at different sample rates or at specific time intervals and requires to be later synchronized and recomposed in order to be represented, analyzed and, eventually, classified. This problematic has been addressed in a multitude of different ways by researches. For example, as stated in \ref{subsubsec:upfall-technologies}, in the case of the UP-Fall dataset a unique sample rate was defined in order to allow data synchronization from different sources. This strategy, however, required to lower the sample rate of certain devices which could have provided much more accuracy by configuring higher sample rates.
 
 With these aims, the \textbf{FZI Research Center for Information Technology} and the \textbf{Institute for Information Processing Technology} at the University of Karlsruhe developed \textbf{Unisens}, a universal format standard that provides a shared criteria to collect multi sensor data \cite{unisens}. The latter is licensed under the LGPL license and provides the following abilities and features: 
 
@@ -161,8 +161,8 @@ The data collection session was performed at the \textbf{Simulation Center} of t
     Name         & Description \\
     \hline
     Bed          & Falling while getting up from a bed \\
-    BedSX        & Falling off the left side of the bed while getting up\\
-    BedDX        & Falling off the right side of the bed while getting up \\
+    BedSX        & Falling off the left side of the bed while grabbing an object \\
+    BedDX        & Falling off the right side of the bed while grabbing an object \\
     SlumpingSX   & Slumping on the left side of the bed while falling  \\
     SlumpingDX   & Slumping on the right side of the bed while falling  \\
     SidewardsSX  & Standing and subsequently falling on the left side \\ 
@@ -180,13 +180,13 @@ The data collection session was performed at the \textbf{Simulation Center} of t
 
 In this case, a \textbf{unique} and \textbf{continuous} measurement was acquired for the whole duration of the session. This strategy was adopted in order to provide the ability to analyze single event-related episodes as well as the whole evolution of the Electrodermal Activity throughout the entire duration of the experimentation. Moreover, timestamps were acquired in order to mark the beginning and the end of each fall and facilitate the subsequent process of separation of different events.
 
-The acquired data (which also included information retrieved from the other sensors that compose the EdaMove 4) was, then, extracted and preprocessed in order to extract the raw EDA data (which was already converted in $\mu S$ by the sensor itself) and separate each fall. With these aims, a data processing algorithm was programmed and executed on a \textbf{Python Jupyter Notebook} by using the \textbf{PyUnisens} library.
+The acquired data (which also included information retrieved from the other sensors that compose the EdaMove 4) was, then, retrieved and preprocessed in order to extract the raw EDA data (which was already converted in $\mu S$ by the sensor itself) and separate each fall event. With these aims, a data processing algorithm was programmed and executed on a \textbf{Python Jupyter Notebook} by using the \textbf{PyUnisens} library.
 
 Since timestamps have been acquired (by employing a stopwatch) in order to mark the beginning and the ending of each measurement, these were used in order to extract the data related to each fall. Since the EDA trace obtained from the Unisens dataset, as a measurement of fixed sample rate, did not provide time-related information, the \textbf{Measurement Start Timestamp} was used. This constitutes part of the standard meta information included in the Unisens XML file. More specifically, the EDA signal (which, in Python, is decoded as a Numpy array) was grouped in sub-arrays of fixed size, corresponding to the sample rate (which is, as stated in \ref{subsec:edamove4}, of 32 Hz). A time indication was, then, assigned (with an increment rate of one second) to every group. The latter procedure made possible the usage of the acquired time information in order to isolate each measurement.
 
 \subsection{Results}\label{subsec:results}
 
-The following sections report the most relevant results observed, which have been analyzed and plotted using the Python Programming Language and the previously mentioned \textbf{NeuroKit2} library. For this purposes, minor modifications were applied to the NeuroKit2 source code in order to fine tune specific parameters that provide cleaner results. All the plots were, then, produced by integrating the functionalities of the previously mentioned notebook. 
+The following sections reports the most relevant results observed, which have been analyzed and plotted using the Python Programming Language and the previously mentioned \textbf{NeuroKit2} library. For this purposes, minor modifications were applied to the NeuroKit2 source code in order to fine tune specific parameters that provide cleaner results. All the plots were, then, produced by integrating the functionalities of the previously mentioned notebook. 
 
 \subsubsection{Bed Fall}\label{subsubsec:bed-fall}
 
@@ -206,7 +206,7 @@ The results obtained have been reported in figures \ref{fig:movisens-bed}, \ref{
     \label{fig:movisens-bed}
 \end{figure}
 
-The trace corresponding to the \textbf{Bed Fall} does not depict any increase in the levels of stress or arousal. Besides the raw signal shows a slight increase, it is clear from the separation of the two components that this is completely dictated by the influence of the phasic component. Because the Skin Conductance Level does not show any increase during the whole measurement duration, it is reasonable to assume that the activity described by the phasic component is mainly influenced by the hand movements and the impact of the sensor with the ground.
+The traces obtained do not depict any increase in the levels of stress or arousal. Besides the raw signal shows a slight increase, it is clear from the separation of the two components that this is completely dictated by the influence of the phasic component. Because the Skin Conductance Level does not show any increase during the whole measurement duration, it is reasonable to assume that the activity described by the phasic component is mainly influenced by the hand movements and the impact of the sensor with the ground.
 
 \begin{figure}[h!]
     \centering
@@ -228,7 +228,7 @@ In all the three cases examined, the Electrodermal Activity measurement did not,
 
 \subsubsection{Slumping Fall}\label{subsubsec:slumping-fall}
 
-After the bed falls, the slumping falls were performed. These involve the activity of slumping on the ground while failing the attempt of using the bed as a support in order to avoid keeling over. The action configures itself as a pattern that involves elderly and disabled people. Even in this case, the fall was performed for both the left and right side.
+After the bed falls, the slumping falls were performed. These involve the activity of slumping on the ground while failing the attempt of using the bed as a support in order to avoid keeling over. The action configures itself as a pattern that especially involves the elderlies. Even in this case, the fall was performed for both the left and right side.
 
 \begin{figure}[h!]
     \centering
@@ -267,13 +267,13 @@ The \textbf{Bending Fall} was, then, performed. The latter involves the activity
 \end{figure}
 
 \vspace{15mm}
-Even for the bending falls, the results obtained were poorly significant. The first fall, which is reported in figure \ref{fig:movisens-bending1}, shows a very limited increase of the Skin Conductance Level while the Skin Conductance Response describes an irregular trace that does not provide meaningful event-related information. The same observations apply even for the second fall, which is reported in figure \ref{fig:movisens-bending2}. Despite the fact that the Skin Conductance Level depicts a consistent increase of 2 $\mu S$, the Skin Conductance Response does not provide information that allow to locate a specific stimulation. A similar trace can be achieved while performing physical activity without any external stimulation that increases the levels of stress and fear of an individual.
+Even for the bending falls, the results obtained were poorly significant. The first fall, which is reported in figure \ref{fig:movisens-bending1}, shows a very limited increase of the Skin Conductance Level while the Skin Conductance Response describes an irregular trace that does not provide meaningful event-related information. The same observations apply even for the second fall, which is reported in figure \ref{fig:movisens-bending2}. Despite the fact that the Skin Conductance Level depicts a consistent increase of 2 $\mu S$, the Skin Conductance Response does not provide information that allows to locate a specific stimulation. A similar trace can be achieved while performing physical activity without any external stimulation that increases the levels of stress and fear of an individual.
 
 \newpage
 
 \subsubsection{Sidewards Fall}\label{subsubsec:sidewards-fall}
 
-The \textbf{Sidewards Fall} was performed as one of the most common falls that involve every kind of individuals, from young ones to elderlies. The activity involves falling respectively on the right and left side from a standing position.
+The \textbf{Sidewards Fall} was performed as one of the most common falls that involve every kind of subject, from young ones to elderlies. The activity involves falling respectively on the right and left side from a standing position.
 %The obtained results are reported below, respectively in figure \ref{fig:movisens-sidewardsdx} and \ref{fig:movisens-sidewardssx}.
 
 \begin{figure}[h!]
@@ -315,7 +315,7 @@ In both the observed cases, reported respectively in figure \ref{fig:movisens-ba
 
 \subsubsection{Front Fall}\label{subsubsec:front-fall}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/movisens/Front.png}
     \caption{EDA Trace for the Front Fall}
@@ -328,11 +328,9 @@ In this case, a peak in the Skin Conductance Response is clearly visible. Only m
 
 \subsubsection{Considerations}\label{subsubsec:further-observations}
 
-In order to provide a complete analysis of the results obtained, the complete measurement of the whole experimentation sessions was also examined. For this purpose, only the \textbf{filtered Raw signal} and the subsequently extracted \textbf{Tonic Component} were observed.
+In order to provide a complete analysis of the results obtained, the complete measurement related to the whole experimentation session was also examined. For this purpose, only the \textbf{filtered raw signal} and the subsequently extracted \textbf{Tonic Component} were observed. More specifically, the maximum difference in the EDA values detected during the whole session corresponds to \textbf{13.9103} $\mu S$. The diagram provided in figure \ref{fig:movisens-global} proves, through the computation of the Tonic Component, that this variation happened slowly with an almost constant increasing pattern during the experimentation. This observation corresponds to the original expectations. The participant performed, in fact, several falls in a short period of time and, according to the available literature, \textbf{the Electrodermal Activity is supposed to increase during physical activity} \cite{eda-interval-4} because of the natural behaviour of perspiration and sweat secretions. This observation motivates the slight increases observed throughout all the falls measured and establishes decisive issues in determining whether the cause of the tonic variation related to each fall was due to event-related stimulations or, otherwise, the physical activity performed.
 
-More specifically, the maximum difference in the EDA values detected during the whole session corresponds to \textbf{13.9103} $\mu S$. The diagram provided in figure \ref{fig:movisens-global} proves, through the computation of the Tonic Component, that this variation happened slowly with an almost constant increasing pattern during the experimentation. This observation corresponds to the original expectations. More specifically, the participant performed several falls in a short period of time and, according to the available literature, \textbf{the Electrodermal Activity is supposed to increase during physical activity} \cite{eda-interval-4}.
-
-\vspace{15mm}
+% \vspace{15mm}
 
 \begin{figure}[h]
     \centering
