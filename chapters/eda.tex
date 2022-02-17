@@ -1,6 +1,6 @@
 \label{ch:eda-chapter}
 
-The following chapter proposes a dissertation on the merits of the previously mentioned \textbf{Electrodermal Activity} and its potential implications in the context of fall detection.
+The following chapter proposes an in-depth study on the merits of the previously mentioned \textbf{Electrodermal Activity} and its potential implications in the context of fall detection.
 
 % TODO maybe change title
 \section{Key Aspects of Skin Conductance Analysis}\label{sec:eda-description}
@@ -18,7 +18,7 @@ Perspiration is, in fact, governed by the sympathetic nervous system \cite{barth
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{./images/eda-cause-effect.drawio.png}
-    \caption{Correlation between Electrodermal Activity and the Autonomic Nervous System}
+    \caption{Correlation between the Electrodermal Activity and the Autonomic Nervous System}
     \label{fig:eda-ans}
 \end{figure}
 
@@ -26,7 +26,7 @@ Perspiration is, in fact, governed by the sympathetic nervous system \cite{barth
 
 % https://www.birmingham.ac.uk/Documents/college-les/psych/saal/guide-electrodermal-activity.pdf
 
-In order to detect Electrodermal Activity on and individual's skin, two different approaches may be employed:
+In order to detect the Electrodermal Activity on the skin of an individual, two different approaches may be employed:
 
 \begin{itemize}
     \item Exosomatic Methodology
@@ -48,7 +48,7 @@ The implementation of the exosomatic methodology requires the usage of \textbf{t
     \label{fig:ohmlaw}
 \end{figure}
 
-It is important to place both the electrodes on the palm of the hand, on two adjacent fingers or, otherwise, on the sole of the foot. These areas have been, in fact, identified as the most prominent in terms of perspiration. Modern EDA sensors employ electrodes with Ag/AgCl contact points in order to accurately transmit the electrical current \cite{eda-imotions}. Isotonic gel is also generally used to accommodate the signal transmission from the skin and consequently improve its quality.
+It is important to place both the electrodes on the palm of the hand, on two adjacent fingers or, otherwise, on the sole of the foot. These areas have been, in fact, identified as the most prominent in terms of perspiration. Modern EDA sensors employ electrodes with Ag/AgCl contact points in order to accurately transmit the electrical current \cite{eda-imotions} and isotonic gel is also generally used to accommodate the signal transmission from the skin and consequently improve its quality.
 
 \begin{figure}[h]
     \centering
@@ -71,7 +71,7 @@ EDA is regarded as a slow measure \cite{eda-guide}. According to the related lit
     \item 0.05 - 35 Hz \cite{eda-guide}
 \end{itemize}
 
-By applying the \textbf{Nyquist Theorem} \cite{nyquist}, which states that a signal should be sampled at least at two times its highest frequency, it can be inferred that EDA signals must be sampled at 70 Hz or more. In practice, sample rates between 70 Hz and 400 Hz are commonly used according to the requirements of the experimentation in order to provide greater accuracy during the signal processing stage \cite{eda-guide}. Lowpass and bandpass filters are, then, applied in order to smooth the signal and remove unwanted \textbf{noises}.
+By applying the \textbf{Nyquist Theorem} \cite{nyquist}, which states that a signal should be sampled at least at two times its highest frequency, it can be inferred that EDA signals must be sampled at 70 Hz or more. In practice, sample rates between 70 Hz and 400 Hz are commonly used according to the requirements of the experimentation in order to provide greater accuracy during the signal processing stage \cite{eda-guide}. Lowpass and bandpass filters are, then, applied in order to smooth the signal and remove unwanted \textbf{noise}.
 
 \subsection{Phasic and Tonic component}\label{subsec:phasic-tonic}
 
@@ -102,7 +102,7 @@ SC = Driver_{tonic} \cdot IRF + Driver_{phasic} \cdot IRF
 \label{fig:eda-convolution}
 \end{figure}
 
-In order to detect variations of an individual's arousal over a specific time interval, the phasic component obtained by the deconvolution process is generally employed for feature extraction purposes.
+In order to detect variations in the arousal of an individual over a specific time interval, the phasic component obtained by the deconvolution process is generally employed for feature extraction purposes.
 
 The example reported in Figure \ref{fig:eda-example} illustrates:
 
@@ -115,27 +115,27 @@ The example reported in Figure \ref{fig:eda-example} illustrates:
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{./images/eda-simulation.png}
-    \caption{Decomposition of Raw EDA signal in its two components}
+    \caption{Decomposition of the Raw EDA signal in its two components}
     \label{fig:eda-example}
 \end{figure}
 
-The raw signals were generated through \textbf{NeuroKit2}, a Python Toolbox for Neurophysiological Signal Processing that implements several biosignal processing routines, including EDA-related ones \cite{neurokit}.
+The raw signal was generated through \textbf{NeuroKit2}, a Python Toolbox for Neurophysiological Signal Processing that implements several biosignal processing routines, including EDA-related ones \cite{neurokit}.
 
 \subsection{Use Cases}\label{subsec:eda-usecases}
 
-The application of psychophysiological sensors is becoming an increasingly frequent practice in the context of Human Computer Interaction \cite{eda-hci}. More specifically, the Electrodermal Activity may provide a measure to define the level of \textbf{arousal} that characterizes an individual during experimentations and, generally, the usage of specific technologies.
+The application of psychophysiological sensors is becoming an increasingly frequent practice in the context of Human Computer Interaction \cite{eda-hci}. More specifically, the Electrodermal Activity may provide a measure that defines the level of \textbf{arousal} that characterizes an individual during experimentations and, generally, the usage of specific technologies.
 
-Recent studies involved, for example, the measurement of Heart Rate and Electrodermal Activity in order to define an objective evaluation method for experiences based on \textbf{virtual reality} \cite{eda-vr}. Moreover, excellent results have been obtained by Sánchez-Reolid \textit{et al., 2018}~\cite{edasvm}, whose classification model based on \textbf{Deep Support Vector Machines} achieved excellent results in the identification of stress patterns by employing EDA measurements acquired from a wearable device.
+Recent studies involved, for example, the measurement of both the Heart Rate and the Electrodermal Activity in order to define an objective evaluation method for experiences based on \textbf{virtual reality} \cite{eda-vr}. Moreover, excellent results have been obtained by Sánchez-Reolid \textit{et al., 2018}~\cite{edasvm}, whose classification model based on \textbf{Deep Support Vector Machines} achieved optimal results in the identification of stress patterns by employing EDA measurements acquired from a wearable device.
 
 \section{Electrodermal Activity and Fall Detection Systems}\label{sec:eda-fall-detection}
 
-The Electrodermal Activity measurement in the context of fall detection has not been a true object of interest yet. It is, however, reasonable to assume that analyzing the skin conductance response may help to provide additional information in order to help classifiers reaching higher levels of accuracy. 
+The Electrodermal Activity measurement in the context of fall detection has not been a true object of interest yet. It is, however, reasonable to assume that analyzing the skin conductance response may help to provide additional information that may help classifiers reaching higher levels of accuracy. 
 
 In 2013, T. Horta \textit{et al., 2018}~\cite{eda-fall-detection} included EDA signals in the development of a system for fall detection and prevention based on biofeedback monitoring solutions. The latter obtained valid results, but the analysis performed by the authors did not aim to provide assessments on the influence that the Electrodermal Activity had on the accuracy of the whole system (which included other bio-sensors such as electroencephalography, electrocardiogram, electromyography and blood volume pressure).
 
 \subsection{Correlations between EDA and Wearable Devices}\label{subsec:eda-wearables}
 
-Because of the nature of EDA signals, during the years the main object of interest has been monitoring patients over extended periods of time and in real-life situations in order to identify patterns that are difficult to replicate in artificial environments. This has consequently focused the interest of researchers to the development of wearable devices for the electrodermal activity measurement \cite{poh-wearable}. 
+Because of the nature of EDA signals, during the years the main object of interest has been monitoring patients over extended periods of time and in real-life situations in order to identify patterns that are difficult to replicate in artificial environments. This has consequently focused the interest of researchers on the development of wearable devices for the Electrodermal Activity measurement \cite{poh-wearable}. 
 
 In 2010, Poh \textit{et al., 2018}~\cite{poh-wearable} described one of the first implementations of a compact and cost-effective wearable sensor for unobtrusive and long-term assessment of the Electrodermal Activity. This was packed inside a wristband exposing two electrodes. The outcomes obtained were strongly correlated with FDA-approved measurement systems. Furthermore, over the last decade several companies such \textbf{Empatica} (an MIT spin-off) or \textbf{Movisens GmbH} (a global leader in ambulatory assessment solutions) implemented highly performing wearable devices for EDA measurement which have been commonly employed in the field of research.
 

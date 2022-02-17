@@ -71,7 +71,7 @@ Despite the fact that various datasets of falls have been made available through
 
 The \textbf{UMAFall} dataset gained considerable interest since its publication (happened in 2017). The primary difference from other datasets was, in fact, related to the way Casilari \textit{et al., 2018}~\cite{umafall} approached the data collection stage, which involved the usage of multiple units of the same sensor. 
 
-Basing on the conclusions drawn by previous publications, UMAFall was designed in order to provide a public dataset to study the importance of sensor units placement for the effectiveness of fall detection algorithms \cite{umafall}. The traces collected provide measurements of the mobility during daily life activities and falls, obtained by \textbf{five sensing nodes} placed on different positions of the body of several individuals.
+Based on the conclusions drawn by previous publications, UMAFall was designed in order to provide a public dataset to study the importance of sensor units placement for the effectiveness of fall detection algorithms \cite{umafall}. The traces collected provide measurements of the mobility during daily life activities and falls, obtained by \textbf{five sensing nodes} placed on different positions of the body of several individuals.
 
 \subsubsection{Technologies Involved}\label{subsubsec:umafall-technologies}
 
@@ -155,7 +155,7 @@ The hardware involved consisted of:
 
 The data gathering architecture was implemented through the usage of two computers and three Raspberry PI V3 in order to collect the information from all the sensors and later save it in the form of multiple CSV files.
 
-In this case a sample rate of \~ 18.4 Hz was configured in order to accommodate the requirements of all the units involved.
+In this case a sample rate of almost 18.4 Hz was configured in order to accommodate the requirements of all the units involved.
 
 \subsubsection{Activities Performed}\label{subsubsec:upfall-activities}
 
@@ -195,13 +195,13 @@ The raw gathered data was later divided in different time windows and, for each 
 
 The performances of the latter were evaluated through the metrics of \textit{accuracy}, \textit{precision}, \textit{sensitivity}, \textit{specificity} and $F_1$ - \textit{score}.
 
-A limitation pointed out by the authors involves the context of the experimentation: the falls performed were self-initiated and different from real-life falls \cite{umafall}. These kind of aspects constitute a primary concern for researchers because of the difficulties in addressing them and the inaccuracy they might lead to, as stated in \ref{sec:fallintro}.
+A limitation pointed out by the authors involves the context of the experimentation: the falls performed were self-initiated and different from the ones that happen in real-life  \cite{umafall}. These kind of aspects constitute a primary concern for researchers because of the difficulties in addressing them and the inaccuracy they might lead to, as stated in \ref{sec:fallintro}.
 
 \subsubsection{Results Obtained}\label{subsubsec:upfall-results}
 
-The dataset obtained and the following activities of processing and subsequent analysis performed led to observe that the data retrieved from the inertial measurement units of the wearables played a major role in the accuracy of the classification models. The accuracy (depicted by the $F_1$-score) of the IMUs-only based classification reached a value of 70.31\% while classifiers trained with combination of infrared and camera data demonstrated considerably lower performances (between 15\% and 33\%). Lastly, the combination of data collected by wearables, cameras and the EEG sensor obtained the highest $F_1$-score accuracy measure, which corresponded to 70.44\%. 
+The dataset obtained and the following activities of processing and subsequent analysis performed led to observe that the data retrieved from the inertial measurement units of the wearables played a major role in the accuracy of classification models. Depicted by the $F_1$-score, the accuracy of the IMUs-only based classification reached a value of 70.31\% while classifiers trained with combination of infrared and camera data demonstrated considerably lower performances (between 15\% and 33\%). Lastly, the combination of data collected by wearables, cameras and the EEG sensor obtained the highest $F_1$-score accuracy measure, which corresponded to 70.44\%. 
 
-Additionally, a Convolutional Neural Network was trained in order to improve the classification performance based on video recording data. This reached an $F_1$-\textit{score} of 71.2\%.
+Additionally, a Convolutional Neural Network was trained in order to improve the performances of classification models based on video recording data. This reached an $F_1$-\textit{score} of 71.2\%.
 
 In conclusion, in the context of fall detection systems, the analysis performed on the UP-Fall dataset demonstrated that a certain degree of accuracy may be reached by processing data from sources of different nature, even though classifications can be improved by approaching the subject in a multimodal and heterogeneous manner.
 
