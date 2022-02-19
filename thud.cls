@@ -1,3 +1,5 @@
+% Modifications applied by @FraBomba6 in order to programmatically
+% generate the print version
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{thud}[2020/01/21]
 
@@ -111,6 +113,15 @@
     \def\tutorsname{Tutor aziendali}%
 }
 
+\gdef\thud@universityC{%
+    \centering
+    \includegraphics[width=0.15\textwidth]{logo.png}\\
+    \begin{center}
+        UNIVERSITY OF UDINE\\
+        Department of Mathematics, Computer Science and Physics
+    \end{center}
+    \hrulefill
+}
 
 \gdef\thud@universityA{%
 	\includegraphics[width=\textwidth]{bannerdmif_\languagename.pdf}\\

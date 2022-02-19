@@ -1,4 +1,4 @@
-.PHONY : all 
+.PHONY : all printen printdis 
 
 chp := $(wildcard chapters/*.tex)
 
@@ -10,6 +10,14 @@ all: thesis.pdf
 
 sync: thesis.pdf
 	@./sync
+
+printen:
+	@mv book.thud.tex book.main.thud.tex
+	@mv book.print.thud.tex book.thud.tex	
+
+printdis:
+	@mv book.thud.tex book.print.thud.tex
+	@mv book.main.thud.tex book.thud.tex	
 
 thesis.pdf: thesis.tex thud.bib book.thud.tex beamer.thud.tex thud.cls $(chp)
 	@printf "Compilation [1]"
