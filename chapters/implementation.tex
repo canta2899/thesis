@@ -11,7 +11,7 @@ The following chapter describes the implementation of a \textbf{simple} and comp
 
 \section{BITalino Electrodermal Activity Sensor}\label{sec:bitalino}
 
-The sensor unit employed is the purpose-built \textbf{Electrodermal Activity Sensor} by \textbf{BITalino}. This constitutes a single module aimed at composing, along with many others sold by the company, the \textbf{BITalino (r)evolution Board Kit} \cite{bitalino-general}, an all-in-one device implementing a custom firmware for the collection and aggregation of data retrieved from bio-signals. Besides all the features implemented by these boards result interesting in research contexts, the main drawbacks are related to the \textbf{lack of mobility} that the device would cause, which is a primary concern within the bounds of fall detection systems.
+The sensor unit employed was the purpose-built \textbf{Electrodermal Activity Sensor} by \textbf{BITalino}. This constitutes a single module aimed at composing, along with many others sold by the company, the \textbf{BITalino (r)evolution Board Kit} \cite{bitalino-general}, an all-in-one device implementing a custom firmware for the collection and aggregation of data retrieved from bio-signals. Besides all the features implemented by these boards result interesting in research contexts, the main drawbacks are related to the \textbf{lack of mobility} that the device would cause, which is a primary concern within the bounds of fall detection systems.
 
 Moreover, during the recent years the BITalino EDA module has been employed in a multitude of scientific publications which, overall, have proven that the device allows to reach optimal results in terms of cost-effective Electrodermal Activity analysis.
 
@@ -19,7 +19,7 @@ A \textbf{single EDA module} was purchased for a 25,00 € (Tax Excluded) price 
 
 \subsection{Description and Features}\label{subsec:bitalino-features}
 
-The EDA sensor module consists of a single breakout board whose dimensions correspond to 12mm x 27mm \cite{bitalino-general}. A complete list of informations regarding the configuration of the unit is reported in Table \ref{toc:bitalino-features} .
+The EDA sensor module consists of a single breakout board whose dimensions correspond to 12mm x 27mm \cite{bitalino-general}. A complete list of information regarding the configuration of the unit is reported in Table \ref{toc:bitalino-features} .
 
 \begin{table}[H]
 \centering
@@ -93,7 +93,7 @@ More specifically, the function of each pin is reported in table \ref{toc:bitali
     \texttt{IN-}                    & Connection input for the negative electrode \\
     \texttt{A3}                     & Analog output for the EDA signal reading \\
     \texttt{VCC/2} (\texttt{REF})   & Midpoint voltage input, necessary for the microSiemens conversion \\
-    \texttt{VCC} (\texttt{AVCC})    & 3.3 V Voltage input \\
+    \texttt{VCC} (\texttt{AVCC})    & 3.3V Voltage input \\
     \texttt{GND}                    & Ground input \\
     \hline
 \end{tabular}
@@ -134,7 +134,7 @@ It is important to note the role of the \texttt{VCC/2} pin, which permits the fl
 
 \pagebreak
 
-\section{Developing a firmware based on the Arduino Framework}\label{sec:firmware}
+\section{Development of a Firmware based on the Arduino Framework}\label{sec:firmware}
 
 After applying the necessary changes to the EDA sensor, a research was conducted in order to select an optimal microcontroller upon the following principles: 
 
@@ -276,7 +276,7 @@ byte payload[12];
 File file;
 \end{minted}
 
-The setup function configures the WebServer and the Hardware Timer, other than specifying the role of the \texttt{A0} pin. More specifically, the \texttt{/}, \texttt{/start} and \texttt{/retrieve} endpoints are defined in order to respectively acquire informations about the device status, start a measurement for the specified duration and retrieve the previously stored data.
+The setup function configures the WebServer and the Hardware Timer, other than specifying the role of the \texttt{A0} pin. More specifically, the \texttt{/}, \texttt{/start} and \texttt{/retrieve} endpoints are defined in order to respectively acquire information about the device status, start a measurement for the specified duration and retrieve the previously stored data.
 
 \begin{minted}{cpp}
 void setup() {
@@ -332,7 +332,7 @@ void start() {
 }
 \end{minted}
 
-The interrupt service routine performs an \mintinline{cpp}{analogRead()} on the EDA sensor pin. Subsequently, the value read from the sensor (which, as an integer, has a size of four bytes in the L106 RISC architecture) is combined, together with the one returned by \mintinline{cpp}{millis()} (which, instead, has a size of eight bytes as an unsigned long datatype). A 12-byte payload (encoded using bit-wise operations with a \textbf{Big Endian} approach) is, then, stored as binary data.
+The interrupt service routine performs an \mintinline{cpp}{analogRead()} on the EDA sensor pin. Subsequently, the value read from the sensor (which, as an integer, has a size of four bytes in the L106 RISC architecture) is combined, together with the one returned by \mintinline{cpp}{millis()} (which, instead, has a size of eight bytes as an unsigned long datatype). A 12-byte payload (encoded using bit-wise operations with a \textbf{Big Endian} strategy) is, then, stored as binary data.
 
 %pagebreak % added to move the whole code block to a new page since the previous one is almost ending
 
@@ -411,7 +411,7 @@ void retrieve() {
 }
 \end{minted}
 
-Finally, the \mintinline{cpp}{void loop()} function was configured in order to handle incoming HTTP requests when no measurement is happening or, otherwise, determine when to stop the currently running measurement. This was done with the aim of preventing HTTP requests during a measurement, since both the Wi-Fi antenna and the EDA sensor rely on the same (and only) analog input of the microcontroller. Moreover, request handling causes a series of side-effects, including interrupts that may interfere with the execution of the timer-based ISR defined in order to retrieve data from the sensor.
+Finally, the \mintinline{cpp}{void loop()} function was configured in order to handle incoming HTTP requests when no measurement is happening or, otherwise, determine when to stop the currently running measurement. This was done with the aim of preventing HTTP requests during a measurement, since both the Wi-Fi antenna and the EDA sensor rely on the same (and only) analog input of the microcontroller. Moreover, requests handling causes a series of side-effects, including interrupts that may interfere with the execution of the timer-based ISR defined in order to retrieve data from the sensor.
 
 \begin{minted}{cpp}
 void loop() {

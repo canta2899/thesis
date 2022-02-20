@@ -111,7 +111,7 @@ Because of the practical sensor architecture based on wearable devices, data cou
     Sitting down            & Daily Activities \\
     Walking                 & Daily Activities \\
     Forward fall            & Fall \\
-    Later fall              & Fall \\
+    Lateral fall              & Fall \\
     Backwards fall          & Fall \\
     \hline
 \end{tabular}
@@ -184,7 +184,7 @@ The UP-Fall dataset was collected in a \textbf{controlled environment} where 17 
 \label{toc:umafall2}
 \end{table}
 
-The raw gathered data was later divided in different time windows and, for each one of them, a \textbf{feature extraction and selection} process was performed. The processed information was, then, used to evaluate the performance of four classification models: 
+The raw gathered data was later divided in different time windows and, for each one of them, a \textbf{feature extraction and selection} process was performed. The processed information was, then, used to evaluate the performances of four classification models: 
 
 \begin{itemize}
     \item Random Forest
@@ -193,7 +193,7 @@ The raw gathered data was later divided in different time windows and, for each 
     \item \textit{k}-Nearest Neighbors
 \end{itemize}
 
-The performances of the latter were evaluated through the metrics of \textit{accuracy}, \textit{precision}, \textit{sensitivity}, \textit{specificity} and $F_1$ - \textit{score}.
+These were evaluated through the metrics of \textit{accuracy}, \textit{precision}, \textit{sensitivity}, \textit{specificity} and $F_1$ - \textit{score}.
 
 A limitation pointed out by the authors involves the context of the experimentation: the falls performed were self-initiated and different from the ones that happen in real-life  \cite{umafall}. These kind of aspects constitute a primary concern for researchers because of the difficulties in addressing them and the inaccuracy they might lead to, as stated in \ref{sec:fallintro}.
 

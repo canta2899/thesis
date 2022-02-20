@@ -1,4 +1,5 @@
 .PHONY : all print restorethud
+.DEFAULT_GOAL : all
 
 chp := $(wildcard chapters/*.tex)
 
