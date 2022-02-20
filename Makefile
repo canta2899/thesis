@@ -1,32 +1,35 @@
-.PHONY : all printen printdis 
+.PHONY : all print restorethud
 
 chp := $(wildcard chapters/*.tex)
 
-compile := pdflatex --shell-escape --synctex=1 --output-format=pdf
-bib := bibtex
+compile := pdflatex --shell-escape --synctex=1 --output-format=pdf thesis.tex > /dev/null
+bib := bibtex thesis > /dev/null
 
 all: thesis.pdf 
 	@open thesis.pdf
 
-sync: thesis.pdf
-	@./sync
-
-printen:
+print:
 	@mv book.thud.tex book.main.thud.tex
 	@mv book.print.thud.tex book.thud.tex	
+	@$(compile)
+	@$(bib)
+	@$(compile)
+	@$(compile)
+	@mv book.thud.tex book.print.thud.tex
+	@mv book.main.thud.tex book.thud.tex	
 
-printdis:
+restorethud:
 	@mv book.thud.tex book.print.thud.tex
 	@mv book.main.thud.tex book.thud.tex	
 
 thesis.pdf: thesis.tex thud.bib book.thud.tex beamer.thud.tex thud.cls $(chp)
 	@printf "Compilation [1]"
-	@$(compile) thesis.tex > /dev/null
+	@$(compile)
 	@printf "\rCompilation [B]"
-	@$(bib) thesis > /dev/null
+	@$(bib)
 	@printf "\rCompilation [2]"
-	@$(compile) thesis.tex > /dev/null
+	@$(compile)
 	@printf "\rCompilation [3]"
-	@$(compile) thesis.tex > /dev/null
+	@$(compile)
 	@printf "\rCompilation [Done]\n"
 
