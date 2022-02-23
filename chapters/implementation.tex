@@ -4,16 +4,16 @@ Besides the realization of EDA sensors results relatively simple when compared w
 
 \begin{itemize}
     \item EDA wearables oriented to research purposes tend to be \textbf{particularly expensive} (and most of the time unaffordable for small research projects)
-    \item Well-known devices implementing EDA-related features do not provide Application Programming Interfaces for developers and do not provide open-source solutions either
+    \item Well-known devices implementing EDA-related features do not provide Application Programming Interfaces for developers and do not provide open source solutions either
 \end{itemize}
 
-The following chapter describes the implementation of a \textbf{simple} and completely \textbf{open-source} wearable device, aimed at providing a low-cost framework for the Electrodermal Activity measurement in \textbf{experimental contexts}.
+The following chapter describes the implementation of a \textbf{simple} and completely \textbf{open source} wearable device, aimed at providing a low-cost framework for the Electrodermal Activity measurement in \textbf{experimental contexts}.
 
 \section{BITalino Electrodermal Activity Sensor}\label{sec:bitalino}
 
 The sensor unit employed was the purpose-built \textbf{Electrodermal Activity Sensor} by \textbf{BITalino}. This constitutes a single module aimed at composing, along with many others sold by the company, the \textbf{BITalino (r)evolution Board Kit} \cite{bitalino-general}, an all-in-one device implementing a custom firmware for the collection and aggregation of data retrieved from bio-signals. Besides all the features implemented by these boards result interesting in research contexts, the main drawbacks are related to the \textbf{lack of mobility} that the device would cause, which is a primary concern within the bounds of fall detection systems.
 
-Moreover, during the recent years the BITalino EDA module has been employed in a multitude of scientific publications which, overall, have proven that the device allows to reach optimal results in terms of cost-effective Electrodermal Activity analysis.
+Moreover, during the recent years the BITalino EDA module has been employed in a multitude of scientific publications which have, overall, proven that the device allows to reach optimal results in terms of cost-effective Electrodermal Activity analysis.
 
 A \textbf{single EDA module} was purchased for a 25,00 € (Tax Excluded) price and a minimal \textbf{Arduino-based firmware} was implemented in order to retrieve measurements from the individual unit without having to rely on third-party solutions.
 
@@ -58,7 +58,7 @@ The first version consists only of a breakout board and requires manual solderin
 
 % https://bitalino.com/storage/uploads/media/homeguide4-eda.pdf
 
-\subsection{Modifications applied}\label{subsec:bitalno-modifications}
+\subsection{Modifications Applied}\label{subsec:bitalino-modifications}
 
 In order to exploit the convenience provided by the case and the pre-soldered electrodes, an \textbf{assembled unit} was acquired and subsequently \textbf{modified} in order to implement the connection with a third-party microcontroller. More specifically, the modification procedure consisted of the following steps: 
 
@@ -110,7 +110,7 @@ It is important to note the role of the \texttt{VCC/2} pin, which permits the fl
 \begin{figure}
     \centering
     \includegraphics[width=10cm]{./images/full-sensor-view.drawio.png}
-    \caption{End result after applying the modifications described}
+    \caption{Modified sensor}
     \label{fig:full-sensor-configuration}
 \end{figure}
 
@@ -165,7 +165,7 @@ Furthermore, the unit exposes 17 GPIO pins, which provide a single 10-bit resolu
 
 Moreover, the ESP8266 offers a capacious flash memory, whose dimension varies according to the chosen version and configuration. The latter feature allows the indexing of apposite file systems in order to provide persistent memory storage over restarts. One of them is commonly known as SPIFFS, which is a file system intended for SPI NOR flash devices on embedded targets. The unit does, though, not provide compatibility with the Bluetooth Low Energy protocol stack (which is a feature that was implemented for the following model, the ESP32).
 
-Additionally, besides Espressif provides its own Software Development Kit (SDK), a multitude of open-source SDKs has been developed over the years. Among all of them, the \textbf{Arduino Framework} stands out because of its accessibility and thanks to the multitude of libraries and documentation available. 
+Additionally, besides Espressif provides its own Software Development Kit (SDK), a multitude of open source SDKs has been developed over the years. Among all of them, the \textbf{Arduino Framework} stands out because of its accessibility and thanks to the multitude of libraries and documentation available. 
 
 \subsubsection{Wemos D1 Mini}\label{subsubsec:d1mini}
 
@@ -188,13 +188,13 @@ The figure \ref{fig:d1mini} reports a picture of the D1 Mini unit employed for t
 \begin{figure}[h]
     \centering
     \includegraphics[width=5cm]{./images/d1mini.png}
-    \caption{The D1 Mini module employed}
+    \caption{The D1 Mini module}
     \label{fig:d1mini}
 \end{figure}
 
 \subsubsection{Connection with the BITalino EDA sensor}\label{subsubsec:d1mini}
 
-The modifications applied to the BITalino unit (described in \ref{subsec:bitalno-modifications}) allowed a seamless connection between the D1 Mini and the EDA sensor. The latter was, in fact, directly powered by the microcontroller and connected to its 10-bit resolution analog input. The whole system was, then, powered by a 3.7V-1200mAh Lipo battery. A diagram representing the final circuit is presented in figure \ref{fig:circuit-diagram}
+The modifications applied to the BITalino unit (described in \ref{subsec:bitalino-modifications}) allowed a seamless connection between the D1 Mini and the EDA sensor. The latter was, in fact, directly powered by the microcontroller and connected to its 10-bit resolution analog input. The whole system was, then, powered by a 3.7V-1200mAh Lipo battery. A diagram representing the final circuit is presented in figure \ref{fig:circuit-diagram}
 
 \begin{figure}[h]
     \centering
@@ -237,7 +237,7 @@ LittleFS is publicly available and licensed under the BSD 3-Clause "New" or "Rev
 
 \vspace{8mm}
 
-The firmware was developed in \texttt{C++} using PlatformIO \cite{platformio}, an open-source framework licensed under the Apache 2.0 License which provides several functionalities for embedded development, including scripts for flashing programs to microcontrollers and debug them.
+The firmware was developed in \texttt{C++} using PlatformIO \cite{platformio}, an open source framework licensed under the Apache 2.0 License which provides several functionalities for embedded development, including scripts for flashing programs to microcontrollers and debug them.
 
 \subsubsection{Program Structure}\label{subsubsec:program-structure}
 
@@ -411,7 +411,7 @@ void retrieve() {
 }
 \end{minted}
 
-Finally, the \mintinline{cpp}{void loop()} function was configured in order to handle incoming HTTP requests when no measurement is happening or, otherwise, determine when to stop the currently running measurement. This was done with the aim of preventing HTTP requests during a measurement, since both the Wi-Fi antenna and the EDA sensor rely on the same (and only) analog input of the microcontroller. Moreover, requests handling causes a series of side-effects, including interrupts that may interfere with the execution of the timer-based ISR defined in order to retrieve data from the sensor.
+Finally, the \mintinline{cpp}{void loop()} function was configured in order to handle incoming HTTP requests when no measurement is happening or, otherwise, determine when to stop the currently running measurement. This was done with the aim of preventing HTTP requests during a measurement, since both the Wi-Fi antenna and the EDA sensor rely on the same (and only) analog input of the microcontroller. Moreover, request handling causes a series of side-effects, including interrupts that may interfere with the execution of the timer-based ISR defined in order to retrieve data from the sensor.
 
 \begin{minted}{cpp}
 void loop() {
@@ -432,9 +432,9 @@ void loop() {
 
 % TODO ALTFRAILTY
 
-The device was tested during one of the data acquisition sessions of \textbf{WP8}, a branch of the \textbf{ALT-FRAILTY} research project that aims to evaluate deep learning techniques for real-time fall detection. More specifically, in a wider scenario, ALT-FRAILTY has providing personalized health management of physical, mental and social frailty in the Elderly as its main objective \cite{altfrailty}.
+The device was tested during one of the data acquisition sessions of \textbf{WP8}, a branch of the \textbf{ALT-FRAILTY} research project that aims to evaluate Deep Learning techniques for real-time fall detection. More specifically, in a wider scenario, ALT-FRAILTY has providing personalized health management of physical, mental and social frailty in the Elderly as its main objective \cite{altfrailty}.
 
-The falls reported in table \ref{toc:bitalino-falls} were performed by a 22 years old male volunteer wearing the device on his non-dominant arm. The latter was wearing four wearable IMUs respectively on his wrists and ankles and was, meanwhile, recorded by several high-resolution cameras. The aim of the experimentation was, in fact, acquiring data addressed to the fusion of new Machine Vision approaches based on Deep Learning techniques, together with traditional ones such as Inertial Measurement Unit data retrieval.
+The falls reported in table \ref{toc:bitalino-falls} were performed by a 22 years old male volunteer wearing the device on his non-dominant arm. Other than that, the participant was wearing four wearable IMUs respectively on his wrists and ankles while being recorded by several high-resolution cameras. The aim of the experimentation was, in fact, acquiring data addressed to the fusion of new Machine Vision approaches based on Deep Learning techniques, together with traditional ones such as Inertial Measurement Unit data retrieval.
 
 \vspace{7mm}
 
@@ -454,10 +454,10 @@ The falls reported in table \ref{toc:bitalino-falls} were performed by a 22 year
 \label{toc:bitalino-falls}
 \end{table}
 
-The data obtained from the device (encoded as a binary file) was \textbf{decoded} in respective CSV files (by reading each block of 12 bytes) and later analyzed using the functionalities provided by the \textbf{Python Programming Language} and the \textbf{NeuroKit2} \cite{neurokit} library. More specifically, the following steps were performed in order to process and plot the resulting data:
+The data obtained from the device (encoded as a binary file) was \textbf{decoded} in respective CSV files (by reading each block of 12 bytes) and later analyzed using the functionalities provided by the \textbf{Python Programming Language} and the \textbf{NeuroKit2} library \cite{neurokit}. More specifically, the following steps were performed in order to process and plot the resulting data:
 
 \begin{enumerate}
-    \item Conversion of the sampled value to the corresponding value in $\mu S$, by applying the transfer function (\ref{fig:bitalino-transfer-function})
+    \item Conversion of the sampled data to the corresponding value in $\mu S$, by applying the transfer function reported in figure \ref{fig:bitalino-transfer-function}
     \item Application of a 30 Hz \textbf{low-pass butterworth filter} 
     \item Deconvolution process in order to separate the \textbf{tonic} and the \textbf{phasic} component of the signal
     \item Peak detection in relation to the phasic component of the signal
@@ -470,28 +470,28 @@ The obtained results have been reported respectively in figure \ref{fig:bitalino
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/bitalino/Rolling.png}
-    \caption{Rolling Fall - Electrodermal Activity Trace}
+    \caption{EDA Trace for the Rolling Fall}
     \label{fig:bitalino-rolling}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/bitalino/Shoulder.png}
-    \caption{Shoulder Fall - Electrodermal Activity Trace}
+    \caption{EDA Trace for the Shoulder Fall}
     \label{fig:bitalino-shoulder}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/bitalino/Backwards.png}
-    \caption{Backwards Fall - Electrodermal Activity Trace}
+    \caption{EDA Trace for the Backwards Fall}
     \label{fig:bitalino-backwards}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./images/bitalino/Front.png}
-    \caption{Front Fall - Electrodermal Activity Trace}
+    \caption{EDA Trace for the Front Fall}
     \label{fig:bitalino-front}
 \end{figure}
 

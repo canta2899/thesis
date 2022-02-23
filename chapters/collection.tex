@@ -6,7 +6,7 @@ In this case, a commercial and publicly acknowledged device was employed in orde
 
 \section{Choosing a High End Electrodermal Activity Sensor}\label{sec:movisens}
 
-The device employed consists of the \textbf{EdaMove 4} sensor by \textbf{Movisens GmbH}, which is one of the most accurate and popular wearable devices aimed at the Electrodermal Activity measurement together with others such as the previously mentioned \textbf{Empatica E4}. In the following sections, a brief overview of the product and its features is proposed.
+The device employed consists of the \textbf{EdaMove 4} sensor by \textbf{Movisens GmbH}, which is one of the most accurate and popular wearable devices aimed at the Electrodermal Activity measurement together with others such as the previously mentioned \textbf{Empatica E4}. In the following sections, a brief overview of the product and its features is presented.
 
 \subsection{Movisens GmbH}\label{subsec:movisens-company}
 
@@ -68,7 +68,7 @@ Furthermore, the 3D accelerometer provides a $\pm$ 16 g range with an output rat
 
 The EdaMove 4 mounts a capacious Lithium battery which provides a constant 3.7V voltage and offers a continuous runtime of almost four days. An internal memory of 4 Gigabytes offers, instead, a maximum recording capacity of 4 weeks, allowing the usage of the sensor in varied contexts, from controlled experimentations to uncontrolled, domestic environments. 
 
-Finally, the EdaMove 4 has been employed in several scientific publications that overall validated its functionalities and accuracy.
+Finally, the EdaMove 4 has been employed in several scientific publications that have overall validated its functionalities and accuracy.
 
 \subsection{Sensor Usage}\label{subsec:edamove4-usage}
 
@@ -119,8 +119,7 @@ As stated previously, the Movisens software toolchain provides a complete integr
 
 <?xml version="2.0" encoding="UTF-8" standalone="no"?>
 <unisens comment="Description of the measurement" duration="1186.0"
-         timestampStart="2021-12-02T15:12:01.569"
-         ...>
+         timestampStart="2021-12-02T15:12:01.569">
     <customAttributes>
         <customAttribute key="sensorLocation" value="right_wrist"/>
         ...
@@ -142,7 +141,7 @@ As stated previously, the Movisens software toolchain provides a complete integr
     ...
 </unisens>
 \end{minted}
-\caption{A brief extract of a Unisens XML file}
+\caption{A brief extract from a Unisens XML file}
 \label{fig:unisens-xml}
 \end{figure}
 
@@ -172,7 +171,7 @@ The data collection session was performed at the \textbf{Simulation Center} of t
     Front        & Standing and subsequently falling anteriorly  \\
     \hline
 \end{tabular}
-\caption{List of the falls performed}
+\caption{Falls performed during the second experimentation}
 \label{toc:falls-performed-edamove}
 \end{table}
 
@@ -194,10 +193,10 @@ The first fall performed was the so-called \textbf{Bed Fall}. Three different va
 
 \begin{itemize}
     \item The act of falling while getting up from the bed, which may be caused by an unexpected inability to stand up 
-    \item The act of falling due to the attempt to reach an object on the floor while lying on the bed, respectively on the left and right size
+    \item The act of falling due to the attempt of reaching an object on the floor while lying on the bed, respectively on the left and right size
 \end{itemize}
 
-The results obtained have been reported in figures \ref{fig:movisens-bed}, \ref{fig:movisens-beddx} and \ref{fig:movisens-bedsx}. More specifically, with the same methodology adopted for Chapter \ref{ch:implementation}, the two signals components were separated through a deconvolution approach and plotted separately, together with the raw signal.
+The results obtained have been reported in figures \ref{fig:movisens-bed}, \ref{fig:movisens-beddx} and \ref{fig:movisens-bedsx}. More specifically, with the same methodology adopted for Chapter \ref{ch:implementation}, the two additive components of the signal were separated through a deconvolution approach and plotted separately.
 
 \begin{figure}[h!]
     \centering
@@ -290,7 +289,7 @@ The \textbf{Sidewards Fall} was performed as one of the most common falls that i
     \label{fig:movisens-sidewardssx}
 \end{figure}
 
-In both cases, the EDA trace results irregular and does not describe relevant activity patterns for classification purposes. The right fall, reported in figure \ref{fig:movisens-sidewardsdx}, does not show increases in the tonic component, while the Skin Conductance Response results irregular and lacks of clear peak patterns. The left fall, which is instead reported in figure \ref{fig:movisens-sidewardssx}, does not describe a meaningful increase of the tonic component, while the phasic one does not show any relevant peak and, besides, includes a visible gap which may have been caused by a momentarily detachment of one of the two electrodes. Even though the latter where properly attached to the epidermis, the issues regarding possible detachments constitute a substantial problematic that is difficult to address in high-motion activity contexts.
+In both cases, the EDA trace results irregular and does not describe relevant activity patterns for classification purposes. The right fall, reported in figure \ref{fig:movisens-sidewardsdx}, does not show increases in the tonic component, while the Skin Conductance Response results irregular and lacks of clear peak patterns. The left fall, which is instead reported in figure \ref{fig:movisens-sidewardssx}, does not describe a meaningful increase of the tonic component, while the phasic one does not show any relevant peak and, besides, includes a visible gap which may have been caused by a momentarily detachment of one of the two electrodes. Even though the latter were properly attached to the skin, the issues regarding possible detachments constitute a substantial problematic that is difficult to address in high-motion activity contexts.
 
 \subsubsection{Backwards Fall}\label{subsubsec:backwards-fall}
 
@@ -328,13 +327,13 @@ In this case, a peak in the Skin Conductance Response is clearly visible. Only m
 
 \subsubsection{Considerations}\label{subsubsec:further-observations}
 
-In order to provide a complete analysis of the results obtained, the complete measurement related to the whole experimentation session was also examined. For this purpose, only the \textbf{filtered raw signal} and the subsequently extracted \textbf{Tonic Component} were observed. More specifically, the maximum difference in the EDA values detected during the whole session corresponds to \textbf{13.9103} $\mu S$. The diagram provided in figure \ref{fig:movisens-global} proves, through the computation of the Tonic Component, that this variation happened slowly with an almost constant increasing pattern during the experimentation. This observation corresponds to the original expectations. The participant performed, in fact, several falls in a short period of time and, according to the available literature, \textbf{the Electrodermal Activity is supposed to increase during physical activity} \cite{eda-interval-4} because of the natural behaviour of perspiration and sweat secretions. This observation also motivates the slight increases observed throughout all the falls performed and establishes decisive issues in determining whether the cause of the tonic variation related to each fall was due to event-related stimulations or, otherwise, the physical activity performed.
+In order to provide a complete analysis of the results obtained, the entire measurement related to the whole experimentation session was, lastly, examined. For this purpose, only the \textbf{filtered raw signal} and the subsequently extracted \textbf{Tonic Component} were observed. More specifically, the maximum difference in the EDA values detected during the whole session corresponds to \textbf{13.9103} $\mu S$. The diagram provided in figure \ref{fig:movisens-global} proves, through the computation of the Tonic Component, that this variation happened slowly with an almost constant increasing pattern during the experimentation. This observation corresponds to the original expectations. The participant performed, in fact, several falls in a short period of time and, according to the available literature, \textbf{the Electrodermal Activity is supposed to increase during physical activity} \cite{eda-interval-4} because of the natural behaviour of perspiration and sweat secretions. This observation also motivates the slight increases observed throughout all the falls performed and establishes decisive issues in determining whether the cause of the tonic variation related to each fall was due to event-related stimulations or, otherwise, the physical activity performed.
 
 % \vspace{15mm}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{./images/movisens/Global.png}
-    \caption{EDA Trace for the whole Measurement Session}
+    \caption{EDA Trace for the whole measurement session}
     \label{fig:movisens-global}
 \end{figure}

@@ -9,20 +9,6 @@ bib := bibtex thesis > /dev/null
 all: thesis.pdf 
 	@open thesis.pdf
 
-print:
-	@mv book.thud.tex book.main.thud.tex
-	@mv book.print.thud.tex book.thud.tex	
-	@$(compile)
-	@$(bib)
-	@$(compile)
-	@$(compile)
-	@mv book.thud.tex book.print.thud.tex
-	@mv book.main.thud.tex book.thud.tex	
-
-restorethud:
-	@mv book.thud.tex book.print.thud.tex
-	@mv book.main.thud.tex book.thud.tex	
-
 thesis.pdf: thesis.tex thud.bib book.thud.tex beamer.thud.tex thud.cls $(chp)
 	@printf "Compilation [1]"
 	@$(compile)

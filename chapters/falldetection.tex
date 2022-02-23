@@ -21,7 +21,7 @@ The accelerometer provides a measure of the \textbf{acceleration} in relation to
 
 Furthermore, modern accelerometer are commonly implemented as \emph{micro-electro-mechanical-systems} and their dimensions have packaged sizes of only 2 x 2 x 1 \textit{mm}. This makes them particularly suitable for \textbf{wearable devices} and \textbf{embedded systems}.
 
-Since a 3-axis accelerometer provides a separate trace for the $x$, $y$ and $z$ axis, a \textbf{magnitude vector} can be computed in order to represent the measurement as a scalar value. The formula involves the calculation of the norm of the coordinate vector and is generally computed in real-time on embedded systems in order to provide a value for classification purposes.
+Since a 3-axis accelerometer provides a separate trace for the $x$, $y$ and $z$ axis, a \textbf{magnitude vector} can be computed in order to represent the measurement as a scalar value. The formula involves the calculation of the norm for the coordinate vector and is generally computed in real-time on embedded systems in order to provide a value for classification purposes.
 
 \newcommand\norm[1]{\left\lVert#1\right\rVert}
 
@@ -63,7 +63,7 @@ Besides some units require the usage of specific hardware, other sensors (such a
 
 In the context of fall detection systems, a synchronized retrieval of both biometric and motion related data may significantly improve the accuracy of classification models.
 
-\section{Multimodal datasets for fall detection systems}\label{sec:datasets}
+\section{Multimodal Datasets for Fall Detection Systems}\label{sec:datasets}
 
 Despite the fact that various datasets of falls have been made available throughout the years, two of them were selected for the purpose of this analysis as a consequence of their relevance in the research environment.
 
@@ -82,7 +82,7 @@ The data gathering architecture was implemented as a \textbf{Bluetooth Low Energ
     \item An Android smartphone, acting as the \textbf{master node}
 \end{itemize}
 
-The nodes were implemented through multiple \textbf{SimpleLink SensorTag} units. These consist of IoT devices powered by a CC2650 ARM microcontroller that integrates: 
+The nodes were implemented through multiple \textbf{SimpleLink SensorTag} units. These consist of IoT devices powered by a CC2650 ARM microcontroller that integrate: 
 
 \begin{itemize}
     \item a 2.4 GHz transceiver
@@ -203,5 +203,5 @@ The dataset obtained and the following activities of processing and subsequent a
 
 Additionally, a Convolutional Neural Network was trained in order to improve the performances of classification models based on video recording data. This reached an $F_1$-\textit{score} of 71.2\%.
 
-In conclusion, in the context of fall detection systems, the analysis performed on the UP-Fall dataset demonstrated that a certain degree of accuracy may be reached by processing data from sources of different nature, even though classifications can be improved by approaching the subject in a multimodal and heterogeneous manner.
+In conclusion, in the context of fall detection systems, the analysis performed on the UP-Fall dataset demonstrated that a certain degree of accuracy may be reached by processing data from various sources, even though classifications can be improved by approaching the subject in a multimodal and heterogeneous manner.
 

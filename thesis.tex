@@ -1,4 +1,3 @@
-%% Le lingue utilizzate, che verranno passate come opzioni al pacchetto babel. Come sempre, l'ultima indicata sarà quella primaria.
 \def\thudbabelopt{italian, english}
 \documentclass[target=bach, hidelinks]{thud}
 \setcounter{tocdepth}{3}
@@ -8,11 +7,8 @@
 \title{Feasibility of Electrodermal Activity Data Analysis for Fall Detection using Wearable Devices}
 \author{Andrea Cantarutti}
 \supervisor{Prof.\ Vincenzo Della Mea}
-% \cosupervisor{Arch.\ Rambaldo Melandri \and Dott.\ Giorgio Perozzi}
-%% Altri campi disponibili: \reviewer, \tutor, \chair, \date (anno accademico, calcolato in automatico), \rights (\and per nomi separati)
+%\reviewer, \tutor, \chair, \date, \rights
 
-%% --- Pacchetti consigliati ---
-%% pdfx: per generare il PDF/A per l'archiviazione. Necessario solo per la versione finale
 \usepackage[a-1b]{pdfx}
 \usepackage[pdfa]{hyperref}
 
@@ -24,23 +20,15 @@
 \usemintedstyle{colorful}
 \usepackage{eurosym}
 \usepackage{subfig}
-%% tocbibind: Inserisce nell'indice anche la lista delle figure, la bibliografia, ecc.
-
-%% --- Stili di pagina disponibili (comando \pagestyle) ---
-%% sfbig (predefinito): Apertura delle parti e dei capitoli col numero grande; titoli delle parti e dei capitoli e intestazioni di pagina in sans serif.
-%% big: Come "sfbig", solo serif.
-%% plain: Apertura delle parti e dei capitoli tradizionali di LaTeX; intestazioni di pagina come "big".
 
 \begin{document}
 \maketitle
 
 \pagestyle{big}
 
-
 \begin{dedication}
 
 To my mother Clara and my father Dario, \\ whose support and sacrifices led me to reach this milestone. \\
-% \vskip 1em\relax%
 To my beloved Rachele, for always being beside me.
 \end{dedication}
 
@@ -50,12 +38,11 @@ I would first like to acknowledge my supervisor, Professor Vincenzo Della Mea, f
 
 I would also like to express my gratitude to Professor Stefano Fabris from the University of Udine and Jana Schlicksupp from Movisens GmbH, along with all the other people who have contributed to the realisation of this work.
 
-I also wish to thank my fellows Francesco, Lorenzo, Gabriele, Massimiliano and Alessandro, with whom I have had the privilege to share the undergraduate experience with enthusiasm and passion.
+I also wish to thank my fellows Francesco, Lorenzo, Gabriele, Massimiliano and Alessandro, with whom I have had the privilege of sharing the undergraduate experience with enthusiasm and passion.
 
-% https://neurokit2.readthedocs.io/en/latest/examples/eda.html
 % \abstract
 
-%% Index 
+% Index 
 \tableofcontents
 
 \listoftables
@@ -66,19 +53,19 @@ I also wish to thank my fellows Francesco, Lorenzo, Gabriele, Massimiliano and A
 
 \mainmatter
 
-\chapter{Introduction} % Done
+\chapter{Introduction}
 \input{./chapters/introduction}
 
-\chapter{Background} % Done
+\chapter{Background}
 \input{./chapters/background}
 
-\chapter{Modern Approaches for Fall Detection} % Done
+\chapter{Modern Approaches for Fall Detection}
 \input{./chapters/falldetection}
 
-\chapter{Electrodermal Activity} % Done
+\chapter{Electrodermal Activity}
 \input{./chapters/eda}
 
-\chapter{Implementation of a Wearable Device for High Resolution EDA Logging} % Done
+\chapter{Implementation of a Wearable Device for High Resolution EDA Logging}
 \input{./chapters/implementation}
 
 \chapter{Further Investigations}
@@ -87,7 +74,7 @@ I also wish to thank my fellows Francesco, Lorenzo, Gabriele, Massimiliano and A
 \chapter{Conclusions}
 \input{./chapters/conclusions}
 
-\backmatter % conclusive part
+\backmatter
 
 % A summary can be added with \summary
 
