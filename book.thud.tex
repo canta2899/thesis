@@ -1,3 +1,5 @@
+% Modifications applied by @FraBomba6 in order to programmatically
+% generate the print version
 \def\thud@unisep{.5em}
 \def\thud@se@and{.2ex}
 \def\thud@se@qual{1ex}
@@ -208,6 +210,41 @@
 \def\@starttoc#1{\singlespacing\thud@save@@starttoc{#1}\thud@spacing}
 
 \def\maketitle{
+    \begin{titlepage}%
+        \noindent%
+%        \ifpdf\makebox[\z@][l]{\raisebox{-.98\textheight}[\z@][\z@]{\includegraphics[height=\textheight]{UdineLogo}}}\fi%
+        \begin{minipage}[t][\textheight][s]{.99\linewidth}%
+        	\sffamily
+            \let\footnotesize\small
+            \let\footnoterule\relax
+            {\Large\textsc{\thud@universityC}}%
+            \ifx\thud@chair\@empty\else\par\medskip\chairname: \thud@chair\fi%
+            \vskip 5em\relax%
+            \begin{center}%
+                {\Large\scshape \thesisname \ifx\thud@phdnumber\@empty\else\space\thud@phdnumber\fi\par}
+                \vskip 4em\relax%
+                {\Huge\bfseries\@title\par}
+                \vskip 5em\@plus1fill\relax%
+                {\large%
+                    \parbox[t]{.4\linewidth}{%
+                        \let\thud@candidate\@author
+                        \thud@showentry*{candidate}%
+                    }%
+                    \qquad%
+                    \parbox[t]{.4\linewidth}{%
+                        \thud@showentry{supervisor}%
+                        \thud@showentry{cosupervisor}%
+                        \thud@showentry{tutor}%
+                        \thud@showentry{reviewer}%
+                    }%
+                }
+                \par\vskip 1em\@plus1fill\relax%
+                {\large\ifx\thud@cycle\@empty\datename\else\cyclename~\thud@cycle\ --- \shortdatename\fi~\@date}\par
+            \end{center}%
+        \end{minipage}%
+    \end{titlepage}
+    \thispagestyle{empty}
+    \cleardoublepage\clearpage
     \begin{titlepage}%
         \noindent%
 %        \ifpdf\makebox[\z@][l]{\raisebox{-.98\textheight}[\z@][\z@]{\includegraphics[height=\textheight]{UdineLogo}}}\fi%
